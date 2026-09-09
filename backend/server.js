@@ -1,161 +1,249 @@
 const express = require("express");
+const cors = require("cors");
+
 const { initDatabase, pool } = require("./database");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.json());
+/* =========================
+   CORS
+========================= */
+
+const allowedOrigins = [
+  "https://dkdrako2.github.io"
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+
+      // Permite herramientas como Postman/curl
+      if (!origin) {
+        return callback(null, true);
+      }
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(
+        new Error("Origen no permitido por CORS")
+      );
+    },
+
+    methods: [
+      "GET",
+      "POST",
+      "PUT",
+      "DELETE",
+      "OPTIONS"
+    ],
+
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization"
+    ]
+  })
+);
 
 /* =========================
-   GENERAL
+   JSON
+========================= */
+
+app.use(express.json());
+
+
+/* =========================
+   INICIO
 ========================= */
 
 app.get("/", (req, res) => {
+
   res.json({
     ok: true,
     message: "REFILLS SHOP Backend funcionando"
   });
+
 });
 
+
+/* =========================
+   STATUS
+========================= */
+
 app.get("/api/status", (req, res) => {
+
   res.json({
     ok: true,
     service: "REFILLS SHOP API",
     status: "online"
   });
+
 });
+
 
 /* =========================
    DATABASE TEST
 ========================= */
 
 app.get("/api/db-test", async (req, res) => {
+
   try {
-    const result = await pool.query("SELECT NOW() AS time");
+
+    const result = await pool.query(
+      "SELECT NOW() AS time"
+    );
 
     res.json({
       ok: true,
       database: "connected",
       time: result.rows[0].time
     });
+
   } catch (error) {
-    console.error("Error de PostgreSQL:", error);
+
+    console.error(error);
 
     res.status(500).json({
       ok: false,
-      database: "error"
+      error: "Database connection failed"
     });
+
   }
+
 });
 
+
+/* =========================
+   DATABASE TABLES
+========================= */
+
 app.get("/api/db-tables", async (req, res) => {
+
   try {
+
     const result = await pool.query(`
       SELECT table_name
       FROM information_schema.tables
       WHERE table_schema = 'public'
-      ORDER BY table_name;
+      ORDER BY table_name
     `);
 
     res.json({
       ok: true,
-      tables: result.rows.map(row => row.table_name)
+      tables: result.rows
     });
+
   } catch (error) {
-    console.error("Error consultando tablas:", error);
+
+    console.error(error);
 
     res.status(500).json({
       ok: false,
-      error: "No se pudieron consultar las tablas"
+      error: "Could not read database tables"
     });
+
   }
+
 });
+
 
 /* =========================
    CATEGORIES
 ========================= */
 
-// Obtener todas las categorías
 app.get("/api/categories", async (req, res) => {
+
   try {
+
     const result = await pool.query(`
-      SELECT
-        id,
-        name,
-        slug,
-        created_at
+      SELECT *
       FROM categories
-      ORDER BY id ASC;
+      ORDER BY id ASC
     `);
 
     res.json({
       ok: true,
       categories: result.rows
     });
+
   } catch (error) {
-    console.error("Error obteniendo categorías:", error);
+
+    console.error(error);
 
     res.status(500).json({
       ok: false,
-      error: "No se pudieron obtener las categorías"
+      error: "Could not load categories"
     });
+
   }
+
 });
 
-// Obtener una categoría
+
 app.get("/api/categories/:id", async (req, res) => {
+
   try {
+
     const result = await pool.query(
       `
-      SELECT
-        id,
-        name,
-        slug,
-        created_at
+      SELECT *
       FROM categories
-      WHERE id = $1;
+      WHERE id = $1
       `,
       [req.params.id]
     );
 
-    if (result.rows.length === 0) {
+    if (!result.rows.length) {
+
       return res.status(404).json({
         ok: false,
-        error: "Categoría no encontrada"
+        error: "Category not found"
       });
+
     }
 
     res.json({
       ok: true,
       category: result.rows[0]
     });
+
   } catch (error) {
-    console.error("Error obteniendo categoría:", error);
+
+    console.error(error);
 
     res.status(500).json({
       ok: false,
-      error: "No se pudo obtener la categoría"
+      error: "Could not load category"
     });
+
   }
+
 });
 
-// Crear categoría
+
 app.post("/api/categories", async (req, res) => {
+
   try {
+
     const { name, slug } = req.body;
 
     if (!name || !slug) {
+
       return res.status(400).json({
         ok: false,
-        error: "name y slug son obligatorios"
+        error: "name and slug are required"
       });
+
     }
 
     const result = await pool.query(
       `
-      INSERT INTO categories (name, slug)
+      INSERT INTO categories
+      (name, slug)
       VALUES ($1, $2)
-      RETURNING *;
+      RETURNING *
       `,
       [name, slug]
     );
@@ -164,19 +252,25 @@ app.post("/api/categories", async (req, res) => {
       ok: true,
       category: result.rows[0]
     });
+
   } catch (error) {
-    console.error("Error creando categoría:", error);
+
+    console.error(error);
 
     res.status(500).json({
       ok: false,
-      error: "No se pudo crear la categoría"
+      error: "Could not create category"
     });
+
   }
+
 });
 
-// Actualizar categoría
+
 app.put("/api/categories/:id", async (req, res) => {
+
   try {
+
     const { name, slug } = req.body;
 
     const result = await pool.query(
@@ -186,180 +280,203 @@ app.put("/api/categories/:id", async (req, res) => {
         name = COALESCE($1, name),
         slug = COALESCE($2, slug)
       WHERE id = $3
-      RETURNING *;
+      RETURNING *
       `,
-      [
-        name ?? null,
-        slug ?? null,
-        req.params.id
-      ]
+      [name ?? null, slug ?? null, req.params.id]
     );
 
-    if (result.rows.length === 0) {
+    if (!result.rows.length) {
+
       return res.status(404).json({
         ok: false,
-        error: "Categoría no encontrada"
+        error: "Category not found"
       });
+
     }
 
     res.json({
       ok: true,
       category: result.rows[0]
     });
+
   } catch (error) {
-    console.error("Error actualizando categoría:", error);
+
+    console.error(error);
 
     res.status(500).json({
       ok: false,
-      error: "No se pudo actualizar la categoría"
+      error: "Could not update category"
     });
+
   }
+
 });
 
-// Eliminar categoría
+
 app.delete("/api/categories/:id", async (req, res) => {
+
   try {
+
     const result = await pool.query(
       `
       DELETE FROM categories
       WHERE id = $1
-      RETURNING *;
+      RETURNING *
       `,
       [req.params.id]
     );
 
-    if (result.rows.length === 0) {
+    if (!result.rows.length) {
+
       return res.status(404).json({
         ok: false,
-        error: "Categoría no encontrada"
+        error: "Category not found"
       });
+
     }
 
     res.json({
       ok: true,
-      message: "Categoría eliminada",
       category: result.rows[0]
     });
+
   } catch (error) {
-    console.error("Error eliminando categoría:", error);
+
+    console.error(error);
 
     res.status(500).json({
       ok: false,
-      error: "No se pudo eliminar la categoría"
+      error: "Could not delete category"
     });
+
   }
+
 });
+
 
 /* =========================
    GAMES
 ========================= */
 
-// Obtener todos los juegos
 app.get("/api/games", async (req, res) => {
+
   try {
+
     const result = await pool.query(`
       SELECT
-        g.id,
-        g.name,
-        g.slug,
-        g.image_url,
-        g.active,
-        g.category_id,
-        c.name AS category_name
-      FROM games g
-      LEFT JOIN categories c
-        ON g.category_id = c.id
-      ORDER BY g.id ASC;
+        games.*,
+        categories.name AS category_name
+      FROM games
+      LEFT JOIN categories
+        ON games.category_id = categories.id
+      ORDER BY games.id ASC
     `);
 
     res.json({
       ok: true,
       games: result.rows
     });
+
   } catch (error) {
-    console.error("Error obteniendo juegos:", error);
+
+    console.error(error);
 
     res.status(500).json({
       ok: false,
-      error: "No se pudieron obtener los juegos"
+      error: "Could not load games"
     });
+
   }
+
 });
 
-// Obtener un juego
+
 app.get("/api/games/:id", async (req, res) => {
+
   try {
+
     const result = await pool.query(
       `
       SELECT
-        g.id,
-        g.name,
-        g.slug,
-        g.image_url,
-        g.active,
-        g.category_id,
-        c.name AS category_name
-      FROM games g
-      LEFT JOIN categories c
-        ON g.category_id = c.id
-      WHERE g.id = $1;
+        games.*,
+        categories.name AS category_name
+      FROM games
+      LEFT JOIN categories
+        ON games.category_id = categories.id
+      WHERE games.id = $1
       `,
       [req.params.id]
     );
 
-    if (result.rows.length === 0) {
+    if (!result.rows.length) {
+
       return res.status(404).json({
         ok: false,
-        error: "Juego no encontrado"
+        error: "Game not found"
       });
+
     }
 
     res.json({
       ok: true,
       game: result.rows[0]
     });
+
   } catch (error) {
-    console.error("Error obteniendo juego:", error);
+
+    console.error(error);
 
     res.status(500).json({
       ok: false,
-      error: "No se pudo obtener el juego"
+      error: "Could not load game"
     });
+
   }
+
 });
 
-// Crear juego
+
 app.post("/api/games", async (req, res) => {
+
   try {
+
     const {
+      category_id,
       name,
       slug,
       image_url,
-      category_id,
-      active = true
+      active
     } = req.body;
 
     if (!name || !slug) {
+
       return res.status(400).json({
         ok: false,
-        error: "name y slug son obligatorios"
+        error: "name and slug are required"
       });
+
     }
 
     const result = await pool.query(
       `
       INSERT INTO games
-        (name, slug, image_url, category_id, active)
-      VALUES
-        ($1, $2, $3, $4, $5)
-      RETURNING *;
-      `,
-      [
+      (
+        category_id,
         name,
         slug,
-        image_url || null,
-        category_id || null,
+        image_url,
         active
+      )
+      VALUES
+      ($1, $2, $3, $4, COALESCE($5, true))
+      RETURNING *
+      `,
+      [
+        category_id ?? null,
+        name,
+        slug,
+        image_url ?? null,
+        active ?? true
       ]
     );
 
@@ -367,24 +484,30 @@ app.post("/api/games", async (req, res) => {
       ok: true,
       game: result.rows[0]
     });
+
   } catch (error) {
-    console.error("Error creando juego:", error);
+
+    console.error(error);
 
     res.status(500).json({
       ok: false,
-      error: "No se pudo crear el juego"
+      error: "Could not create game"
     });
+
   }
+
 });
 
-// Actualizar juego
+
 app.put("/api/games/:id", async (req, res) => {
+
   try {
+
     const {
+      category_id,
       name,
       slug,
       image_url,
-      category_id,
       active
     } = req.body;
 
@@ -392,137 +515,140 @@ app.put("/api/games/:id", async (req, res) => {
       `
       UPDATE games
       SET
-        name = COALESCE($1, name),
-        slug = COALESCE($2, slug),
-        image_url = COALESCE($3, image_url),
-        category_id = COALESCE($4, category_id),
+        category_id = COALESCE($1, category_id),
+        name = COALESCE($2, name),
+        slug = COALESCE($3, slug),
+        image_url = COALESCE($4, image_url),
         active = COALESCE($5, active)
       WHERE id = $6
-      RETURNING *;
+      RETURNING *
       `,
       [
+        category_id ?? null,
         name ?? null,
         slug ?? null,
         image_url ?? null,
-        category_id ?? null,
         active ?? null,
         req.params.id
       ]
     );
 
-    if (result.rows.length === 0) {
+    if (!result.rows.length) {
+
       return res.status(404).json({
         ok: false,
-        error: "Juego no encontrado"
+        error: "Game not found"
       });
+
     }
 
     res.json({
       ok: true,
       game: result.rows[0]
     });
+
   } catch (error) {
-    console.error("Error actualizando juego:", error);
+
+    console.error(error);
 
     res.status(500).json({
       ok: false,
-      error: "No se pudo actualizar el juego"
+      error: "Could not update game"
     });
+
   }
+
 });
 
-// Eliminar juego
+
 app.delete("/api/games/:id", async (req, res) => {
+
   try {
+
     const result = await pool.query(
       `
       DELETE FROM games
       WHERE id = $1
-      RETURNING *;
+      RETURNING *
       `,
       [req.params.id]
     );
 
-    if (result.rows.length === 0) {
+    if (!result.rows.length) {
+
       return res.status(404).json({
         ok: false,
-        error: "Juego no encontrado"
+        error: "Game not found"
       });
+
     }
 
     res.json({
       ok: true,
-      message: "Juego eliminado",
       game: result.rows[0]
     });
+
   } catch (error) {
-    console.error("Error eliminando juego:", error);
+
+    console.error(error);
 
     res.status(500).json({
       ok: false,
-      error: "No se pudo eliminar el juego"
+      error: "Could not delete game"
     });
+
   }
+
 });
+
 
 /* =========================
    OFFERS
 ========================= */
 
-// Obtener todas las ofertas
 app.get("/api/offers", async (req, res) => {
+
   try {
+
     const result = await pool.query(`
       SELECT
-        o.id,
-        o.game_id,
-        g.name AS game_name,
-        g.slug AS game_slug,
-        o.name,
-        o.amount,
-        o.price_sm,
-        o.price_cup,
-        o.price_usdt,
-        o.active,
-        o.created_at
-      FROM offers o
-      INNER JOIN games g
-        ON o.game_id = g.id
-      ORDER BY o.id ASC;
+        offers.*,
+        games.name AS game_name
+      FROM offers
+      LEFT JOIN games
+        ON offers.game_id = games.id
+      ORDER BY offers.id ASC
     `);
 
     res.json({
       ok: true,
       offers: result.rows
     });
+
   } catch (error) {
-    console.error("Error obteniendo ofertas:", error);
+
+    console.error(error);
 
     res.status(500).json({
       ok: false,
-      error: "No se pudieron obtener las ofertas"
+      error: "Could not load offers"
     });
+
   }
+
 });
 
-// Obtener ofertas de un juego
+
 app.get("/api/games/:id/offers", async (req, res) => {
+
   try {
+
     const result = await pool.query(
       `
-      SELECT
-        id,
-        game_id,
-        name,
-        amount,
-        price_sm,
-        price_cup,
-        price_usdt,
-        active,
-        created_at
+      SELECT *
       FROM offers
       WHERE game_id = $1
-      ORDER BY id ASC;
+      ORDER BY id ASC
       `,
       [req.params.id]
     );
@@ -531,64 +657,70 @@ app.get("/api/games/:id/offers", async (req, res) => {
       ok: true,
       offers: result.rows
     });
+
   } catch (error) {
-    console.error("Error obteniendo ofertas del juego:", error);
+
+    console.error(error);
 
     res.status(500).json({
       ok: false,
-      error: "No se pudieron obtener las ofertas"
+      error: "Could not load game offers"
     });
+
   }
+
 });
 
-// Obtener una oferta
+
 app.get("/api/offers/:id", async (req, res) => {
+
   try {
+
     const result = await pool.query(
       `
       SELECT
-        o.id,
-        o.game_id,
-        g.name AS game_name,
-        o.name,
-        o.amount,
-        o.price_sm,
-        o.price_cup,
-        o.price_usdt,
-        o.active,
-        o.created_at
-      FROM offers o
-      INNER JOIN games g
-        ON o.game_id = g.id
-      WHERE o.id = $1;
+        offers.*,
+        games.name AS game_name
+      FROM offers
+      LEFT JOIN games
+        ON offers.game_id = games.id
+      WHERE offers.id = $1
       `,
       [req.params.id]
     );
 
-    if (result.rows.length === 0) {
+    if (!result.rows.length) {
+
       return res.status(404).json({
         ok: false,
-        error: "Oferta no encontrada"
+        error: "Offer not found"
       });
+
     }
 
     res.json({
       ok: true,
       offer: result.rows[0]
     });
+
   } catch (error) {
-    console.error("Error obteniendo oferta:", error);
+
+    console.error(error);
 
     res.status(500).json({
       ok: false,
-      error: "No se pudo obtener la oferta"
+      error: "Could not load offer"
     });
+
   }
+
 });
 
-// Crear oferta
+
 app.post("/api/offers", async (req, res) => {
+
   try {
+
     const {
       game_id,
       name,
@@ -596,40 +728,42 @@ app.post("/api/offers", async (req, res) => {
       price_sm,
       price_cup,
       price_usdt,
-      active = true
+      active
     } = req.body;
 
     if (!game_id || !name) {
+
       return res.status(400).json({
         ok: false,
-        error: "game_id y name son obligatorios"
+        error: "game_id and name are required"
       });
+
     }
 
     const result = await pool.query(
       `
       INSERT INTO offers
-        (
-          game_id,
-          name,
-          amount,
-          price_sm,
-          price_cup,
-          price_usdt,
-          active
-        )
+      (
+        game_id,
+        name,
+        amount,
+        price_sm,
+        price_cup,
+        price_usdt,
+        active
+      )
       VALUES
-        ($1, $2, $3, $4, $5, $6, $7)
-      RETURNING *;
+      ($1, $2, $3, $4, $5, $6, COALESCE($7, true))
+      RETURNING *
       `,
       [
         game_id,
         name,
-        amount || null,
+        amount ?? null,
         price_sm ?? null,
         price_cup ?? null,
         price_usdt ?? null,
-        active
+        active ?? true
       ]
     );
 
@@ -637,19 +771,25 @@ app.post("/api/offers", async (req, res) => {
       ok: true,
       offer: result.rows[0]
     });
+
   } catch (error) {
-    console.error("Error creando oferta:", error);
+
+    console.error(error);
 
     res.status(500).json({
       ok: false,
-      error: "No se pudo crear la oferta"
+      error: "Could not create offer"
     });
+
   }
+
 });
 
-// Actualizar oferta
+
 app.put("/api/offers/:id", async (req, res) => {
+
   try {
+
     const {
       game_id,
       name,
@@ -672,7 +812,7 @@ app.put("/api/offers/:id", async (req, res) => {
         price_usdt = COALESCE($6, price_usdt),
         active = COALESCE($7, active)
       WHERE id = $8
-      RETURNING *;
+      RETURNING *
       `,
       [
         game_id ?? null,
@@ -686,76 +826,133 @@ app.put("/api/offers/:id", async (req, res) => {
       ]
     );
 
-    if (result.rows.length === 0) {
+    if (!result.rows.length) {
+
       return res.status(404).json({
         ok: false,
-        error: "Oferta no encontrada"
+        error: "Offer not found"
       });
+
     }
 
     res.json({
       ok: true,
       offer: result.rows[0]
     });
+
   } catch (error) {
-    console.error("Error actualizando oferta:", error);
+
+    console.error(error);
 
     res.status(500).json({
       ok: false,
-      error: "No se pudo actualizar la oferta"
+      error: "Could not update offer"
     });
+
   }
+
 });
 
-// Eliminar oferta
+
 app.delete("/api/offers/:id", async (req, res) => {
+
   try {
+
     const result = await pool.query(
       `
       DELETE FROM offers
       WHERE id = $1
-      RETURNING *;
+      RETURNING *
       `,
       [req.params.id]
     );
 
-    if (result.rows.length === 0) {
+    if (!result.rows.length) {
+
       return res.status(404).json({
         ok: false,
-        error: "Oferta no encontrada"
+        error: "Offer not found"
       });
+
     }
 
     res.json({
       ok: true,
-      message: "Oferta eliminada",
       offer: result.rows[0]
     });
+
   } catch (error) {
-    console.error("Error eliminando oferta:", error);
+
+    console.error(error);
 
     res.status(500).json({
       ok: false,
-      error: "No se pudo eliminar la oferta"
+      error: "Could not delete offer"
     });
+
   }
+
 });
 
+
 /* =========================
-   START SERVER
+   ERROR HANDLER
+========================= */
+
+app.use((err, req, res, next) => {
+
+  console.error(err);
+
+  if (err.message === "Origen no permitido por CORS") {
+
+    return res.status(403).json({
+      ok: false,
+      error: "Origin not allowed"
+    });
+
+  }
+
+  res.status(500).json({
+    ok: false,
+    error: "Internal server error"
+  });
+
+});
+
+
+/* =========================
+   START
 ========================= */
 
 async function startServer() {
+
   try {
+
     await initDatabase();
 
-    app.listen(PORT, "0.0.0.0", () => {
-      console.log(`REFILLS SHOP Backend iniciado en puerto ${PORT}`);
-    });
+    app.listen(
+      PORT,
+      "0.0.0.0",
+      () => {
+
+        console.log(
+          `REFILLS SHOP Backend iniciado en puerto ${PORT}`
+        );
+
+      }
+    );
+
   } catch (error) {
-    console.error("Error iniciando servidor:", error);
+
+    console.error(
+      "Error iniciando servidor:",
+      error
+    );
+
     process.exit(1);
+
   }
+
 }
 
 startServer();
