@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>REFILLS SHOP - Admin</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #07111f;
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #0b192c;
+      border-bottom: 1px solid #173252;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      color: #25b9ff;
+    }
+
+    .admin-label {
+      color: #8fa8c4;
+      font-size: 14px;
+    }
+
+    main {
+      width: min(1200px, 94%);
+      margin: 25px auto 50px;
+    }
+
+    .welcome {
+      margin-bottom: 25px;
+    }
+
+    .welcome h1 {
+      font-size: 28px;
+      margin-bottom: 7px;
+    }
+
+    .welcome p {
+      color: #8fa8c4;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 15px;
+      padding: 9px 13px;
+      border-radius: 10px;
+      background: #0d2338;
+      color: #72e6a2;
+      font-size: 13px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #35db7b;
+    }
+
+    .status.error {
+      color: #ff7777;
+    }
+
+    .status.error .status-dot {
+      background: #ff4444;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .stat {
+      background: #0b192c;
+      border: 1px solid #173252;
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .stat-title {
+      color: #8fa8c4;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .stat-number {
+      font-size: 30px;
+      font-weight: 800;
+      color: #25b9ff;
+    }
+
+    .panel {
+      background: #0b192c;
+      border: 1px solid #173252;
+      border-radius: 16px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .panel-header {
+      padding: 17px 18px;
+      border-bottom: 1px solid #173252;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .panel-header h2 {
+      font-size: 18px;
+    }
+
+    .refresh {
+      border: 0;
+      background: #118bd0;
+      color: white;
+      padding: 9px 13px;
+      border-radius: 9px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 600px;
+    }
+
+    th,
+    td {
+      padding: 13px 15px;
+      text-align: left;
+      border-bottom: 1px solid #142b45;
+      font-size: 14px;
+    }
+
+    th {
+      color: #8fa8c4;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    td {
+      color: #e6f1ff;
+    }
+
+    .active {
+      color: #63e69a;
+    }
+
+    .inactive {
+      color: #ff7777;
+    }
+
+    .empty {
+      padding: 25px;
+      text-align: center;
+      color: #7188a1;
+    }
+
+    .loading {
+      padding: 25px;
+      text-align: center;
+      color: #8fa8c4;
+    }
+
+    @media (max-width: 700px) {
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .welcome h1 {
+        font-size: 23px;
+      }
+
+      header {
+        padding: 15px;
+      }
+
+      main {
+        width: 92%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">REFILLS SHOP</div>
+  <div class="admin-label">Panel administrativo</div>
+</header>
+
+<main>
+
+  <section class="welcome">
+    <h1>Dashboard</h1>
+    <p>Administración de juegos, categorías y ofertas.</p>
+
+    <div id="connectionStatus" class="status">
+      <span class="status-dot"></span>
+      Comprobando conexión...
+    </div>
+  </section>
+
+  <section class="stats">
+
+    <div class="stat">
+      <div class="stat-title">Categorías</div>
+      <div id="categoriesCount" class="stat-number">0</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-title">Juegos</div>
+      <div id="gamesCount" class="stat-number">0</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-title">Ofertas</div>
+      <div id="offersCount" class="stat-number">0</div>
+    </div>
+
+  </section>
+
+  <!-- CATEGORÍAS -->
+
+  <section class="panel">
+
+    <div class="panel-header">
+      <h2>Categorías</h2>
+      <button class="refresh" onclick="loadAll()">Actualizar</button>
+    </div>
+
+    <div id="categoriesContent" class="loading">
+      Cargando...
+    </div>
+
+  </section>
+
+  <!-- JUEGOS -->
+
+  <section class="panel">
+
+    <div class="panel-header">
+      <h2>Juegos</h2>
+    </div>
+
+    <div id="gamesContent" class="loading">
+      Cargando...
+    </div>
+
+  </section>
+
+  <!-- OFERTAS -->
+
+  <section class="panel">
+
+    <div class="panel-header">
+      <h2>Ofertas</h2>
+    </div>
+
+    <div id="offersContent" class="loading">
+      Cargando...
+    </div>
+
+  </section>
+
+</main>
+
+<script>
+
+const API = "https://refills-shop.onrender.com";
+
+async function api(endpoint) {
+
+  const response = await fetch(API + endpoint);
+
+  if (!response.ok) {
+    throw new Error("Error HTTP " + response.status);
+  }
+
+  return await response.json();
+}
+
+
+/* =========================
+   CATEGORÍAS
+========================= */
+
+async function loadCategories() {
+
+  const container = document.getElementById("categoriesContent");
+
+  try {
+
+    const data = await api("/api/categories");
+
+    const categories = data.categories || [];
+
+    document.getElementById("categoriesCount").textContent =
+      categories.length;
+
+    if (!categories.length) {
+
+      container.innerHTML =
+        '<div class="empty">No hay categorías todavía.</div>';
+
+      return;
+    }
+
+    container.innerHTML = `
+      <div class="table-wrap">
+        <table>
+
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Slug</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            ${categories.map(category => `
+
+              <tr>
+
+                <td>${category.id}</td>
+
+                <td>${escapeHTML(category.name)}</td>
+
+                <td>${escapeHTML(category.slug)}</td>
+
+              </tr>
+
+            `).join("")}
+
+          </tbody>
+
+        </table>
+      </div>
+    `;
+
+  } catch (error) {
+
+    container.innerHTML =
+      '<div class="empty">No se pudieron cargar las categorías.</div>';
+
+    throw error;
+  }
+}
+
+
+/* =========================
+   JUEGOS
+========================= */
+
+async function loadGames() {
+
+  const container = document.getElementById("gamesContent");
+
+  try {
+
+    const data = await api("/api/games");
+
+    const games = data.games || [];
+
+    document.getElementById("gamesCount").textContent =
+      games.length;
+
+    if (!games.length) {
+
+      container.innerHTML =
+        '<div class="empty">No hay juegos todavía.</div>';
+
+      return;
+    }
+
+    container.innerHTML = `
+      <div class="table-wrap">
+        <table>
+
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Juego</th>
+              <th>Categoría</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            ${games.map(game => `
+
+              <tr>
+
+                <td>${game.id}</td>
+
+                <td>${escapeHTML(game.name)}</td>
+
+                <td>${escapeHTML(game.category_name || "Sin categoría")}</td>
+
+                <td class="${game.active ? "active" : "inactive"}">
+                  ${game.active ? "Activo" : "Inactivo"}
+                </td>
+
+              </tr>
+
+            `).join("")}
+
+          </tbody>
+
+        </table>
+      </div>
+    `;
+
+  } catch (error) {
+
+    container.innerHTML =
+      '<div class="empty">No se pudieron cargar los juegos.</div>';
+
+    throw error;
+  }
+}
+
+
+/* =========================
+   OFERTAS
+========================= */
+
+async function loadOffers() {
+
+  const container = document.getElementById("offersContent");
+
+  try {
+
+    const data = await api("/api/offers");
+
+    const offers = data.offers || [];
+
+    document.getElementById("offersCount").textContent =
+      offers.length;
+
+    if (!offers.length) {
+
+      container.innerHTML =
+        '<div class="empty">No hay ofertas todavía.</div>';
+
+      return;
+    }
+
+    container.innerHTML = `
+      <div class="table-wrap">
+        <table>
+
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Juego</th>
+              <th>Oferta</th>
+              <th>SM</th>
+              <th>CUP</th>
+              <th>USDT</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            ${offers.map(offer => `
+
+              <tr>
+
+                <td>${offer.id}</td>
+
+                <td>${escapeHTML(offer.game_name)}</td>
+
+                <td>${escapeHTML(offer.name)}</td>
+
+                <td>${offer.price_sm ?? "-"}</td>
+
+                <td>${offer.price_cup ?? "-"}</td>
+
+                <td>${offer.price_usdt ?? "-"}</td>
+
+                <td class="${offer.active ? "active" : "inactive"}">
+                  ${offer.active ? "Activo" : "Inactivo"}
+                </td>
+
+              </tr>
+
+            `).join("")}
+
+          </tbody>
+
+        </table>
+      </div>
+    `;
+
+  } catch (error) {
+
+    container.innerHTML =
+      '<div class="empty">No se pudieron cargar las ofertas.</div>';
+
+    throw error;
+  }
+}
+
+
+/* =========================
+   TODO
+========================= */
+
+async function loadAll() {
+
+  const status =
+    document.getElementById("connectionStatus");
+
+  try {
+
+    await Promise.all([
+      loadCategories(),
+      loadGames(),
+      loadOffers()
+    ]);
+
+    status.classList.remove("error");
+
+    status.innerHTML = `
+      <span class="status-dot"></span>
+      API conectada correctamente
+    `;
+
+  } catch (error) {
+
+    console.error(error);
+
+    status.classList.add("error");
+
+    status.innerHTML = `
+      <span class="status-dot"></span>
+      Error conectando con la API
+    `;
+  }
+}
+
+
+/* =========================
+   SEGURIDAD HTML
+========================= */
+
+function escapeHTML(value) {
+
+  if (value === null || value === undefined) {
+    return "";
+  }
+
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+
+/* =========================
+   INICIO
+========================= */
+
+loadAll();
+
+</script>
+
+</body>
+</html>
