@@ -6,6 +6,10 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
+/* =========================
+   GENERAL
+========================= */
+
 app.get("/", (req, res) => {
   res.json({
     ok: true,
@@ -20,6 +24,10 @@ app.get("/api/status", (req, res) => {
     status: "online"
   });
 });
+
+/* =========================
+   DATABASE TEST
+========================= */
 
 app.get("/api/db-test", async (req, res) => {
   try {
@@ -64,6 +72,185 @@ app.get("/api/db-tables", async (req, res) => {
 });
 
 /* =========================
+   CATEGORIES
+========================= */
+
+// Obtener todas las categorías
+app.get("/api/categories", async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT
+        id,
+        name,
+        slug,
+        created_at
+      FROM categories
+      ORDER BY id ASC;
+    `);
+
+    res.json({
+      ok: true,
+      categories: result.rows
+    });
+  } catch (error) {
+    console.error("Error obteniendo categorías:", error);
+
+    res.status(500).json({
+      ok: false,
+      error: "No se pudieron obtener las categorías"
+    });
+  }
+});
+
+// Obtener una categoría
+app.get("/api/categories/:id", async (req, res) => {
+  try {
+    const result = await pool.query(
+      `
+      SELECT
+        id,
+        name,
+        slug,
+        created_at
+      FROM categories
+      WHERE id = $1;
+      `,
+      [req.params.id]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        ok: false,
+        error: "Categoría no encontrada"
+      });
+    }
+
+    res.json({
+      ok: true,
+      category: result.rows[0]
+    });
+  } catch (error) {
+    console.error("Error obteniendo categoría:", error);
+
+    res.status(500).json({
+      ok: false,
+      error: "No se pudo obtener la categoría"
+    });
+  }
+});
+
+// Crear categoría
+app.post("/api/categories", async (req, res) => {
+  try {
+    const { name, slug } = req.body;
+
+    if (!name || !slug) {
+      return res.status(400).json({
+        ok: false,
+        error: "name y slug son obligatorios"
+      });
+    }
+
+    const result = await pool.query(
+      `
+      INSERT INTO categories (name, slug)
+      VALUES ($1, $2)
+      RETURNING *;
+      `,
+      [name, slug]
+    );
+
+    res.status(201).json({
+      ok: true,
+      category: result.rows[0]
+    });
+  } catch (error) {
+    console.error("Error creando categoría:", error);
+
+    res.status(500).json({
+      ok: false,
+      error: "No se pudo crear la categoría"
+    });
+  }
+});
+
+// Actualizar categoría
+app.put("/api/categories/:id", async (req, res) => {
+  try {
+    const { name, slug } = req.body;
+
+    const result = await pool.query(
+      `
+      UPDATE categories
+      SET
+        name = COALESCE($1, name),
+        slug = COALESCE($2, slug)
+      WHERE id = $3
+      RETURNING *;
+      `,
+      [
+        name ?? null,
+        slug ?? null,
+        req.params.id
+      ]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        ok: false,
+        error: "Categoría no encontrada"
+      });
+    }
+
+    res.json({
+      ok: true,
+      category: result.rows[0]
+    });
+  } catch (error) {
+    console.error("Error actualizando categoría:", error);
+
+    res.status(500).json({
+      ok: false,
+      error: "No se pudo actualizar la categoría"
+    });
+  }
+});
+
+// Eliminar categoría
+app.delete("/api/categories/:id", async (req, res) => {
+  try {
+    const result = await pool.query(
+      `
+      DELETE FROM categories
+      WHERE id = $1
+      RETURNING *;
+      `,
+      [req.params.id]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        ok: false,
+        error: "Categoría no encontrada"
+      });
+    }
+
+    res.json({
+      ok: true,
+      message: "Categoría eliminada",
+      category: result.rows[0]
+    });
+  } catch (error) {
+    console.error("Error eliminando categoría:", error);
+
+    res.status(500).json({
+      ok: false,
+      error: "No se pudo eliminar la categoría"
+    });
+  }
+});
+
+/* =========================
    GAMES
 ========================= */
 
@@ -99,7 +286,7 @@ app.get("/api/games", async (req, res) => {
   }
 });
 
-// Obtener un juego por ID
+// Obtener un juego
 app.get("/api/games/:id", async (req, res) => {
   try {
     const result = await pool.query(
@@ -141,7 +328,7 @@ app.get("/api/games/:id", async (req, res) => {
   }
 });
 
-// Crear un juego
+// Crear juego
 app.post("/api/games", async (req, res) => {
   try {
     const {
@@ -190,7 +377,7 @@ app.post("/api/games", async (req, res) => {
   }
 });
 
-// Actualizar un juego
+// Actualizar juego
 app.put("/api/games/:id", async (req, res) => {
   try {
     const {
@@ -244,7 +431,7 @@ app.put("/api/games/:id", async (req, res) => {
   }
 });
 
-// Eliminar un juego
+// Eliminar juego
 app.delete("/api/games/:id", async (req, res) => {
   try {
     const result = await pool.query(
@@ -277,6 +464,10 @@ app.delete("/api/games/:id", async (req, res) => {
     });
   }
 });
+
+/* =========================
+   START SERVER
+========================= */
 
 async function startServer() {
   try {
