@@ -2875,6 +2875,152 @@ body.search-page-mode header{position:sticky;top:0;z-index:80}
 @media(max-width:800px){.refills-search-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.refills-search-shell{padding:0 14px}}
 @media(max-width:480px){.refills-search-grid{grid-template-columns:1fr 1fr;gap:12px}}
 </style>
+
+<script id="refills-live-api-catalog">
+(() => {
+  const API_BASE = "https://refills-shop.onrender.com";
+
+  function normalizeOffer(o) {
+    const label = o.name || o.amount || "Oferta";
+    const price = o.price_usdt != null ? Number(o.price_usdt).toFixed(2) :
+                  o.price_cup != null ? Number(o.price_cup).toFixed(2) :
+                  o.price_sm != null ? Number(o.price_sm).toFixed(2) : "0.00";
+    return {
+      label,
+      price,
+      apiId: o.id,
+      amount: o.amount,
+      active: o.active !== false
+    };
+  }
+
+  async function loadCatalogFromAPI() {
+    try {
+      const [gamesRes, offersRes] = await Promise.all([
+        fetch(`${API_BASE}/api/games`, { headers: { "Accept": "application/json" } }),
+        fetch(`${API_BASE}/api/offers`, { headers: { "Accept": "application/json" } })
+      ]);
+
+      if (!gamesRes.ok || !offersRes.ok) throw new Error("No se pudo cargar el catálogo");
+
+      const gamesData = await gamesRes.json();
+      const offersData = await offersRes.json();
+      const apiGames = Array.isArray(gamesData.games) ? gamesData.games : [];
+      const apiOffers = Array.isArray(offersData.offers) ? offersData.offers : [];
+
+      if (!apiGames.length) return;
+
+      const oldGames = Array.isArray(GAMES) ? GAMES.slice() : [];
+      const oldBySlug = new Map(oldGames.map(g => [String(g.id).toLowerCase(), g]));
+      const oldByName = new Map(oldGames.map(g => [String(g.name).toLowerCase(), g]));
+      const offersByGame = new Map();
+
+      apiOffers.filter(o => o.active !== false).forEach(o => {
+        if (!offersByGame.has(o.game_id)) offersByGame.set(o.game_id, []);
+        offersByGame.get(o.game_id).push(normalizeOffer(o));
+      });
+
+      const liveGames = apiGames
+        .filter(g => g.active !== false)
+        .map(apiGame => {
+          const slug = String(apiGame.slug || apiGame.name || "game").toLowerCase();
+          const old = oldBySlug.get(slug) || oldByName.get(String(apiGame.name || "").toLowerCase()) || {};
+          const apiOffersForGame = offersByGame.get(apiGame.id) || [];
+
+          return {
+            ...old,
+            id: apiGame.slug || old.id || slug,
+            name: apiGame.name || old.name || "Juego",
+            short: old.short || String(apiGame.name || "G").slice(0, 3).toUpperCase(),
+            color: old.color || "#3d6bff,#35e0ff",
+            banner: old.banner || "#12233f",
+            cat: old.cat || "Otros",
+            img: apiGame.image_url || old.img || null,
+            offers: apiOffersForGame.length ? apiOffersForGame : (old.offers || [])
+          };
+        });
+
+      // Conservamos cualquier juego demo que todavía no exista en la base de datos,
+      // para que una caída temporal de la API no deje la tienda vacía.
+      const liveIds = new Set(liveGames.map(g => g.id));
+      oldGames.forEach(g => {
+        if (!liveIds.has(g.id)) liveGames.push(g);
+      });
+
+      GAMES.splice(0, GAMES.length, ...liveGames);
+
+      // Actualizar categorías del catálogo real.
+      if (Array.isArray(CATEGORIES)) {
+        const cats = ["Todos", ...Array.from(new Set(GAMES.map(g => g.cat).filter(Boolean)))];
+        CATEGORIES.splice(0, CATEGORIES.length, ...cats);
+      }
+
+      // Redibujar catálogo principal.
+      const grid = document.getElementById("gamesGrid");
+      if (grid) {
+        const active = typeof activeCat !== "undefined" ? activeCat : "Todos";
+        const visible = GAMES.filter(g => active === "Todos" || g.cat === active);
+        grid.innerHTML = visible.map(g => `
+          <button class="game-card" type="button" data-api-game="${g.id}">
+            <div class="game-icon" style="${typeof iconStyle === 'function' ? iconStyle(g) : ''}">${typeof iconInner === 'function' ? iconInner(g) : (g.short || '')}</div>
+            <span>${g.name}</span>
+          </button>
+        `).join("") || '<div class="empty-state" style="grid-column:1/-1;">No hay juegos disponibles.</div>';
+        grid.querySelectorAll("[data-api-game]").forEach(btn => btn.addEventListener("click", () => openGame(btn.dataset.apiGame)));
+      }
+
+      // Redibujar categorías del catálogo principal.
+      const catRow = document.getElementById("catRow");
+      if (catRow) {
+        const active = typeof activeCat !== "undefined" ? activeCat : "Todos";
+        catRow.innerHTML = "";
+        CATEGORIES.forEach(cat => {
+          const chip = document.createElement("button");
+          chip.type = "button";
+          chip.className = "cat-chip" + (cat === active ? " active" : "");
+          chip.textContent = cat;
+          chip.addEventListener("click", () => {
+            if (typeof activeCat !== "undefined") activeCat = cat;
+            catRow.querySelectorAll(".cat-chip").forEach(c => c.classList.remove("active"));
+            chip.classList.add("active");
+            if (typeof renderGames === "function") renderGames();
+          });
+          catRow.appendChild(chip);
+        });
+      }
+
+      // Actualizar tarjetas populares si existen.
+      const popular = document.getElementById("popularScroll");
+      if (popular) {
+        popular.innerHTML = "";
+        GAMES.filter(g => g.popular).forEach(g => {
+          const card = document.createElement("button");
+          card.type = "button";
+          card.className = "popular-card";
+          card.innerHTML = `<div class="game-icon" style="${typeof iconStyle === 'function' ? iconStyle(g) : ''}">${typeof iconInner === 'function' ? iconInner(g) : (g.short || '')}</div><span>${g.name}</span>`;
+          card.addEventListener("click", () => openGame(g.id));
+          popular.appendChild(card);
+        });
+      }
+
+      // Aviso discreto de catálogo conectado.
+      window.REFILLS_CATALOG_ONLINE = true;
+      document.documentElement.dataset.catalogSource = "api";
+      console.log("REFILLS SHOP: catálogo cargado desde la API", GAMES.length, "juegos");
+    } catch (error) {
+      console.warn("REFILLS SHOP: se mantiene el catálogo local de respaldo.", error);
+      window.REFILLS_CATALOG_ONLINE = false;
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", loadCatalogFromAPI, { once: true });
+  } else {
+    loadCatalogFromAPI();
+  }
+})();
+</script>
+
 </body>
 </html>
 <script id="refills-final-ui-fix">
