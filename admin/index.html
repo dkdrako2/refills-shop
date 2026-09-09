@@ -4,604 +4,598 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>REFILLS SHOP - Admin</title>
+  <title>REFILLS SHOP — Admin</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      background: #07111f;
-      color: #fff;
-      min-height: 100vh;
-    }
-
-    header {
-      background: #0b192c;
-      border-bottom: 1px solid #173252;
-      padding: 18px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    .logo {
-      font-size: 22px;
-      font-weight: 800;
-      color: #25b9ff;
-    }
-
-    .admin-label {
-      color: #8fa8c4;
-      font-size: 14px;
-    }
-
-    main {
-      width: min(1200px, 94%);
-      margin: 25px auto 50px;
-    }
-
-    .welcome {
-      margin-bottom: 25px;
-    }
-
-    .welcome h1 {
-      font-size: 28px;
-      margin-bottom: 7px;
-    }
-
-    .welcome p {
-      color: #8fa8c4;
-    }
-
-    .status {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 15px;
-      padding: 9px 13px;
-      border-radius: 10px;
-      background: #0d2338;
-      color: #72e6a2;
-      font-size: 13px;
-    }
-
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #35db7b;
-    }
-
-    .status.error {
-      color: #ff7777;
-    }
-
-    .status.error .status-dot {
-      background: #ff4444;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-      margin-bottom: 25px;
-    }
-
-    .stat {
-      background: #0b192c;
-      border: 1px solid #173252;
-      border-radius: 16px;
-      padding: 20px;
-    }
-
-    .stat-title {
-      color: #8fa8c4;
-      font-size: 14px;
-      margin-bottom: 8px;
-    }
-
-    .stat-number {
-      font-size: 30px;
-      font-weight: 800;
-      color: #25b9ff;
-    }
-
-    .panel {
-      background: #0b192c;
-      border: 1px solid #173252;
-      border-radius: 16px;
-      margin-bottom: 20px;
-      overflow: hidden;
-    }
-
-    .panel-header {
-      padding: 17px 18px;
-      border-bottom: 1px solid #173252;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .panel-header h2 {
-      font-size: 18px;
-    }
-
-    .refresh {
-      border: 0;
-      background: #118bd0;
-      color: white;
-      padding: 9px 13px;
-      border-radius: 9px;
-      cursor: pointer;
-      font-weight: 700;
-    }
-
-    .table-wrap {
-      width: 100%;
-      overflow-x: auto;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      min-width: 600px;
-    }
-
-    th,
-    td {
-      padding: 13px 15px;
-      text-align: left;
-      border-bottom: 1px solid #142b45;
-      font-size: 14px;
-    }
-
-    th {
-      color: #8fa8c4;
-      font-size: 12px;
-      text-transform: uppercase;
-    }
-
-    td {
-      color: #e6f1ff;
-    }
-
-    .active {
-      color: #63e69a;
-    }
-
-    .inactive {
-      color: #ff7777;
-    }
-
-    .empty {
-      padding: 25px;
-      text-align: center;
-      color: #7188a1;
-    }
-
-    .loading {
-      padding: 25px;
-      text-align: center;
-      color: #8fa8c4;
-    }
-
-    @media (max-width: 700px) {
-      .stats {
-        grid-template-columns: 1fr;
-      }
-
-      .welcome h1 {
-        font-size: 23px;
-      }
-
-      header {
-        padding: 15px;
-      }
-
-      main {
-        width: 92%;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="admin.css">
 </head>
 
 <body>
 
-<header>
-  <div class="logo">REFILLS SHOP</div>
-  <div class="admin-label">Panel administrativo</div>
-</header>
+  <!-- =========================
+       SIDEBAR
+  ========================== -->
 
-<main>
+  <aside class="sidebar" id="sidebar">
 
-  <section class="welcome">
-    <h1>Dashboard</h1>
-    <p>Administración de juegos, categorías y ofertas.</p>
+    <div class="brand">
+      <div class="brand-logo">RS</div>
 
-    <div id="connectionStatus" class="status">
-      <span class="status-dot"></span>
-      Comprobando conexión...
-    </div>
-  </section>
-
-  <section class="stats">
-
-    <div class="stat">
-      <div class="stat-title">Categorías</div>
-      <div id="categoriesCount" class="stat-number">0</div>
-    </div>
-
-    <div class="stat">
-      <div class="stat-title">Juegos</div>
-      <div id="gamesCount" class="stat-number">0</div>
-    </div>
-
-    <div class="stat">
-      <div class="stat-title">Ofertas</div>
-      <div id="offersCount" class="stat-number">0</div>
-    </div>
-
-  </section>
-
-  <!-- CATEGORÍAS -->
-
-  <section class="panel">
-
-    <div class="panel-header">
-      <h2>Categorías</h2>
-      <button class="refresh" onclick="loadAll()">Actualizar</button>
-    </div>
-
-    <div id="categoriesContent" class="loading">
-      Cargando...
-    </div>
-
-  </section>
-
-  <!-- JUEGOS -->
-
-  <section class="panel">
-
-    <div class="panel-header">
-      <h2>Juegos</h2>
-    </div>
-
-    <div id="gamesContent" class="loading">
-      Cargando...
-    </div>
-
-  </section>
-
-  <!-- OFERTAS -->
-
-  <section class="panel">
-
-    <div class="panel-header">
-      <h2>Ofertas</h2>
-    </div>
-
-    <div id="offersContent" class="loading">
-      Cargando...
-    </div>
-
-  </section>
-
-</main>
-
-<script>
-
-const API = "https://refills-shop.onrender.com";
-
-async function api(endpoint) {
-
-  const response = await fetch(API + endpoint);
-
-  if (!response.ok) {
-    throw new Error("Error HTTP " + response.status);
-  }
-
-  return await response.json();
-}
-
-
-/* =========================
-   CATEGORÍAS
-========================= */
-
-async function loadCategories() {
-
-  const container = document.getElementById("categoriesContent");
-
-  try {
-
-    const data = await api("/api/categories");
-
-    const categories = data.categories || [];
-
-    document.getElementById("categoriesCount").textContent =
-      categories.length;
-
-    if (!categories.length) {
-
-      container.innerHTML =
-        '<div class="empty">No hay categorías todavía.</div>';
-
-      return;
-    }
-
-    container.innerHTML = `
-      <div class="table-wrap">
-        <table>
-
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Nombre</th>
-              <th>Slug</th>
-            </tr>
-          </thead>
-
-          <tbody>
-
-            ${categories.map(category => `
-
-              <tr>
-
-                <td>${category.id}</td>
-
-                <td>${escapeHTML(category.name)}</td>
-
-                <td>${escapeHTML(category.slug)}</td>
-
-              </tr>
-
-            `).join("")}
-
-          </tbody>
-
-        </table>
+      <div>
+        <strong>REFILLS SHOP</strong>
+        <span>ADMIN PANEL</span>
       </div>
-    `;
+    </div>
 
-  } catch (error) {
+    <nav class="menu">
 
-    container.innerHTML =
-      '<div class="empty">No se pudieron cargar las categorías.</div>';
+      <button class="menu-item active" data-section="dashboard">
+        <span>⌂</span>
+        Dashboard
+      </button>
 
-    throw error;
-  }
-}
+      <button class="menu-item" data-section="categories">
+        <span>▦</span>
+        Categorías
+      </button>
+
+      <button class="menu-item" data-section="games">
+        <span>🎮</span>
+        Juegos
+      </button>
+
+      <button class="menu-item" data-section="offers">
+        <span>💰</span>
+        Ofertas
+      </button>
+
+      <button class="menu-item" data-section="orders">
+        <span>🛒</span>
+        Pedidos
+      </button>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+
+      <a
+        href="https://dkdrako2.github.io/refills-shop/"
+        target="_blank"
+        class="view-shop"
+      >
+        🌐 Ver tienda
+      </a>
+
+    </div>
+
+  </aside>
 
 
-/* =========================
-   JUEGOS
-========================= */
+  <!-- =========================
+       MAIN
+  ========================== -->
 
-async function loadGames() {
+  <main class="main">
 
-  const container = document.getElementById("gamesContent");
+    <!-- TOPBAR -->
 
-  try {
+    <header class="topbar">
 
-    const data = await api("/api/games");
+      <button
+        class="mobile-menu"
+        id="mobileMenu"
+        type="button"
+      >
+        ☰
+      </button>
 
-    const games = data.games || [];
+      <div>
 
-    document.getElementById("gamesCount").textContent =
-      games.length;
+        <div class="top-title">
+          Panel administrativo
+        </div>
 
-    if (!games.length) {
+        <div class="top-subtitle">
+          Gestiona REFILLS SHOP
+        </div>
 
-      container.innerHTML =
-        '<div class="empty">No hay juegos todavía.</div>';
-
-      return;
-    }
-
-    container.innerHTML = `
-      <div class="table-wrap">
-        <table>
-
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Juego</th>
-              <th>Categoría</th>
-              <th>Estado</th>
-            </tr>
-          </thead>
-
-          <tbody>
-
-            ${games.map(game => `
-
-              <tr>
-
-                <td>${game.id}</td>
-
-                <td>${escapeHTML(game.name)}</td>
-
-                <td>${escapeHTML(game.category_name || "Sin categoría")}</td>
-
-                <td class="${game.active ? "active" : "inactive"}">
-                  ${game.active ? "Activo" : "Inactivo"}
-                </td>
-
-              </tr>
-
-            `).join("")}
-
-          </tbody>
-
-        </table>
       </div>
-    `;
 
-  } catch (error) {
+      <div class="connection" id="connectionStatus">
 
-    container.innerHTML =
-      '<div class="empty">No se pudieron cargar los juegos.</div>';
+        <span class="connection-dot"></span>
 
-    throw error;
-  }
-}
+        <span id="connectionText">
+          Comprobando API...
+        </span>
 
-
-/* =========================
-   OFERTAS
-========================= */
-
-async function loadOffers() {
-
-  const container = document.getElementById("offersContent");
-
-  try {
-
-    const data = await api("/api/offers");
-
-    const offers = data.offers || [];
-
-    document.getElementById("offersCount").textContent =
-      offers.length;
-
-    if (!offers.length) {
-
-      container.innerHTML =
-        '<div class="empty">No hay ofertas todavía.</div>';
-
-      return;
-    }
-
-    container.innerHTML = `
-      <div class="table-wrap">
-        <table>
-
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Juego</th>
-              <th>Oferta</th>
-              <th>SM</th>
-              <th>CUP</th>
-              <th>USDT</th>
-              <th>Estado</th>
-            </tr>
-          </thead>
-
-          <tbody>
-
-            ${offers.map(offer => `
-
-              <tr>
-
-                <td>${offer.id}</td>
-
-                <td>${escapeHTML(offer.game_name)}</td>
-
-                <td>${escapeHTML(offer.name)}</td>
-
-                <td>${offer.price_sm ?? "-"}</td>
-
-                <td>${offer.price_cup ?? "-"}</td>
-
-                <td>${offer.price_usdt ?? "-"}</td>
-
-                <td class="${offer.active ? "active" : "inactive"}">
-                  ${offer.active ? "Activo" : "Inactivo"}
-                </td>
-
-              </tr>
-
-            `).join("")}
-
-          </tbody>
-
-        </table>
       </div>
-    `;
 
-  } catch (error) {
-
-    container.innerHTML =
-      '<div class="empty">No se pudieron cargar las ofertas.</div>';
-
-    throw error;
-  }
-}
+    </header>
 
 
-/* =========================
-   TODO
-========================= */
+    <!-- CONTENT -->
 
-async function loadAll() {
-
-  const status =
-    document.getElementById("connectionStatus");
-
-  try {
-
-    await Promise.all([
-      loadCategories(),
-      loadGames(),
-      loadOffers()
-    ]);
-
-    status.classList.remove("error");
-
-    status.innerHTML = `
-      <span class="status-dot"></span>
-      API conectada correctamente
-    `;
-
-  } catch (error) {
-
-    console.error(error);
-
-    status.classList.add("error");
-
-    status.innerHTML = `
-      <span class="status-dot"></span>
-      Error conectando con la API
-    `;
-  }
-}
+    <div class="content">
 
 
-/* =========================
-   SEGURIDAD HTML
-========================= */
+      <!-- =========================
+           DASHBOARD
+      ========================== -->
 
-function escapeHTML(value) {
+      <section
+        class="admin-section active"
+        id="section-dashboard"
+      >
 
-  if (value === null || value === undefined) {
-    return "";
-  }
+        <div class="page-heading">
 
-  return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-}
+          <div>
+            <h1>Dashboard</h1>
+
+            <p>
+              Resumen general de tu tienda.
+            </p>
+          </div>
+
+          <button
+            class="btn primary"
+            id="refreshDashboard"
+            type="button"
+          >
+            ↻ Actualizar
+          </button>
+
+        </div>
 
 
-/* =========================
-   INICIO
-========================= */
+        <!-- STATS -->
 
-loadAll();
+        <div class="stats-grid">
 
-</script>
+          <div class="stat-card">
+
+            <div class="stat-icon blue">
+              ▦
+            </div>
+
+            <div>
+              <span>Categorías</span>
+              <strong id="dashboardCategories">
+                0
+              </strong>
+            </div>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <div class="stat-icon cyan">
+              🎮
+            </div>
+
+            <div>
+              <span>Juegos</span>
+              <strong id="dashboardGames">
+                0
+              </strong>
+            </div>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <div class="stat-icon green">
+              💰
+            </div>
+
+            <div>
+              <span>Ofertas</span>
+              <strong id="dashboardOffers">
+                0
+              </strong>
+            </div>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <div class="stat-icon purple">
+              🛒
+            </div>
+
+            <div>
+              <span>Pedidos</span>
+              <strong id="dashboardOrders">
+                0
+              </strong>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- QUICK ACTIONS -->
+
+        <div class="panel">
+
+          <div class="panel-title">
+            Acciones rápidas
+          </div>
+
+          <div class="quick-actions">
+
+            <button
+              class="quick-action"
+              data-section="categories"
+              type="button"
+            >
+              <span>＋</span>
+              <strong>Nueva categoría</strong>
+              <small>Agregar categoría</small>
+            </button>
+
+
+            <button
+              class="quick-action"
+              data-section="games"
+              type="button"
+            >
+              <span>＋</span>
+              <strong>Nuevo juego</strong>
+              <small>Agregar juego</small>
+            </button>
+
+
+            <button
+              class="quick-action"
+              data-section="offers"
+              type="button"
+            >
+              <span>＋</span>
+              <strong>Nueva oferta</strong>
+              <small>Agregar precio</small>
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- API INFO -->
+
+        <div class="panel">
+
+          <div class="panel-title">
+            Estado del sistema
+          </div>
+
+          <div class="system-info">
+
+            <div>
+              <span>Frontend</span>
+              <strong>GitHub Pages</strong>
+            </div>
+
+            <div>
+              <span>Backend</span>
+              <strong>Render</strong>
+            </div>
+
+            <div>
+              <span>Base de datos</span>
+              <strong>PostgreSQL</strong>
+            </div>
+
+            <div>
+              <span>API</span>
+              <strong id="apiUrlDisplay">
+                https://refills-shop.onrender.com
+              </strong>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- =========================
+           CATEGORÍAS
+      ========================== -->
+
+      <section
+        class="admin-section"
+        id="section-categories"
+      >
+
+        <div class="page-heading">
+
+          <div>
+            <h1>Categorías</h1>
+
+            <p>
+              Administra las categorías de productos.
+            </p>
+          </div>
+
+          <button
+            class="btn primary"
+            id="newCategoryBtn"
+            type="button"
+          >
+            ＋ Nueva categoría
+          </button>
+
+        </div>
+
+
+        <div class="panel">
+
+          <div class="table-header">
+
+            <strong>
+              Lista de categorías
+            </strong>
+
+            <button
+              class="btn small"
+              id="refreshCategories"
+              type="button"
+            >
+              ↻
+            </button>
+
+          </div>
+
+
+          <div
+            class="table-container"
+            id="categoriesTable"
+          >
+
+            <div class="loading">
+              Cargando categorías...
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- =========================
+           JUEGOS
+      ========================== -->
+
+      <section
+        class="admin-section"
+        id="section-games"
+      >
+
+        <div class="page-heading">
+
+          <div>
+            <h1>Juegos</h1>
+
+            <p>
+              Administra los juegos disponibles.
+            </p>
+          </div>
+
+          <button
+            class="btn primary"
+            id="newGameBtn"
+            type="button"
+          >
+            ＋ Nuevo juego
+          </button>
+
+        </div>
+
+
+        <div class="panel">
+
+          <div class="table-header">
+
+            <strong>
+              Lista de juegos
+            </strong>
+
+            <button
+              class="btn small"
+              id="refreshGames"
+              type="button"
+            >
+              ↻
+            </button>
+
+          </div>
+
+
+          <div
+            class="table-container"
+            id="gamesTable"
+          >
+
+            <div class="loading">
+              Cargando juegos...
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- =========================
+           OFERTAS
+      ========================== -->
+
+      <section
+        class="admin-section"
+        id="section-offers"
+      >
+
+        <div class="page-heading">
+
+          <div>
+            <h1>Ofertas</h1>
+
+            <p>
+              Administra precios y paquetes.
+            </p>
+          </div>
+
+          <button
+            class="btn primary"
+            id="newOfferBtn"
+            type="button"
+          >
+            ＋ Nueva oferta
+          </button>
+
+        </div>
+
+
+        <div class="panel">
+
+          <div class="table-header">
+
+            <strong>
+              Lista de ofertas
+            </strong>
+
+            <button
+              class="btn small"
+              id="refreshOffers"
+              type="button"
+            >
+              ↻
+            </button>
+
+          </div>
+
+
+          <div
+            class="table-container"
+            id="offersTable"
+          >
+
+            <div class="loading">
+              Cargando ofertas...
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- =========================
+           PEDIDOS
+      ========================== -->
+
+      <section
+        class="admin-section"
+        id="section-orders"
+      >
+
+        <div class="page-heading">
+
+          <div>
+
+            <h1>Pedidos</h1>
+
+            <p>
+              Próximamente: gestión de pedidos y pagos.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="empty-panel">
+
+          <div class="empty-icon">
+            🛒
+          </div>
+
+          <h2>
+            Gestión de pedidos
+          </h2>
+
+          <p>
+            Esta sección se conectará con el sistema
+            de pedidos cuando terminemos el módulo.
+          </p>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+
+  <!-- =========================
+       MODAL
+  ========================== -->
+
+  <div
+    class="modal-overlay"
+    id="modalOverlay"
+  >
+
+    <div
+      class="modal"
+      id="modal"
+    >
+
+      <button
+        class="modal-close"
+        id="modalClose"
+        type="button"
+      >
+        ×
+      </button>
+
+      <div id="modalContent"></div>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- =========================
+       TOAST
+  ========================== -->
+
+  <div
+    class="toast"
+    id="toast"
+  >
+    <span id="toastMessage"></span>
+  </div>
+
+
+
+  <script src="admin.js"></script>
 
 </body>
 </html>
