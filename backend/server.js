@@ -1,5 +1,5 @@
 const express = require("express");
-const { initDatabase } = require("./database");
+const { initDatabase, pool } = require("./database");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,7 +23,6 @@ app.get("/api/status", (req, res) => {
 
 app.get("/api/db-test", async (req, res) => {
   try {
-    const { pool } = require("./database");
     const result = await pool.query("SELECT NOW() AS time");
 
     res.json({
@@ -41,12 +40,40 @@ app.get("/api/db-test", async (req, res) => {
   }
 });
 
-async function startServer() {
-  await initDatabase();
+app.get("/api/db-tables", async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT table_name
+      FROM information_schema.tables
+      WHERE table_schema = 'public'
+      ORDER BY table_name;
+    `);
 
-  app.listen(PORT, "0.0.0.0", () => {
-    console.log(`REFILLS SHOP Backend iniciado en puerto ${PORT}`);
-  });
+    res.json({
+      ok: true,
+      tables: result.rows.map(row => row.table_name)
+    });
+  } catch (error) {
+    console.error("Error consultando tablas:", error);
+
+    res.status(500).json({
+      ok: false,
+      error: "No se pudieron consultar las tablas"
+    });
+  }
+});
+
+async function startServer() {
+  try {
+    await initDatabase();
+
+    app.listen(PORT, "0.0.0.0", () => {
+      console.log(`REFILLS SHOP Backend iniciado en puerto ${PORT}`);
+    });
+  } catch (error) {
+    console.error("Error iniciando servidor:", error);
+    process.exit(1);
+  }
 }
 
 startServer();
