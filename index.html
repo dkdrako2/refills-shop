@@ -911,6 +911,9 @@ img,svg,video,canvas{max-width:100%;height:auto}
   .account-person-icon{width:40px!important;height:40px!important;font-size:36px!important}
 }
 </style>
+<style id="refills-wallet-ui">
+.refills-wallet-card{margin:18px 0 20px;padding:20px;border:1px solid rgba(68,196,255,.24);border-radius:22px;background:linear-gradient(135deg,#081a2d,#0b2942);box-shadow:0 18px 45px rgba(0,0,0,.18);overflow:hidden;position:relative}.refills-wallet-card:after{content:"";position:absolute;right:-55px;top:-65px;width:170px;height:170px;border-radius:50%;background:rgba(44,214,255,.08);pointer-events:none}.wallet-main{display:flex;align-items:center;justify-content:space-between;gap:15px}.wallet-label{display:flex;align-items:center;gap:12px}.wallet-label small{display:block;color:#65ddff;font-size:9px;font-weight:900;letter-spacing:1.2px}.wallet-label strong{display:block;margin-top:4px;font-size:13px}.wallet-icon{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,var(--blue),var(--cyan));color:#031521;font-weight:1000;font-size:21px;box-shadow:0 8px 22px rgba(35,205,255,.2)}.wallet-balance{font-family:'Unbounded';font-size:25px;color:var(--cyan);font-weight:900;white-space:nowrap}.wallet-actions{display:flex;gap:9px;margin-top:15px}.wallet-actions button{border:1px solid var(--line);background:#07192b;color:var(--text);border-radius:11px;padding:10px 13px;font-size:11px;font-weight:800;cursor:pointer}.wallet-actions button:first-child{border:0;background:linear-gradient(135deg,var(--blue),var(--cyan));color:#03131d}.wallet-note{margin:11px 0 0;color:var(--text-dim);font-size:10.5px;line-height:1.45}.refills-wallet-overlay{position:fixed;inset:0;z-index:160;background:rgba(2,8,20,.84);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:16px}.refills-wallet-overlay[hidden]{display:none!important}.refills-wallet-modal{position:relative;width:min(470px,100%);padding:26px;border:1px solid rgba(68,196,255,.28);border-radius:23px;background:linear-gradient(180deg,#081b30,#0b243d);box-shadow:0 30px 100px rgba(0,0,0,.5)}.refills-wallet-close{position:absolute;right:14px;top:14px;width:36px;height:36px;border-radius:11px;border:1px solid var(--line);background:#07192b;color:#fff;font-size:20px;cursor:pointer}.wallet-modal-kicker{font-size:9px;font-weight:900;color:#65ddff;letter-spacing:1.4px}.refills-wallet-modal h3{font-family:'Unbounded';font-size:21px;margin:8px 45px 6px 0}.refills-wallet-modal>p{font-size:12px;color:var(--text-dim);margin:0 0 18px;line-height:1.5}.wallet-presets{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.wallet-presets button{padding:12px 8px;border-radius:12px;border:1px solid var(--line);background:#07192b;color:#fff;font-weight:900;cursor:pointer}.wallet-presets button.active{border-color:var(--cyan);background:rgba(53,224,255,.1);color:var(--cyan)}.wallet-custom-field{margin-top:14px}.wallet-custom-field label{display:block;font-size:11px;font-weight:800;margin-bottom:6px}.wallet-custom-field input{width:100%;box-sizing:border-box;padding:12px;border-radius:12px;border:1px solid var(--line);background:#061525;color:#fff;outline:none}.wallet-selected{margin:13px 0;padding:12px;border-radius:12px;background:#061525;border:1px solid rgba(68,196,255,.14);font-size:12px;font-weight:800;color:#dff9ff}.wallet-request-btn{width:100%;border:0;border-radius:12px;padding:13px;background:linear-gradient(135deg,var(--blue),var(--cyan));color:#03131d;font-weight:900;cursor:pointer}.wallet-security-note{margin-top:11px;color:var(--text-dim);font-size:9.5px;line-height:1.45}@media(max-width:520px){.wallet-main{align-items:flex-start;flex-direction:column}.wallet-balance{font-size:22px}.wallet-presets{grid-template-columns:repeat(2,1fr)}.wallet-actions{flex-direction:column}.wallet-actions button{width:100%}}
+</style>
 </head>
 <body>
 <div id="loader">
@@ -1042,6 +1045,17 @@ img,svg,video,canvas{max-width:100%;height:auto}
   </div>
 </div><label class="avatar-edit" for="profilePhotoInput" title="Cambiar foto">+</label><input accept="image/*" hidden="" id="profilePhotoInput" type="file"/></div><div class="account-identity"><span class="account-kicker">REFILLS SHOP</span><h1 id="accountName">Mi cuenta</h1><p id="accountEmail">Inicia sesión para personalizar tu cuenta</p><div class="level-pill"><span id="accountLevel">Nivel 1</span><b id="accountLevelName">Novato</b></div></div></div>
 <div class="account-level-card"><div class="level-top"><div><small>Progreso de cuenta</small><strong id="accountXpText">0 / 25 USD</strong></div><span id="accountNextLevel">Siguiente: Bronce</span></div><div class="xp-track"><i id="accountXpBar"></i></div><p id="accountLevelHint">Recarga y compra para subir de nivel.</p></div>
+<div class="refills-wallet-card" id="refillsWalletCard">
+  <div class="wallet-main">
+    <div class="wallet-label"><span class="wallet-icon">$</span><div><small>SALDO REFILLS</small><strong>Saldo de tu cuenta</strong></div></div>
+    <div class="wallet-balance" id="refillsWalletBalance">$0.00</div>
+  </div>
+  <div class="wallet-actions">
+    <button type="button" id="refillsTopupBtn">+ Recargar saldo</button>
+    <button type="button" id="refillsWalletHistoryBtn">Movimientos</button>
+  </div>
+  <p class="wallet-note">Tu saldo podrá utilizarse para pagar futuras compras dentro de REFILLS SHOP.</p>
+</div>
 <div class="account-stats"><div><span>Recargado</span><strong id="accountSpent">$0.00</strong></div><div><span>Pedidos</span><strong id="accountOrders">0</strong></div><div><span>Desde</span><strong id="accountSince">Hoy</strong></div></div>
 <div class="account-grid"><button class="account-card" id="accountProfileBtn" type="button"><span class="account-card-icon profile-circle-icon" aria-hidden="true"><i></i><b></b></span><div><strong>Mi perfil</strong><small>Nombre, correo y foto de perfil</small></div><b>›</b></button><button class="account-card" id="accountHistoryBtn" type="button"><span class="account-card-icon">H</span><div><strong>Historial de pedidos</strong><small>Consulta tus compras</small></div><b>›</b></button><button class="account-card" id="accountFavoritesBtn" type="button"><span class="account-card-icon">F</span><div><strong>Mis favoritos</strong><small>Acceso rápido a tus juegos</small></div><b>›</b></button><button class="account-card" id="accountBenefitsBtn" type="button"><span class="account-card-icon">E</span><div><strong>Beneficios exclusivos</strong><small>Premios según tu nivel</small></div><b>›</b></button></div>
 <div class="account-benefits" id="accountBenefits"><div class="account-section-head"><div><span>EXCLUSIVO</span><h2>Beneficios de tu nivel</h2></div><strong id="accountBenefitLevel">NOVATO</strong></div><div class="benefit-list" id="benefitList"></div></div>
@@ -1075,6 +1089,27 @@ img,svg,video,canvas{max-width:100%;height:auto}
 <div class="info">Seleccionado: <strong id="selName">—</strong></div>
 <button class="btn-primary" id="buyBtn">Comprar ahora</button>
 </div>
+</div>
+<div class="refills-wallet-overlay" id="refillsWalletOverlay" hidden>
+  <div class="refills-wallet-modal">
+    <button class="refills-wallet-close" id="refillsWalletClose" type="button">×</button>
+    <span class="wallet-modal-kicker">REFILLS SHOP</span>
+    <h3>Recargar saldo</h3>
+    <p>Elige cuánto quieres añadir a tu saldo de tienda.</p>
+    <div class="wallet-presets" id="walletPresets">
+      <button type="button" data-wallet-amount="5">$5</button>
+      <button type="button" data-wallet-amount="10">$10</button>
+      <button type="button" data-wallet-amount="20">$20</button>
+      <button type="button" data-wallet-amount="50">$50</button>
+    </div>
+    <div class="wallet-custom-field">
+      <label for="walletCustomAmount">Otra cantidad</label>
+      <input id="walletCustomAmount" type="number" min="1" max="500" step="0.01" placeholder="Ej. 15.00">
+    </div>
+    <div class="wallet-selected" id="walletSelectedAmount">Cantidad seleccionada: $0.00</div>
+    <button class="wallet-request-btn" id="walletRequestBtn" type="button">Continuar con la recarga</button>
+    <div class="wallet-security-note">La recarga se registrará como pendiente hasta que el pago sea confirmado por el sistema.</div>
+  </div>
 </div>
 <div class="checkout-overlay" id="checkoutOverlay">
 <div class="checkout-modal">
@@ -1699,54 +1734,193 @@ img,svg,video,canvas{max-width:100%;height:auto}
 
   updatePaymentProofUI();
 
-  document.getElementById('confirmOrder').addEventListener('click', ()=>{
+  const REFILLS_API_BASE = 'https://refills-shop.onrender.com';
+
+  async function getApiCatalogForCheckout(){
+    const [gamesRes, offersRes] = await Promise.all([
+      fetch(`${REFILLS_API_BASE}/api/games`, {headers:{'Accept':'application/json'}}),
+      fetch(`${REFILLS_API_BASE}/api/offers`, {headers:{'Accept':'application/json'}})
+    ]);
+    if(!gamesRes.ok || !offersRes.ok) throw new Error('No se pudo consultar el catálogo del servidor.');
+    const gamesData = await gamesRes.json();
+    const offersData = await offersRes.json();
+    return {
+      games: Array.isArray(gamesData.games) ? gamesData.games : [],
+      offers: Array.isArray(offersData.offers) ? offersData.offers : []
+    };
+  }
+
+  function findApiGame(games, name){
+    const target = String(name || '').trim().toLowerCase();
+    return games.find(g => String(g.name || '').trim().toLowerCase() === target) ||
+           games.find(g => String(g.slug || '').trim().toLowerCase() === target);
+  }
+
+  function findApiOffer(offers, gameId, label){
+    const target = String(label || '').trim().toLowerCase();
+    const sameGame = offers.filter(o => Number(o.game_id) === Number(gameId) && o.active !== false);
+    return sameGame.find(o => String(o.name || '').trim().toLowerCase() === target) ||
+           sameGame.find(o => String(o.amount || '').trim().toLowerCase() === target) ||
+           sameGame.find(o => String(o.name || '').trim().toLowerCase().includes(target)) ||
+           sameGame.find(o => target.includes(String(o.name || '').trim().toLowerCase()));
+  }
+
+  document.getElementById('confirmOrder').addEventListener('click', async ()=>{
     const needsId = checkoutRequiresId();
     const id = playerIdInput.value.trim();
     const email = playerEmailInput.value.trim();
-    if(needsId && !id){ playerIdInput.focus(); playerIdInput.style.borderColor = '#ff8f7e'; return; }
+
+    if(needsId && !id){
+      playerIdInput.focus();
+      playerIdInput.style.borderColor = '#ff8f7e';
+      return;
+    }
     playerIdInput.style.borderColor = '';
-    if(!email || !/^[^\s@]+@gmail\.com$/i.test(email)){ playerEmailInput.focus(); playerEmailInput.style.borderColor = '#ff8f7e'; return; }
+
+    if(!email || !/^[^\s@]+@gmail\.com$/i.test(email)){
+      playerEmailInput.focus();
+      playerEmailInput.style.borderColor = '#ff8f7e';
+      return;
+    }
     playerEmailInput.style.borderColor = '';
 
     const proofRequired = selectedPayment === 'SALDO_MOVIL' || selectedPayment === 'TRANSFERENCIA_CUP';
     const proofFile = document.getElementById('paymentProofFile');
     const mobileSenderInput = document.getElementById('mobileSenderNumber');
     const mobileSender = mobileSenderInput ? mobileSenderInput.value.trim() : '';
+
     if(proofRequired && !proofFile.files.length){
       document.getElementById('paymentProof').classList.add('invalid');
       proofFile.focus();
       return;
     }
+
     if(selectedPayment === 'SALDO_MOVIL' && !mobileSender){
       document.getElementById('paymentProof').classList.add('invalid');
       mobileSenderInput.focus();
       mobileSenderInput.style.borderColor = '#ff8f7e';
       return;
     }
+
     document.getElementById('paymentProof').classList.remove('invalid');
     if(mobileSenderInput) mobileSenderInput.style.borderColor = '';
+
     const proofFileName = proofRequired && proofFile.files.length ? proofFile.files[0].name : '';
     const now = new Date();
     const dateStr = now.toLocaleDateString('es-ES',{day:'2-digit',month:'short'}) + ' · ' + now.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
-    let lastCode = '';
-    checkoutQueue.forEach(entry=>{
-      const code = 'RS-' + Math.floor(100000 + Math.random()*900000);
-      lastCode = code;
-      saveOrder({
-        id:code, game:entry.game, item:entry.item, price:entry.price,
-        playerId:needsId ? id : 'No requiere ID', email:email, nick:needsId ? playerNickInput.value.trim() : '', payment:selectedPayment,
-        paymentProof: proofRequired ? proofFileName : '', mobileSender: selectedPayment === 'SALDO_MOVIL' ? mobileSender : '',
-        date:dateStr, status:'Pendiente'
-      });
-    });
-    refreshHistory();
-    orderCode.textContent = checkoutQueue.length > 1 ? `${checkoutQueue.length} pedidos creados` : lastCode;
-    orderResultText.textContent = `${needsId ? `ID: ${id}. ` : ''}Gmail: ${email}. Método: ${selectedPayment}. El pedido queda pendiente de confirmación.`;
-    checkoutFormArea.style.display = 'none';
-    orderResult.classList.add('show');
+    const totalPrice = checkoutQueue.reduce((sum, entry) => sum + parseFloat(entry.price || 0), 0);
+    const needsIdValue = needsId ? id : 'No requiere ID';
+    const nick = needsId ? playerNickInput.value.trim() : '';
 
-    if(checkoutQueue.length > 1){ cart = []; renderCart(); }
-    checkoutQueue = [];
+    const confirmBtn = document.getElementById('confirmOrder');
+    const originalText = confirmBtn ? confirmBtn.textContent : '';
+    if(confirmBtn){
+      confirmBtn.disabled = true;
+      confirmBtn.textContent = 'Creando pedido...';
+    }
+
+    try {
+      const catalog = await getApiCatalogForCheckout();
+      const createdOrders = [];
+
+      for(const entry of checkoutQueue){
+        const apiGame = findApiGame(catalog.games, entry.game);
+        if(!apiGame){
+          throw new Error(`No encontramos el juego "${entry.game}" en el catálogo del servidor.`);
+        }
+
+        const apiOffer = findApiOffer(catalog.offers, apiGame.id, entry.item);
+        if(!apiOffer){
+          throw new Error(`No encontramos la oferta "${entry.item}" para ${entry.game}.`);
+        }
+
+        const price = Number(entry.price || 0);
+        const response = await fetch(`${REFILLS_API_BASE}/api/orders`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            game_id: apiGame.id,
+            offer_id: apiOffer.id,
+            player_id: needsIdValue,
+            player_name: nick || null,
+            amount: apiOffer.amount || entry.item,
+            payment_method: selectedPayment,
+            currency: 'USDT',
+            subtotal: price,
+            total: price,
+            notes: JSON.stringify({
+              email,
+              payment_proof_filename: proofFileName || null,
+              mobile_sender: selectedPayment === 'SALDO_MOVIL' ? mobileSender : null
+            }),
+            items: [{
+              game_id: apiGame.id,
+              offer_id: apiOffer.id,
+              game_name: apiGame.name,
+              offer_name: apiOffer.name || entry.item,
+              amount: apiOffer.amount || entry.item,
+              quantity: 1,
+              unit_price: price,
+              total_price: price
+            }]
+          })
+        });
+
+        const data = await response.json().catch(() => ({}));
+        if(!response.ok || !data.ok){
+          throw new Error(data.error || `No se pudo crear el pedido de ${entry.game}.`);
+        }
+
+        createdOrders.push(data.order);
+      }
+
+      // Guardamos una copia local solo después de que el backend confirme el pedido.
+      checkoutQueue.forEach((entry, index) => {
+        const serverOrder = createdOrders[index];
+        saveOrder({
+          id: serverOrder?.order_number || `RS-${Math.floor(100000 + Math.random()*900000)}`,
+          serverId: serverOrder?.id || null,
+          game: entry.game,
+          item: entry.item,
+          price: entry.price,
+          playerId: needsIdValue,
+          email,
+          nick,
+          payment: selectedPayment,
+          paymentProof: proofFileName,
+          mobileSender: selectedPayment === 'SALDO_MOVIL' ? mobileSender : '',
+          date: dateStr,
+          status: 'Pendiente'
+        });
+      });
+
+      refreshHistory();
+      const lastOrder = createdOrders[createdOrders.length - 1];
+      orderCode.textContent = createdOrders.length > 1
+        ? `${createdOrders.length} pedidos creados`
+        : (lastOrder?.order_number || 'Pedido creado');
+      orderResultText.textContent = `${needsId ? `ID: ${id}. ` : ''}Gmail: ${email}. Método: ${selectedPayment}. El pedido fue enviado al servidor y queda pendiente de confirmación.`;
+      checkoutFormArea.style.display = 'none';
+      orderResult.classList.add('show');
+
+      if(checkoutQueue.length > 1){
+        cart = [];
+        renderCart();
+      }
+      checkoutQueue = [];
+
+    } catch(error){
+      console.error('REFILLS SHOP: error creando pedido', error);
+      alert(`No se pudo crear el pedido.\n\n${error.message}\n\nNo se realizó ningún cambio en el carrito.`);
+    } finally {
+      if(confirmBtn){
+        confirmBtn.disabled = false;
+        confirmBtn.textContent = originalText;
+      }
+    }
   });
   document.getElementById('closeResult').addEventListener('click', closeCheckout);
 
@@ -2875,152 +3049,39 @@ body.search-page-mode header{position:sticky;top:0;z-index:80}
 @media(max-width:800px){.refills-search-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.refills-search-shell{padding:0 14px}}
 @media(max-width:480px){.refills-search-grid{grid-template-columns:1fr 1fr;gap:12px}}
 </style>
-
-<script id="refills-live-api-catalog">
-(() => {
-  const API_BASE = "https://refills-shop.onrender.com";
-
-  function normalizeOffer(o) {
-    const label = o.name || o.amount || "Oferta";
-    const price = o.price_usdt != null ? Number(o.price_usdt).toFixed(2) :
-                  o.price_cup != null ? Number(o.price_cup).toFixed(2) :
-                  o.price_sm != null ? Number(o.price_sm).toFixed(2) : "0.00";
-    return {
-      label,
-      price,
-      apiId: o.id,
-      amount: o.amount,
-      active: o.active !== false
-    };
-  }
-
-  async function loadCatalogFromAPI() {
-    try {
-      const [gamesRes, offersRes] = await Promise.all([
-        fetch(`${API_BASE}/api/games`, { headers: { "Accept": "application/json" } }),
-        fetch(`${API_BASE}/api/offers`, { headers: { "Accept": "application/json" } })
-      ]);
-
-      if (!gamesRes.ok || !offersRes.ok) throw new Error("No se pudo cargar el catálogo");
-
-      const gamesData = await gamesRes.json();
-      const offersData = await offersRes.json();
-      const apiGames = Array.isArray(gamesData.games) ? gamesData.games : [];
-      const apiOffers = Array.isArray(offersData.offers) ? offersData.offers : [];
-
-      if (!apiGames.length) return;
-
-      const oldGames = Array.isArray(GAMES) ? GAMES.slice() : [];
-      const oldBySlug = new Map(oldGames.map(g => [String(g.id).toLowerCase(), g]));
-      const oldByName = new Map(oldGames.map(g => [String(g.name).toLowerCase(), g]));
-      const offersByGame = new Map();
-
-      apiOffers.filter(o => o.active !== false).forEach(o => {
-        if (!offersByGame.has(o.game_id)) offersByGame.set(o.game_id, []);
-        offersByGame.get(o.game_id).push(normalizeOffer(o));
-      });
-
-      const liveGames = apiGames
-        .filter(g => g.active !== false)
-        .map(apiGame => {
-          const slug = String(apiGame.slug || apiGame.name || "game").toLowerCase();
-          const old = oldBySlug.get(slug) || oldByName.get(String(apiGame.name || "").toLowerCase()) || {};
-          const apiOffersForGame = offersByGame.get(apiGame.id) || [];
-
-          return {
-            ...old,
-            id: apiGame.slug || old.id || slug,
-            name: apiGame.name || old.name || "Juego",
-            short: old.short || String(apiGame.name || "G").slice(0, 3).toUpperCase(),
-            color: old.color || "#3d6bff,#35e0ff",
-            banner: old.banner || "#12233f",
-            cat: old.cat || "Otros",
-            img: apiGame.image_url || old.img || null,
-            offers: apiOffersForGame.length ? apiOffersForGame : (old.offers || [])
-          };
-        });
-
-      // Conservamos cualquier juego demo que todavía no exista en la base de datos,
-      // para que una caída temporal de la API no deje la tienda vacía.
-      const liveIds = new Set(liveGames.map(g => g.id));
-      oldGames.forEach(g => {
-        if (!liveIds.has(g.id)) liveGames.push(g);
-      });
-
-      GAMES.splice(0, GAMES.length, ...liveGames);
-
-      // Actualizar categorías del catálogo real.
-      if (Array.isArray(CATEGORIES)) {
-        const cats = ["Todos", ...Array.from(new Set(GAMES.map(g => g.cat).filter(Boolean)))];
-        CATEGORIES.splice(0, CATEGORIES.length, ...cats);
-      }
-
-      // Redibujar catálogo principal.
-      const grid = document.getElementById("gamesGrid");
-      if (grid) {
-        const active = typeof activeCat !== "undefined" ? activeCat : "Todos";
-        const visible = GAMES.filter(g => active === "Todos" || g.cat === active);
-        grid.innerHTML = visible.map(g => `
-          <button class="game-card" type="button" data-api-game="${g.id}">
-            <div class="game-icon" style="${typeof iconStyle === 'function' ? iconStyle(g) : ''}">${typeof iconInner === 'function' ? iconInner(g) : (g.short || '')}</div>
-            <span>${g.name}</span>
-          </button>
-        `).join("") || '<div class="empty-state" style="grid-column:1/-1;">No hay juegos disponibles.</div>';
-        grid.querySelectorAll("[data-api-game]").forEach(btn => btn.addEventListener("click", () => openGame(btn.dataset.apiGame)));
-      }
-
-      // Redibujar categorías del catálogo principal.
-      const catRow = document.getElementById("catRow");
-      if (catRow) {
-        const active = typeof activeCat !== "undefined" ? activeCat : "Todos";
-        catRow.innerHTML = "";
-        CATEGORIES.forEach(cat => {
-          const chip = document.createElement("button");
-          chip.type = "button";
-          chip.className = "cat-chip" + (cat === active ? " active" : "");
-          chip.textContent = cat;
-          chip.addEventListener("click", () => {
-            if (typeof activeCat !== "undefined") activeCat = cat;
-            catRow.querySelectorAll(".cat-chip").forEach(c => c.classList.remove("active"));
-            chip.classList.add("active");
-            if (typeof renderGames === "function") renderGames();
-          });
-          catRow.appendChild(chip);
-        });
-      }
-
-      // Actualizar tarjetas populares si existen.
-      const popular = document.getElementById("popularScroll");
-      if (popular) {
-        popular.innerHTML = "";
-        GAMES.filter(g => g.popular).forEach(g => {
-          const card = document.createElement("button");
-          card.type = "button";
-          card.className = "popular-card";
-          card.innerHTML = `<div class="game-icon" style="${typeof iconStyle === 'function' ? iconStyle(g) : ''}">${typeof iconInner === 'function' ? iconInner(g) : (g.short || '')}</div><span>${g.name}</span>`;
-          card.addEventListener("click", () => openGame(g.id));
-          popular.appendChild(card);
-        });
-      }
-
-      // Aviso discreto de catálogo conectado.
-      window.REFILLS_CATALOG_ONLINE = true;
-      document.documentElement.dataset.catalogSource = "api";
-      console.log("REFILLS SHOP: catálogo cargado desde la API", GAMES.length, "juegos");
-    } catch (error) {
-      console.warn("REFILLS SHOP: se mantiene el catálogo local de respaldo.", error);
-      window.REFILLS_CATALOG_ONLINE = false;
-    }
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", loadCatalogFromAPI, { once: true });
-  } else {
-    loadCatalogFromAPI();
-  }
+<script id="refills-wallet-ui-js">
+(function(){
+  const balanceEl=document.getElementById('refillsWalletBalance');
+  const openBtn=document.getElementById('refillsTopupBtn');
+  const historyBtn=document.getElementById('refillsWalletHistoryBtn');
+  const overlay=document.getElementById('refillsWalletOverlay');
+  const closeBtn=document.getElementById('refillsWalletClose');
+  const requestBtn=document.getElementById('walletRequestBtn');
+  const custom=document.getElementById('walletCustomAmount');
+  const selected=document.getElementById('walletSelectedAmount');
+  const presets=[...document.querySelectorAll('[data-wallet-amount]')];
+  let selectedAmount=0;
+  function getBalance(){return Number(localStorage.getItem('refills_wallet_balance')||0)}
+  function setBalance(v){localStorage.setItem('refills_wallet_balance',Number(v).toFixed(2)); if(balanceEl) balanceEl.textContent='$'+Number(v).toFixed(2)}
+  function refresh(){setBalance(getBalance())}
+  function open(){overlay.hidden=false; document.body.style.overflow='hidden'}
+  function close(){overlay.hidden=true; document.body.style.overflow=''}
+  function choose(v,btn){selectedAmount=Number(v)||0; custom.value=''; presets.forEach(x=>x.classList.remove('active')); if(btn) btn.classList.add('active'); selected.textContent='Cantidad seleccionada: $'+selectedAmount.toFixed(2)}
+  presets.forEach(btn=>btn.addEventListener('click',()=>choose(btn.dataset.walletAmount,btn)));
+  custom.addEventListener('input',()=>{selectedAmount=Math.max(0,Number(custom.value)||0);presets.forEach(x=>x.classList.remove('active'));selected.textContent='Cantidad seleccionada: $'+selectedAmount.toFixed(2)});
+  openBtn&&openBtn.addEventListener('click',open);
+  closeBtn&&closeBtn.addEventListener('click',close);
+  overlay&&overlay.addEventListener('click',e=>{if(e.target===overlay)close()});
+  historyBtn&&historyBtn.addEventListener('click',()=>{alert('El historial de movimientos de saldo se conectará al backend en el siguiente paso.')});
+  requestBtn&&requestBtn.addEventListener('click',()=>{
+    if(selectedAmount<1){alert('Selecciona una cantidad de al menos $1.00.');return}
+    localStorage.setItem('refills_wallet_pending',selectedAmount.toFixed(2));
+    close();
+    alert('Solicitud de recarga creada por $'+selectedAmount.toFixed(2)+'. El saldo se acreditará cuando el pago sea confirmado.');
+  });
+  refresh();
 })();
 </script>
-
 </body>
 </html>
 <script id="refills-final-ui-fix">
