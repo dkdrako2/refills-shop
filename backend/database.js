@@ -57,13 +57,33 @@ async function initDatabase() {
 
       CREATE TABLE IF NOT EXISTS customers (
         id SERIAL PRIMARY KEY,
-        name VARCHAR(150),
-        email VARCHAR(255) UNIQUE,
+        name VARCHAR(150) NOT NULL,
+        email VARCHAR(255) UNIQUE NOT NULL,
         phone VARCHAR(50),
-        password_hash TEXT,
+        password_hash TEXT NOT NULL,
         active BOOLEAN DEFAULT TRUE,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+
+      -- ==========================================
+      -- SESIONES DE USUARIO
+      -- ==========================================
+
+      CREATE TABLE IF NOT EXISTS user_sessions (
+        id SERIAL PRIMARY KEY,
+
+        customer_id INTEGER NOT NULL
+          REFERENCES customers(id)
+          ON DELETE CASCADE,
+
+        session_token_hash TEXT NOT NULL UNIQUE,
+
+        expires_at TIMESTAMP NOT NULL,
+
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+        last_seen_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
 
       -- ==========================================
@@ -255,9 +275,16 @@ async function initDatabase() {
 
       CREATE INDEX IF NOT EXISTS idx_topups_status
         ON topups(status);
+
+      CREATE INDEX IF NOT EXISTS idx_user_sessions_customer
+        ON user_sessions(customer_id);
+
+      CREATE INDEX IF NOT EXISTS idx_user_sessions_expires
+        ON user_sessions(expires_at);
     `);
 
     console.log("Base de datos inicializada correctamente");
+
   } catch (error) {
     console.error(
       "Error inicializando la base de datos:",
