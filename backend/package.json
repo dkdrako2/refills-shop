@@ -1,7 +1,7 @@
 {
   "name": "refills-shop-backend",
   "version": "1.0.0",
-  "description": "Backend de REFILLS SHOP",
+  "private": true,
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
