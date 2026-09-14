@@ -1203,16 +1203,23 @@ header{
 
     <a href="https://wa.me/5350237996" class="floating-whatsapp" target="_blank">💬</a>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        const ADMIN_CODE = "ADMDAYRONYT";
-        const PHONE_NUMBER = "5350237996";
+        const SUPABASE_URL = "https://fzqjawrzbwhbhxiuedgr.supabase.co";
+        const SUPABASE_KEY = "sb_publishable_1alwRFAq0TJGzMGp8ukwwQ_hT9B2oRB";
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    </script>
 
-        let config = JSON.parse(localStorage.getItem('refills_config')) || {
+    <script>
+        const PHONE_NUMBER = "5350237996";
+        let adminSessionPassword = null;
+
+        let config = {
             creditRateSM: 315,
             smToCupRate: 3.3
         };
 
-        let gamesData = JSON.parse(localStorage.getItem('refills_games')) || [
+        let gamesData = [
             {
                 name: "Free Fire",
                 icon: "🔥",
@@ -1242,6 +1249,44 @@ header{
         let rawPlayerId = "";
 
         renderGames();
+        loadStoreData();
+
+        async function loadStoreData() {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('store_state')
+                    .select('data')
+                    .eq('id', 1)
+                    .single();
+
+                if (error) throw error;
+
+                if (data && data.data) {
+                    config = data.data.config || config;
+                    gamesData = Array.isArray(data.data.games) ? data.data.games : gamesData;
+                    renderGames();
+                }
+            } catch (error) {
+                console.error('No se pudieron cargar los datos de Supabase:', error);
+            }
+        }
+
+        async function checkAdminPassword(password) {
+            const { data, error } = await supabaseClient.rpc('check_admin_password', { p_password: password });
+            if (error) throw new Error(error.message || 'No se pudo comprobar la contraseña.');
+            return data === true;
+        }
+
+        async function syncStore() {
+            if (!adminSessionPassword) throw new Error('Sesión de administrador no válida.');
+
+            const { error } = await supabaseClient.rpc('update_store', {
+                p_password: adminSessionPassword,
+                p_data: { config, games: gamesData }
+            });
+
+            if (error) throw new Error(error.message || 'No se pudo guardar en Supabase.');
+        }
 
         function showView(viewId) {
             document.querySelectorAll('.view').forEach(view => view.classList.remove('active'));
@@ -1458,16 +1503,21 @@ Solicitud enviada desde la web REFILLS SHOP.`;
             if(tabId === 'tab-manage-offers') renderOffersManager();
         }
 
-        function promptAdminLogin() {
+        async function promptAdminLogin() {
             const code = prompt("Ingrese la contraseña de Administrador:");
-            if (code === ADMIN_CODE) {
+            if (code === null) return;
+
+            try {
+                const valid = await checkAdminPassword(code);
+                if (!valid) return alert("Contraseña incorrecta.");
+
+                adminSessionPassword = code;
                 document.getElementById('cfgCreditRate').value = config.creditRateSM;
                 document.getElementById('cfgSmToCupRate').value = config.smToCupRate;
-
                 populateGameSelects();
                 document.getElementById('adminModal').classList.add('active');
-            } else if (code !== null) {
-                alert("Contraseña incorrecta.");
+            } catch (error) {
+                alert(error.message);
             }
         }
 
@@ -1523,7 +1573,7 @@ Solicitud enviada desde la web REFILLS SHOP.`;
             });
         }
 
-        function updateGameImage() {
+        async function updateGameImage() {
             const gameIndex = document.getElementById('selectGameForManage').value;
             if (gameIndex === "") return;
 
@@ -1532,41 +1582,60 @@ Solicitud enviada desde la web REFILLS SHOP.`;
 
             if (fileInput.files && fileInput.files[0]) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
+                reader.onload = async function(e) {
                     gamesData[gameIndex].image = e.target.result;
-                    localStorage.setItem('refills_games', JSON.stringify(gamesData));
-                    renderGames();
-                    alert("🖼️ Imagen actualizada con éxito.");
+                    try {
+                        await syncStore();
+                        renderGames();
+                        alert("🖼️ Imagen actualizada y sincronizada para todos.");
+                    } catch (error) {
+                        alert(error.message);
+                    }
                 };
                 reader.readAsDataURL(fileInput.files[0]);
             } else if (urlInput) {
                 gamesData[gameIndex].image = urlInput;
-                localStorage.setItem('refills_games', JSON.stringify(gamesData));
-                renderGames();
-                alert("🖼️ Enlace de imagen actualizado con éxito.");
+                try {
+                    await syncStore();
+                    renderGames();
+                    alert("🖼️ Enlace de imagen actualizado y sincronizado.");
+                } catch (error) {
+                    alert(error.message);
+                }
             } else {
                 alert("Selecciona una foto o escribe una URL.");
             }
         }
 
-        function deleteOffer(gameIdx, offerIdx) {
-            gamesData[gameIdx].offers.splice(offerIdx, 1);
-            localStorage.setItem('refills_games', JSON.stringify(gamesData));
-            renderOffersManager();
-            if (selectedGameObj) renderOffers();
+        async function deleteOffer(gameIdx, offerIdx) {
+            const removed = gamesData[gameIdx].offers.splice(offerIdx, 1)[0];
+            try {
+                await syncStore();
+                renderOffersManager();
+                if (selectedGameObj) renderOffers();
+                alert("🗑️ Oferta eliminada y sincronizada para todos.");
+            } catch (error) {
+                gamesData[gameIdx].offers.splice(offerIdx, 0, removed);
+                alert(error.message);
+            }
         }
 
-        function deleteCurrentGame() {
+        async function deleteCurrentGame() {
             const gameIndex = document.getElementById('selectGameForManage').value;
             if (gameIndex === "") return;
 
             const gameName = gamesData[gameIndex].name;
             if (confirm(`¿Estás seguro de eliminar "${gameName}" y todas sus ofertas?`)) {
-                gamesData.splice(gameIndex, 1);
-                localStorage.setItem('refills_games', JSON.stringify(gamesData));
-                populateGameSelects();
-                renderGames();
-                alert(`Juego "${gameName}" eliminado.`);
+                const removedGame = gamesData.splice(gameIndex, 1)[0];
+                try {
+                    await syncStore();
+                    populateGameSelects();
+                    renderGames();
+                    alert(`Juego "${gameName}" eliminado y sincronizado para todos.`);
+                } catch (error) {
+                    gamesData.splice(gameIndex, 0, removedGame);
+                    alert(error.message);
+                }
             }
         }
 
@@ -1590,9 +1659,16 @@ Solicitud enviada desde la web REFILLS SHOP.`;
             }
         }
 
-        function saveNewGameData(name, image, icon, badge) {
+        async function saveNewGameData(name, image, icon, badge) {
             gamesData.push({ name, image, icon, badge, offers: [] });
-            localStorage.setItem('refills_games', JSON.stringify(gamesData));
+
+            try {
+                await syncStore();
+            } catch (error) {
+                gamesData.pop();
+                alert(error.message);
+                return;
+            }
 
             document.getElementById('newGameName').value = "";
             document.getElementById('newGameImg').value = "";
@@ -1605,7 +1681,7 @@ Solicitud enviada desde la web REFILLS SHOP.`;
             alert(`✅ ¡Juego "${name}" agregado correctamente!`);
         }
 
-        function addNewOffer() {
+        async function addNewOffer() {
             const gameIndex = document.getElementById('selectGameForOffer').value;
             const title = document.getElementById('newOfferTitle').value.trim();
             const tag = document.getElementById('newOfferTag').value;
@@ -1624,7 +1700,13 @@ Solicitud enviada desde la web REFILLS SHOP.`;
                 icon: "💎"
             });
 
-            localStorage.setItem('refills_games', JSON.stringify(gamesData));
+            try {
+                await syncStore();
+            } catch (error) {
+                gamesData[gameIndex].offers.pop();
+                alert(error.message);
+                return;
+            }
 
             document.getElementById('newOfferTitle').value = "";
             document.getElementById('newOfferCredits').value = "";
@@ -1636,9 +1718,10 @@ Solicitud enviada desde la web REFILLS SHOP.`;
 
         function closeAdminModal() {
             document.getElementById('adminModal').classList.remove('active');
+            adminSessionPassword = null;
         }
 
-        function saveAdminSettings() {
+        async function saveAdminSettings() {
             const creditRate = parseFloat(document.getElementById('cfgCreditRate').value);
             const smToCup = parseFloat(document.getElementById('cfgSmToCupRate').value);
 
@@ -1646,16 +1729,20 @@ Solicitud enviada desde la web REFILLS SHOP.`;
                 return alert("Ingresa datos válidos.");
             }
 
+            const oldConfig = { ...config };
             config.creditRateSM = creditRate;
             config.smToCupRate = smToCup;
 
-            localStorage.setItem('refills_config', JSON.stringify(config));
-
-            alert("💾 Tasas globales guardadas.");
-            closeAdminModal();
-
-            renderGames();
-            if (selectedGameObj) renderOffers();
+            try {
+                await syncStore();
+                alert("💾 Tasas globales guardadas para todos los clientes.");
+                closeAdminModal();
+                renderGames();
+                if (selectedGameObj) renderOffers();
+            } catch (error) {
+                config = oldConfig;
+                alert(error.message);
+            }
         }
     </script>
 </body>
