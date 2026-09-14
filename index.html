@@ -494,21 +494,20 @@
         }
 
         .btn-secondary {
-            width: 100%;
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             color: var(--text-main);
-            padding: 12px;
+            padding: 10px 14px;
             border-radius: 12px;
             font-size: 0.85rem;
             font-weight: 600;
             cursor: pointer;
-            margin-top: 8px;
             transition: all 0.2s;
         }
 
         .btn-secondary:hover {
             border-color: var(--accent-cyan);
+            background: rgba(0, 242, 254, 0.15);
         }
 
         .btn-danger {
@@ -613,10 +612,11 @@
             align-items: center;
             justify-content: space-between;
             background: var(--bg-input);
-            padding: 12px;
+            padding: 10px 12px;
             border-radius: 10px;
             margin-bottom: 8px;
             border: 1px solid var(--border-color);
+            gap: 8px;
         }
 
         .floating-whatsapp {
@@ -639,330 +639,7 @@
         }
 
         .floating-whatsapp:hover { transform: scale(1.08); }
-    
-
-/* =========================================================
-   REFILLS SHOP — REDISEÑO VISUAL
-   Solo estilos: no modifica HTML ni JavaScript funcional.
-   ========================================================= */
-:root{
-  --bg-dark:#07090f;
-  --bg-card:rgba(17,20,31,.88);
-  --bg-card-hover:rgba(25,29,43,.96);
-  --bg-input:#0c101a;
-  --accent-blue:#5b7cff;
-  --accent-cyan:#55e6ff;
-  --accent-purple:#9b6cff;
-  --accent-glow:rgba(91,124,255,.28);
-  --border-color:rgba(255,255,255,.10);
-  --border-hover:rgba(85,230,255,.65);
-  --text-main:#f7f8fc;
-  --text-muted:#9aa3b8;
-  --success:#35d07f;
-  --danger:#ff5d6c;
-  --font-title:'Orbitron',sans-serif;
-  --font-display:'Rajdhani',sans-serif;
-  --font-body:'Inter',sans-serif;
-}
-
-html{scroll-behavior:smooth}
-
-body{
-  background:
-    radial-gradient(circle at 50% -15%,rgba(91,124,255,.20),transparent 38%),
-    radial-gradient(circle at 100% 40%,rgba(155,108,255,.10),transparent 30%),
-    linear-gradient(180deg,#07090f 0%,#0a0d14 55%,#07090f 100%);
-  background-attachment:fixed;
-  padding-bottom:100px;
-}
-
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  opacity:.025;
-  background-image:linear-gradient(rgba(255,255,255,.8) 1px,transparent 1px),
-                   linear-gradient(90deg,rgba(255,255,255,.8) 1px,transparent 1px);
-  background-size:32px 32px;
-  mask-image:linear-gradient(to bottom,black,transparent 85%);
-}
-
-.container{
-  max-width:560px;
-  padding:24px 16px;
-}
-
-header{
-  margin-bottom:30px;
-  padding-top:12px;
-}
-
-.brand-badge{
-  background:rgba(91,124,255,.10);
-  border:1px solid rgba(91,124,255,.35);
-  color:#9fb2ff;
-  padding:6px 14px;
-  border-radius:999px;
-  font-size:.66rem;
-  letter-spacing:1.8px;
-  box-shadow:none;
-}
-
-.logo{
-  font-size:2.35rem;
-  letter-spacing:2.5px;
-  text-shadow:0 8px 30px rgba(91,124,255,.28);
-}
-
-.logo span{
-  background:linear-gradient(135deg,#55e6ff,#7d8cff);
-  -webkit-background-clip:text;
-  background-clip:text;
-}
-
-.subtitle{
-  color:#8993a9;
-  font-size:.82rem;
-}
-
-.status-pill{
-  background:rgba(53,208,127,.08);
-  border:1px solid rgba(53,208,127,.22);
-  color:#63df9b;
-  border-radius:999px;
-  padding:6px 12px;
-}
-
-.group-link-badge{
-  background:rgba(255,255,255,.035);
-  border:1px solid rgba(255,255,255,.10);
-  color:#b9c3d8;
-  border-radius:999px;
-  padding:7px 14px;
-}
-.group-link-badge:hover{
-  background:rgba(85,230,255,.08);
-  border-color:rgba(85,230,255,.35);
-  box-shadow:none;
-  color:#55e6ff;
-}
-
-.search-box{
-  margin-bottom:24px;
-}
-.search-input{
-  padding:15px 18px;
-  background:rgba(13,17,27,.90);
-  border:1px solid rgba(255,255,255,.10);
-  border-radius:15px;
-  box-shadow:0 12px 35px rgba(0,0,0,.18);
-}
-.search-input:focus{
-  border-color:rgba(85,230,255,.55);
-  box-shadow:0 0 0 4px rgba(85,230,255,.07);
-}
-
-.section-header{margin-bottom:18px}
-.section-title{
-  font-size:1.05rem;
-  letter-spacing:.7px;
-}
-.section-desc{
-  color:#858fa5;
-  font-size:.80rem;
-}
-
-.grid-cards{gap:12px}
-
-.card{
-  background:linear-gradient(145deg,rgba(20,24,36,.92),rgba(12,15,24,.92));
-  border:1px solid rgba(255,255,255,.085);
-  border-radius:18px;
-  box-shadow:0 10px 28px rgba(0,0,0,.16);
-}
-.card:hover{
-  border-color:rgba(85,230,255,.38);
-  transform:translateY(-3px);
-  box-shadow:0 16px 36px rgba(0,0,0,.28),0 0 22px rgba(85,230,255,.07);
-  background:linear-gradient(145deg,rgba(25,30,44,.97),rgba(13,17,27,.97));
-}
-
-.card-game{
-  padding:13px;
-  gap:14px;
-}
-.game-img-wrapper{
-  width:64px;
-  height:64px;
-  border-radius:16px;
-  background:linear-gradient(145deg,rgba(91,124,255,.15),rgba(85,230,255,.05));
-  border:1px solid rgba(255,255,255,.10);
-}
-.game-title{
-  font-size:1.08rem;
-}
-.game-badge{
-  color:#55dff5;
-  opacity:.9;
-}
-
-.card-offer{
-  padding:16px;
-  gap:14px;
-}
-.offer-name{
-  font-size:1.42rem;
-}
-.tag-badge{
-  background:rgba(255,179,71,.09);
-  border:1px solid rgba(255,179,71,.28);
-  color:#ffbd63;
-  border-radius:999px;
-  padding:5px 10px;
-}
-.offer-bottom{
-  background:rgba(4,6,11,.58);
-  border:1px solid rgba(255,255,255,.065);
-  border-radius:14px;
-  padding:11px;
-}
-.price-label{color:#7f899d}
-.price-value{
-  color:#63e4f7;
-  font-size:1.34rem;
-}
-
-.btn-back{
-  background:rgba(255,255,255,.045);
-  border:1px solid rgba(255,255,255,.10);
-  border-radius:12px;
-  padding:10px 15px;
-}
-.btn-back:hover{
-  background:rgba(85,230,255,.07);
-  border-color:rgba(85,230,255,.35);
-}
-
-.summary-card{
-  background:linear-gradient(145deg,rgba(91,124,255,.16),rgba(85,230,255,.055));
-  border:1px solid rgba(85,230,255,.25);
-  border-radius:18px;
-  box-shadow:0 15px 40px rgba(0,0,0,.20);
-}
-.summary-price{color:#63e4f7}
-
-.cyber-form-container{
-  background:rgba(13,17,27,.94);
-  border:1px solid rgba(255,255,255,.09);
-  border-radius:20px;
-  box-shadow:0 16px 40px rgba(0,0,0,.25);
-}
-.form-label{color:#71ddec}
-.form-input,.form-textarea,.form-select{
-  background:#0a0e17;
-  border:1px solid rgba(255,255,255,.09);
-  border-radius:13px;
-}
-.form-input:focus,.form-textarea:focus,.form-select:focus{
-  border-color:rgba(85,230,255,.50);
-  background:#0c111c;
-  box-shadow:0 0 0 4px rgba(85,230,255,.055);
-}
-
-.payment-item{
-  background:#0a0e17;
-  border:1px solid rgba(255,255,255,.09);
-  border-radius:13px;
-}
-.payment-item:hover{
-  border-color:rgba(85,230,255,.35);
-  background:rgba(85,230,255,.045);
-}
-.payment-item.selected{
-  border-color:rgba(85,230,255,.55);
-  background:linear-gradient(145deg,rgba(91,124,255,.18),rgba(85,230,255,.07));
-  box-shadow:0 8px 22px rgba(0,0,0,.18);
-  color:#67e5f6;
-}
-
-.address-box{
-  background:rgba(255,179,71,.07);
-  border:1px solid rgba(255,179,71,.24);
-  color:#ffbd63;
-}
-
-.btn-submit{
-  background:linear-gradient(135deg,#4f7cff,#6270ff);
-  border-radius:14px;
-  box-shadow:0 10px 25px rgba(79,124,255,.22);
-}
-.btn-submit:hover{
-  box-shadow:0 14px 30px rgba(79,124,255,.32);
-}
-
-.btn-secondary{
-  background:rgba(255,255,255,.045);
-  border:1px solid rgba(255,255,255,.10);
-  border-radius:12px;
-}
-.btn-secondary:hover{
-  border-color:rgba(85,230,255,.35);
-  background:rgba(85,230,255,.045);
-}
-
-.admin-trigger{margin-top:38px}
-.btn-admin-link{
-  border:1px dashed rgba(255,255,255,.14);
-  color:#707b91;
-}
-
-.modal-overlay{
-  background:rgba(2,4,8,.88);
-}
-.modal-box{
-  background:#0d111b;
-  border:1px solid rgba(85,230,255,.25);
-  border-radius:20px;
-  box-shadow:0 25px 70px rgba(0,0,0,.55);
-}
-.modal-title{color:#67e5f6}
-.admin-nav{
-  background:#080b12;
-  border:1px solid rgba(255,255,255,.06);
-}
-.tab-btn.active{
-  background:linear-gradient(135deg,#4f7cff,#6570ff);
-  box-shadow:none;
-}
-.offer-manage-item{
-  background:#0a0e17;
-  border:1px solid rgba(255,255,255,.08);
-}
-
-.floating-whatsapp{
-  width:56px;
-  height:56px;
-  bottom:20px;
-  right:18px;
-  background:#25d366;
-  box-shadow:0 10px 28px rgba(37,211,102,.25);
-}
-
-@media (min-width:700px){
-  .container{padding-top:38px}
-  .grid-cards{gap:14px}
-  .card-game{padding:15px}
-  .card-offer{padding:18px}
-}
-
-@media (max-width:380px){
-  .container{padding-left:12px;padding-right:12px}
-  .logo{font-size:2rem}
-  .offer-name{font-size:1.25rem}
-}
-
-</style>
+    </style>
 </head>
 <body>
 
@@ -1078,7 +755,7 @@ header{
             </div>
         </div>
 
-        <!-- VISTA 4: ÉXITO CON COPIA DE ID Y ENLACE AL GRUPO -->
+        <!-- VISTA 4: ÉXITO -->
         <div id="view-success" class="view">
             <div style="text-align:center; padding:20px;">
                 <div style="font-size:3.5rem; margin-bottom:10px;">✅</div>
@@ -1178,26 +855,32 @@ header{
                 <button class="btn-secondary" onclick="addNewOffer()">➕ Agregar Oferta</button>
             </div>
 
-            <!-- TAB 4: GESTOR -->
+            <!-- TAB 4: GESTOR DE OFERTAS POR JUEGO -->
             <div id="tab-manage-offers" class="admin-panel-section">
                 <div class="form-group">
-                    <label class="form-label">Filtrar por Juego</label>
+                    <label class="form-label">🎯 Seleccionar Juego para Gestionar</label>
                     <select id="selectGameForManage" class="form-select" onchange="renderOffersManager()"></select>
                 </div>
 
                 <div class="form-group" style="background: rgba(0,0,0,0.3); padding: 10px; border-radius:10px;">
-                    <label class="form-label">Cambiar Imagen:</label>
+                    <label class="form-label">Cambiar Imagen del Juego:</label>
                     <input type="file" id="editGameFile" class="form-input" accept="image/*" style="padding: 6px; margin-bottom: 6px;">
                     <input type="url" id="editGameImgUrl" class="form-input" placeholder="O pega un enlace web aquí...">
                     <button class="btn-secondary" onclick="updateGameImage()" style="margin-top:6px;">🖼️ Actualizar Imagen</button>
                 </div>
 
+                <div class="form-header" style="margin: 15px 0 8px 0; display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-size: 0.85rem; font-weight: 700; color: var(--accent-cyan);">💎 Paquetes y Ofertas Activas (Usa ⬆️ ⬇️ para ordenar)</span>
+                </div>
+
+                <!-- Contenedor dinámico de las ofertas del juego seleccionado -->
                 <div id="offersManageList"></div>
+
                 <hr style="border-color: var(--border-color); margin: 15px 0;">
                 <button class="btn-danger" style="width:100%;" onclick="deleteCurrentGame()">🗑️ Eliminar Juego Completo</button>
             </div>
 
-            <button class="btn-secondary" onclick="closeAdminModal()" style="margin-top:15px;">Cerrar Ventana</button>
+            <button class="btn-secondary" onclick="closeAdminModal()" style="margin-top:15px; width:100%;">Cerrar Ventana</button>
         </div>
     </div>
 
@@ -1466,7 +1149,7 @@ Solicitud enviada desde la web REFILLS SHOP.`;
         function copyPlayerIdOnly() {
             if (navigator.clipboard && rawPlayerId) {
                 navigator.clipboard.writeText(rawPlayerId).then(() => {
-                    alert(`📋 ¡ID "${rawPlayerId}" copiado al portapapeles!`);
+                    alert(`📋 ID "${rawPlayerId}" copiado al portapapeles!`);
                 });
             } else {
                 alert("No hay ID disponible para copiar.");
@@ -1476,7 +1159,7 @@ Solicitud enviada desde la web REFILLS SHOP.`;
         function copyOrderDetails() {
             if (navigator.clipboard && currentMessageText) {
                 navigator.clipboard.writeText(currentMessageText).then(() => {
-                    alert("📑 ¡Ficha completa del pedido copiada al portapapeles!");
+                    alert("📑 Ficha completa del pedido copiada al portapapeles!");
                 });
             }
         }
@@ -1554,8 +1237,8 @@ Solicitud enviada desde la web REFILLS SHOP.`;
             document.getElementById('editGameFile').value = "";
 
             const offers = gamesData[gameIndex].offers;
-            if(offers.length === 0) {
-                container.innerHTML = `<p style="font-size:0.8rem; color:var(--text-muted); padding: 10px 0;">Este juego no posee ofertas.</p>`;
+            if(!offers || offers.length === 0) {
+                container.innerHTML = `<p style="font-size:0.8rem; color:var(--text-muted); padding: 10px 0; text-align:center;">Este juego no posee ofertas configuradas.</p>`;
                 return;
             }
 
@@ -1563,14 +1246,38 @@ Solicitud enviada desde la web REFILLS SHOP.`;
                 const div = document.createElement('div');
                 div.className = "offer-manage-item";
                 div.innerHTML = `
-                    <div>
-                        <strong>${offer.title}</strong><br>
-                        <small style="color:var(--text-muted);">${offer.creditsCost} Créditos | +${offer.profitSM || 0} SM ganancia</small>
+                    <div style="flex: 1; overflow: hidden;">
+                        <strong style="font-size: 0.9rem;">${offer.icon || '💎'} ${offer.title}</strong><br>
+                        <small style="color:var(--text-muted); font-size: 0.72rem;">Costo: ${offer.creditsCost} Cr | Ganancia: +${offer.profitSM || 0} SM</small>
                     </div>
-                    <button class="btn-danger" onclick="deleteOffer(${gameIndex}, ${offerIndex})">🗑️ Eliminar</button>
+                    <div style="display: flex; gap: 4px; align-items: center; flex-shrink: 0;">
+                        <button class="btn-secondary" style="padding: 6px 9px; font-size: 0.75rem;" onclick="moveOffer(${gameIndex}, ${offerIndex}, -1)" ${offerIndex === 0 ? 'disabled style="opacity:0.3; cursor:not-allowed;"' : ''}>⬆️</button>
+                        <button class="btn-secondary" style="padding: 6px 9px; font-size: 0.75rem;" onclick="moveOffer(${gameIndex}, ${offerIndex}, 1)" ${offerIndex === offers.length - 1 ? 'disabled style="opacity:0.3; cursor:not-allowed;"' : ''}>⬇️</button>
+                        <button class="btn-danger" style="padding: 6px 10px;" onclick="deleteOffer(${gameIndex}, ${offerIndex})">🗑️</button>
+                    </div>
                 `;
                 container.appendChild(div);
             });
+        }
+
+        async function moveOffer(gameIdx, offerIdx, direction) {
+            const newIdx = offerIdx + direction;
+            const offers = gamesData[gameIdx].offers;
+            if (newIdx < 0 || newIdx >= offers.length) return;
+
+            const temp = offers[offerIdx];
+            offers[offerIdx] = offers[newIdx];
+            offers[newIdx] = temp;
+
+            try {
+                await syncStore();
+                renderOffersManager();
+                if (selectedGameObj) renderOffers();
+            } catch (error) {
+                offers[newIdx] = offers[offerIdx];
+                offers[offerIdx] = temp;
+                alert(error.message);
+            }
         }
 
         async function updateGameImage() {
