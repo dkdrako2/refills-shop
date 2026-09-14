@@ -304,7 +304,7 @@
         .offer-title-group {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .offer-name {
@@ -706,13 +706,6 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label" for="playerNick"><span>🏷️</span> Nick del Jugador</label>
-                        <div class="cyber-input-wrapper">
-                            <input type="text" id="playerNick" class="form-input" placeholder="Ej: DRAKO">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
                         <label class="form-label" for="clientWhatsapp"><span>📱</span> Tu WhatsApp *</label>
                         <div class="cyber-input-wrapper">
                             <input type="tel" id="clientWhatsapp" class="form-input" placeholder="Ej: 5351234567" required>
@@ -815,10 +808,6 @@
                     <input type="url" id="newGameImg" class="form-input" placeholder="https://ejemplo.com/imagen.jpg">
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Emoji Alternativo</label>
-                    <input type="text" id="newGameIcon" class="form-input" placeholder="Ej: 🤖">
-                </div>
-                <div class="form-group">
                     <label class="form-label">Subtítulo / Etiqueta</label>
                     <input type="text" id="newGameBadge" class="form-input" placeholder="Ej: ⚡ RECARGA ID">
                 </div>
@@ -873,7 +862,6 @@
                     <span style="font-size: 0.85rem; font-weight: 700; color: var(--accent-cyan);">💎 Paquetes y Ofertas Activas (Usa ⬆️ ⬇️ para ordenar)</span>
                 </div>
 
-                <!-- Contenedor dinámico de las ofertas del juego seleccionado -->
                 <div id="offersManageList"></div>
 
                 <hr style="border-color: var(--border-color); margin: 15px 0;">
@@ -905,21 +893,19 @@
         let gamesData = [
             {
                 name: "Free Fire",
-                icon: "🔥",
                 image: "https://dl.dir.freefiremobile.com/freefire/store/1689239846_icon.png",
                 badge: "⚡ ENTREGAS AL INSTANTE",
                 offers: [
-                    { title: "110 Diamantes", creditsCost: 0.79, profitSM: 30, icon: "💎", tag: "ENTREGA ID" },
-                    { title: "220 Diamantes", creditsCost: 1.58, profitSM: 50, icon: "💎", tag: "POPULAR" }
+                    { title: "110 Diamantes", creditsCost: 0.79, profitSM: 30, tag: "ENTREGA ID" },
+                    { title: "220 Diamantes", creditsCost: 1.58, profitSM: 50, tag: "POPULAR" }
                 ]
             },
             {
                 name: "Blood Strike",
-                icon: "🔫",
                 image: "",
                 badge: "⚡ RECARGA POR ID",
                 offers: [
-                    { title: "100 Gold", creditsCost: 1.05, profitSM: 25, icon: "🪙", tag: "ENTREGA ID" }
+                    { title: "100 Gold", creditsCost: 1.05, profitSM: 25, tag: "ENTREGA ID" }
                 ]
             }
         ];
@@ -999,8 +985,8 @@
                 card.onclick = () => selectGame(game);
 
                 const mediaHTML = game.image 
-                    ? `<img src="${game.image}" alt="${game.name}" onerror="this.onerror=null; this.parentNode.innerHTML='${game.icon || '🎮'}';">`
-                    : (game.icon || '🎮');
+                    ? `<img src="${game.image}" alt="${game.name}" onerror="this.onerror=null; this.parentNode.innerHTML='🎮';">`
+                    : '🎮';
 
                 card.innerHTML = `
                     <div class="game-img-wrapper">${mediaHTML}</div>
@@ -1044,10 +1030,10 @@
                 const card = document.createElement('div');
                 card.className = 'card card-offer';
                 card.onclick = () => selectOffer(offerCalculated);
+
                 card.innerHTML = `
                     <div class="offer-top">
                         <div class="offer-title-group">
-                            <span style="font-size:1.4rem;">${offer.icon || '💎'}</span>
                             <span class="offer-name">${offer.title}</span>
                         </div>
                         <span class="tag-badge">${offer.tag || '⚡ ENTREGA ID'}</span>
@@ -1109,7 +1095,6 @@
             event.preventDefault();
 
             rawPlayerId = document.getElementById('playerId').value.trim();
-            const playerNick = document.getElementById('playerNick').value.trim() || 'No especificado';
             const clientWhatsapp = document.getElementById('clientWhatsapp').value.trim();
             const orderNote = document.getElementById('orderNote').value.trim() || 'Ninguna';
 
@@ -1131,8 +1116,7 @@
 💰 *Monto Total:* ${priceText}
 📌 *User ID de ${selectedGameObj.name}:* \`${rawPlayerId}\`
 💳 *Método de Pago:* ${selectedPaymentMethod}
-${addressSection}🏷️ *Nick:* ${playerNick}
-📱 *WhatsApp cliente:* ${clientWhatsapp}
+${addressSection}📱 *WhatsApp cliente:* ${clientWhatsapp}
 📝 *Nota extra:* ${orderNote}
 ───────────────────────
 Solicitud enviada desde la web REFILLS SHOP.`;
@@ -1247,7 +1231,7 @@ Solicitud enviada desde la web REFILLS SHOP.`;
                 div.className = "offer-manage-item";
                 div.innerHTML = `
                     <div style="flex: 1; overflow: hidden;">
-                        <strong style="font-size: 0.9rem;">${offer.icon || '💎'} ${offer.title}</strong><br>
+                        <strong style="font-size: 0.9rem;">${offer.title}</strong><br>
                         <small style="color:var(--text-muted); font-size: 0.72rem;">Costo: ${offer.creditsCost} Cr | Ganancia: +${offer.profitSM || 0} SM</small>
                     </div>
                     <div style="display: flex; gap: 4px; align-items: center; flex-shrink: 0;">
@@ -1348,7 +1332,6 @@ Solicitud enviada desde la web REFILLS SHOP.`;
 
         function addNewGame() {
             const name = document.getElementById('newGameName').value.trim();
-            const icon = document.getElementById('newGameIcon').value.trim() || '🎮';
             const badge = document.getElementById('newGameBadge').value.trim() || '⚡ RECARGA RÁPIDA';
             const fileInput = document.getElementById('newGameFile');
             const urlInput = document.getElementById('newGameImg').value.trim();
@@ -1358,16 +1341,16 @@ Solicitud enviada desde la web REFILLS SHOP.`;
             if (fileInput.files && fileInput.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    saveNewGameData(name, e.target.result, icon, badge);
+                    saveNewGameData(name, e.target.result, badge);
                 };
                 reader.readAsDataURL(fileInput.files[0]);
             } else {
-                saveNewGameData(name, urlInput, icon, badge);
+                saveNewGameData(name, urlInput, badge);
             }
         }
 
-        async function saveNewGameData(name, image, icon, badge) {
-            gamesData.push({ name, image, icon, badge, offers: [] });
+        async function saveNewGameData(name, image, badge) {
+            gamesData.push({ name, image, badge, offers: [] });
 
             try {
                 await syncStore();
@@ -1380,7 +1363,6 @@ Solicitud enviada desde la web REFILLS SHOP.`;
             document.getElementById('newGameName').value = "";
             document.getElementById('newGameImg').value = "";
             document.getElementById('newGameFile').value = "";
-            document.getElementById('newGameIcon').value = "";
             document.getElementById('newGameBadge').value = "";
 
             populateGameSelects();
@@ -1403,8 +1385,7 @@ Solicitud enviada desde la web REFILLS SHOP.`;
                 title: title,
                 tag: tag,
                 creditsCost: creditsCost,
-                profitSM: profitSM,
-                icon: "💎"
+                profitSM: profitSM
             });
 
             try {
