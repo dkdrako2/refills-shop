@@ -541,113 +541,50 @@
         }
 
         .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(8px);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
+            display:none; position:fixed; inset:0; background:rgba(2,6,18,.92); backdrop-filter:blur(10px);
+            z-index:1000; align-items:center; justify-content:center; padding:10px;
         }
-
-        .modal-overlay.active { display: flex; }
-
-        .modal-box {
-            background: #080f24;
-            border: 1px solid var(--accent-cyan);
-            border-radius: 20px;
-            width: 100%;
-            max-width: 480px;
-            padding: 20px;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 0 30px rgba(0, 242, 254, 0.2);
+        .modal-overlay.active{display:flex}
+        .modal-box{
+            background:#071126; border:1px solid rgba(0,242,254,.35); border-radius:22px; width:100%; max-width:980px;
+            height:min(92vh,760px); overflow:hidden; padding:0; box-shadow:0 20px 60px rgba(0,0,0,.55); display:flex; flex-direction:column;
         }
-
-        .modal-title {
-            font-family: var(--font-title);
-            font-size: 1.2rem;
-            margin-bottom: 16px;
-            color: var(--accent-cyan);
-            text-align: center;
-        }
-
-        .admin-nav {
-            display: flex;
-            gap: 6px;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 6px;
-            border-radius: 12px;
-            margin-bottom: 18px;
-            overflow-x: auto;
-        }
-
-        .tab-btn {
-            flex: 1;
-            padding: 10px 8px;
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            font-size: 0.75rem;
-            font-weight: 700;
-            border-radius: 8px;
-            cursor: pointer;
-            white-space: nowrap;
-            transition: all 0.2s;
-        }
-
-        .tab-btn.active {
-            background: var(--accent-blue);
-            color: #fff;
-            box-shadow: 0 2px 10px rgba(0, 102, 255, 0.4);
-        }
-
-        .admin-panel-section { display: none; }
-        .admin-panel-section.active { display: block; }
-
-        .offer-manage-item {
-            background: var(--bg-input);
-            padding: 12px;
-            border-radius: 12px;
-            margin-bottom: 10px;
-            border: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        /* ===== PEDIDOS ADMINISTRATIVOS ===== */
-        .orders-toolbar {
-            display:flex; gap:8px; align-items:center; justify-content:space-between;
-            margin-bottom:12px; flex-wrap:wrap;
-        }
-        .orders-count {
-            color:var(--text-muted); font-size:.75rem; font-weight:700;
-        }
-        .order-admin-card {
-            background:linear-gradient(145deg, rgba(8,15,36,.98), rgba(10,20,45,.88));
-            border:1px solid var(--border-color); border-radius:16px; padding:13px;
-            margin-bottom:10px; box-shadow:0 6px 20px rgba(0,0,0,.25);
-        }
-        .order-admin-head {
-            display:flex; justify-content:space-between; align-items:flex-start; gap:8px; margin-bottom:10px;
-        }
-        .order-code { color:var(--accent-cyan); font-family:var(--font-title); font-size:.78rem; font-weight:800; }
-        .order-date { color:var(--text-muted); font-size:.65rem; text-align:right; }
-        .order-grid { display:grid; grid-template-columns:1fr 1fr; gap:7px; }
-        .order-field { background:rgba(0,0,0,.22); border:1px solid rgba(255,255,255,.05); border-radius:10px; padding:8px; }
-        .order-field.full { grid-column:1/-1; }
-        .order-field-label { display:block; color:var(--text-muted); font-size:.6rem; text-transform:uppercase; font-weight:800; margin-bottom:3px; }
-        .order-field-value { display:block; color:#fff; font-size:.82rem; font-weight:700; word-break:break-word; }
-        .order-id-value { color:var(--accent-cyan); font-family:var(--font-display); font-size:1rem; }
-        .order-actions { display:flex; gap:7px; flex-wrap:wrap; margin-top:10px; }
-        .order-actions button { flex:1; min-width:110px; }
-        .order-proof { margin-top:10px; border-radius:12px; overflow:hidden; border:1px solid var(--border-color); background:#000; }
-        .order-proof img { display:block; width:100%; max-height:280px; object-fit:contain; cursor:pointer; }
-        .status-select { width:100%; padding:8px 10px; border-radius:10px; background:var(--bg-input); color:#fff; border:1px solid var(--border-color); }
-        @media (max-width:420px) { .order-grid { grid-template-columns:1fr; } .order-field.full { grid-column:auto; } }
+        .admin-shell{display:flex; min-height:0; flex:1;}
+        .admin-sidebar{width:220px; flex-shrink:0; background:linear-gradient(180deg,#081633,#050b1d); border-right:1px solid rgba(255,255,255,.07); padding:18px 12px; display:flex; flex-direction:column; gap:8px;}
+        .admin-brand{padding:4px 10px 16px; border-bottom:1px solid rgba(255,255,255,.07); margin-bottom:4px;}
+        .admin-brand b{font-family:var(--font-title); color:#fff; font-size:1.05rem;}
+        .admin-brand span{display:block; color:var(--accent-cyan); font-size:.68rem; margin-top:4px; font-weight:700;}
+        .admin-nav{display:flex; flex-direction:column; gap:6px; background:transparent; padding:0; margin:0; overflow:visible;}
+        .tab-btn{width:100%; padding:11px 12px; background:transparent; border:1px solid transparent; color:var(--text-muted); font-size:.78rem; font-weight:800; border-radius:11px; cursor:pointer; text-align:left; transition:.2s;}
+        .tab-btn:hover{background:rgba(255,255,255,.04); color:#fff}
+        .tab-btn.active{background:linear-gradient(90deg,rgba(0,102,255,.25),rgba(0,242,254,.08)); border-color:rgba(0,242,254,.22); color:#fff; box-shadow:none;}
+        .admin-close{margin-top:auto; width:100%;}
+        .admin-content{flex:1; min-width:0; overflow-y:auto; padding:22px;}
+        .admin-topbar{display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:18px;}
+        .admin-topbar h2{margin:0; font-family:var(--font-title); font-size:1.35rem; color:#fff;}
+        .admin-topbar p{margin:4px 0 0; color:var(--text-muted); font-size:.72rem;}
+        .admin-panel-section{display:none; animation:adminFade .18s ease;}
+        .admin-panel-section.active{display:block}
+        @keyframes adminFade{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}
+        .admin-dashboard{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:18px;}
+        .admin-stat{background:linear-gradient(145deg,rgba(11,28,61,.95),rgba(7,14,33,.95)); border:1px solid rgba(255,255,255,.07); border-radius:16px; padding:14px; cursor:pointer;}
+        .admin-stat small{display:block;color:var(--text-muted);font-size:.66rem;font-weight:800;text-transform:uppercase}
+        .admin-stat strong{display:block;color:#fff;font-family:var(--font-display);font-size:1.45rem;margin-top:5px}
+        .admin-card{background:rgba(8,17,38,.8); border:1px solid rgba(255,255,255,.07); border-radius:16px; padding:16px; margin-bottom:12px;}
+        .admin-card-title{font-weight:900;color:#fff;margin-bottom:12px;font-size:.92rem}
+        .admin-card-sub{font-size:.7rem;color:var(--text-muted);margin:-7px 0 12px}
+        .admin-actions{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+        .admin-actions button{min-height:45px}
+        .offer-manage-item{background:var(--bg-input);padding:12px;border-radius:12px;margin-bottom:10px;border:1px solid var(--border-color);display:flex;flex-direction:column;gap:8px}
+        .orders-toolbar{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap}
+        .orders-count{color:var(--text-muted);font-size:.75rem;font-weight:700}
+        .order-admin-card{background:linear-gradient(145deg,rgba(8,15,36,.98),rgba(10,20,45,.88));border:1px solid var(--border-color);border-radius:16px;padding:13px;margin-bottom:10px;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+        .order-summary{width:100%;display:flex;justify-content:space-between;align-items:center;gap:10px;background:transparent;border:none;color:#fff;text-align:left;cursor:pointer;padding:2px}
+        .order-summary-main{min-width:0;flex:1}.order-summary-row{margin-top:5px;color:#fff;font-size:.82rem;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.offer-highlight{color:var(--accent-cyan);font-family:var(--font-display);font-size:1rem}.order-summary-side{display:flex;flex-direction:column;align-items:center;gap:7px;flex-shrink:0}.order-status-mini{font-size:.62rem;padding:4px 7px;border:1px solid var(--border-color);border-radius:8px;color:var(--accent-cyan);background:rgba(0,242,254,.08)}.order-chevron{color:var(--accent-cyan);font-size:.8rem;transition:transform .2s}.order-details{display:grid;grid-template-rows:0fr;transition:grid-template-rows .25s ease}.order-details-inner{overflow:hidden;min-height:0;padding-top:0;transition:padding-top .25s ease}.order-details.open{grid-template-rows:1fr}.order-details.open .order-details-inner{padding-top:12px}.order-admin-card:has(.order-details.open){border-color:var(--accent-cyan);box-shadow:0 0 18px rgba(0,242,254,.12)}
+        .order-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}.order-field{background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.05);border-radius:10px;padding:8px}.order-field.full{grid-column:1/-1}.order-field-label{display:block;color:var(--text-muted);font-size:.6rem;text-transform:uppercase;font-weight:800;margin-bottom:3px}.order-field-value{display:block;color:#fff;font-size:.82rem;font-weight:700;word-break:break-word}.order-id-value{color:var(--accent-cyan);font-family:var(--font-display);font-size:1rem}.order-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.order-actions button{flex:1;min-width:110px}.order-proof{margin-top:10px;border-radius:12px;overflow:hidden;border:1px solid var(--border-color);background:#000}.order-proof img{display:block;width:100%;max-height:280px;object-fit:contain;cursor:pointer}.status-select{width:100%;padding:8px 10px;border-radius:10px;background:var(--bg-input);color:#fff;border:1px solid var(--border-color)}
+        .finance-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:12px 0}.finance-box{background:linear-gradient(145deg,rgba(10,28,60,.95),rgba(5,12,29,.95));border:1px solid rgba(0,242,254,.12);border-radius:14px;padding:13px}.finance-box span{display:block;color:var(--text-muted);font-size:.65rem;font-weight:800;text-transform:uppercase}.finance-box strong{display:block;color:#fff;font-family:var(--font-display);font-size:1.25rem;margin-top:6px;word-break:break-word}.finance-note{font-size:.68rem;color:var(--text-muted);background:rgba(255,255,255,.03);border-radius:10px;padding:10px;margin-bottom:10px}
+        @media(max-width:720px){.modal-box{height:94vh}.admin-shell{flex-direction:column}.admin-sidebar{width:100%;padding:10px;border-right:0;border-bottom:1px solid rgba(255,255,255,.07)}.admin-brand{display:none}.admin-nav{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}.tab-btn{text-align:center;padding:9px 4px;font-size:.62rem}.admin-close{display:none}.admin-content{padding:14px}.admin-topbar{margin-bottom:12px}.admin-dashboard{grid-template-columns:repeat(3,1fr);gap:7px}.admin-stat{padding:10px 8px}.admin-stat strong{font-size:1.1rem}.admin-actions{grid-template-columns:1fr}.order-grid{grid-template-columns:1fr}.order-field.full{grid-column:auto}}
+        @media(max-width:430px){.admin-nav{grid-template-columns:repeat(3,1fr)}.admin-stat small{font-size:.56rem}.admin-stat strong{font-size:1rem}}
 
         .floating-whatsapp {
             position: fixed;
@@ -809,12 +746,45 @@
             </div>
         </div>
 
+        <!-- VISTA: TRANSFERENCIA CUP -->
+        <div id="view-transfer-cup" class="view">
+            <button class="btn-back" onclick="showView('view-form')">← Volver al Formulario</button>
+            <div class="section-header">
+                <div class="section-title">🏦 Transferencia CUP</div>
+                <div class="section-desc">Envía el monto exacto y confirma tu pago con una captura.</div>
+            </div>
+            <div class="cyber-form-container">
+                <form id="transferCupForm" onsubmit="handleTransferCupSubmit(event)">
+                    <div class="form-group">
+                        <label class="form-label"><span>1️⃣</span> Envía el dinero a esta tarjeta:</label>
+                        <div style="display:flex;gap:10px;align-items:center;background:var(--bg-input);padding:12px 16px;border-radius:14px;border:1px solid var(--accent-cyan);">
+                            <span style="font-family:var(--font-display);font-size:1.12rem;font-weight:700;color:var(--accent-cyan);flex-grow:1;letter-spacing:.5px;" id="displayCardTransfer">9204-1299-7870-3553</span>
+                            <button type="button" class="btn-secondary" onclick="copyBankCard()" style="padding:8px 12px;">📋 Copiar</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label"><span>2️⃣</span> Confirma el pago al WhatsApp:</label>
+                        <div style="display:flex;gap:10px;align-items:center;background:var(--bg-input);padding:12px 16px;border-radius:14px;border:1px solid rgba(37,211,102,.5);">
+                            <span style="font-family:var(--font-display);font-size:1.25rem;font-weight:700;color:#25d366;flex-grow:1;" id="displayBankWhatsapp">50237996</span>
+                            <button type="button" class="btn-secondary" onclick="copyBankWhatsapp()" style="padding:8px 12px;">📋 Copiar</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="transferScreenshot"><span>3️⃣</span> Captura del pago (Obligatoria) *</label>
+                        <div style="font-size:.78rem;color:var(--text-muted);margin-bottom:8px;">Sube una captura donde se vea claramente la transferencia realizada.</div>
+                        <input type="file" id="transferScreenshot" class="form-input" accept="image/*" required style="padding:10px;">
+                    </div>
+                    <button type="submit" class="btn-submit" id="btnTransferSubmit">🚀 Confirmar Pedido</button>
+                </form>
+            </div>
+        </div>
+
         <!-- VISTA 4: ÉXITO -->
         <div id="view-success" class="view">
             <div style="text-align:center; padding:20px;">
                 <div style="font-size:3.5rem; margin-bottom:10px;">✅</div>
-                <div class="section-title" style="justify-content:center;">¡Pedido Listo!</div>
-                <p class="section-desc" style="margin: 10px 0 20px;">Tu pedido ha sido procesado con éxito. Haz clic abajo para copiar el ID, la ficha o unirte al grupo.</p>
+                <div class="section-title" style="justify-content:center;">¡Solicitud enviada!</div>
+                <p class="section-desc" style="margin: 10px 0 20px;">Ya realizaste tu solicitud dentro de la web. Te avisaremos cuando tu recarga haya sido enviada.</p>
                 
                 <button class="btn-submit" onclick="openWhatsAppUrl()">💬 Abrir WhatsApp</button>
                 <button class="btn-secondary" onclick="copyPlayerIdOnly()">📋 Copiar ID del Jugador</button>
@@ -829,120 +799,107 @@
         </div>
     </div>
 
-    <!-- MODAL ADM -->
+    <!-- PANEL DE ADMINISTRADORES -->
     <div class="modal-overlay" id="adminModal">
         <div class="modal-box">
-            <div class="modal-title">⚙️ Administrador</div>
+            <div class="admin-shell">
+                <aside class="admin-sidebar">
+                    <div class="admin-brand"><b>DK · REFILLS SHOP</b><span>Panel de administración</span></div>
+                    <div class="admin-nav">
+                        <button class="tab-btn active" onclick="switchAdminTab('tab-rates', this)">⚙️ Tasas</button>
+                        <button class="tab-btn" onclick="switchAdminTab('tab-add-game', this)">🎮 Juegos</button>
+                        <button class="tab-btn" onclick="switchAdminTab('tab-add-offer', this)">💎 Ofertas</button>
+                        <button class="tab-btn" onclick="switchAdminTab('tab-manage-offers', this)">📋 Gestor</button>
+                        <button class="tab-btn" onclick="switchAdminTab('tab-admin-orders', this)">📥 Pedidos</button>
+                        <button class="tab-btn" onclick="switchAdminTab('tab-finance', this)">💰 Finanzas</button>
+                    </div>
+                    <button class="btn-secondary admin-close" onclick="closeAdminModal()">✕ Cerrar panel</button>
+                </aside>
 
-            <div class="admin-nav">
-                <button class="tab-btn active" onclick="switchAdminTab('tab-rates', this)">⚙️ Tasas</button>
-                <button class="tab-btn" onclick="switchAdminTab('tab-add-game', this)">🎮 Nuevo Juego</button>
-                <button class="tab-btn" onclick="switchAdminTab('tab-add-offer', this)">💎 Nueva Oferta</button>
-                <button class="tab-btn" onclick="switchAdminTab('tab-manage-offers', this)">📋 Gestor</button>
-                <button class="tab-btn" onclick="switchAdminTab('tab-admin-orders', this)" style="background: rgba(37,211,102,0.2); color: #25d366;">📥 Pedidos</button>
+                <main class="admin-content">
+                    <div class="admin-topbar">
+                        <div><h2 id="adminPageTitle">⚙️ Tasas</h2><p>Herramientas rápidas para administrar REFILLS SHOP.</p></div>
+                        <button class="btn-secondary" onclick="closeAdminModal()">✕</button>
+                    </div>
+
+                    <div class="admin-dashboard">
+                        <div class="admin-stat" onclick="switchAdminTab('tab-admin-orders', document.querySelectorAll('.tab-btn')[4])"><small>Pedidos</small><strong id="adminDashOrders">—</strong></div>
+                        <div class="admin-stat" onclick="switchAdminTab('tab-add-game', document.querySelectorAll('.tab-btn')[1])"><small>Juegos</small><strong id="adminDashGames">—</strong></div>
+                        <div class="admin-stat" onclick="switchAdminTab('tab-manage-offers', document.querySelectorAll('.tab-btn')[3])"><small>Ofertas</small><strong id="adminDashOffers">—</strong></div>
+                    </div>
+
+                    <div id="tab-rates" class="admin-panel-section active">
+                        <div class="admin-card">
+                            <div class="admin-card-title">⚙️ Configuración de precios</div>
+                            <div class="admin-card-sub">Estas tasas se usan para calcular los precios de las ofertas.</div>
+                            <div class="form-group"><label class="form-label">1 Crédito = ¿Cuánto Saldo Móvil?</label><input type="number" step="0.1" id="cfgCreditRate" class="form-input"></div>
+                            <div class="form-group"><label class="form-label">Tasa Cambio (1 SM = X CUP)</label><input type="number" step="0.1" id="cfgSmToCupRate" class="form-input"></div>
+                            <div class="form-group"><label class="form-label">💳 Crédito total disponible para trabajar</label><input type="number" step="0.01" min="0" id="cfgInitialCredits" class="form-input" placeholder="Ej: 100"></div>
+                            <div style="font-size:.68rem;color:var(--text-muted);margin:-3px 0 12px;">El panel descontará automáticamente el costo en créditos de cada pedido no cancelado.</div>
+                            <button class="btn-submit" onclick="saveAdminSettings()">💾 Guardar Configuración</button>
+                        </div>
+                    </div>
+
+                    <div id="tab-add-game" class="admin-panel-section">
+                        <div class="admin-card">
+                            <div class="admin-card-title">🎮 Agregar un juego</div>
+                            <div class="form-group"><label class="form-label">Nombre del Juego</label><input type="text" id="newGameName" class="form-input" placeholder="Ej: Roblox"></div>
+                            <div class="form-group"><label class="form-label">📁 Imagen de Galería</label><input type="file" id="newGameFile" class="form-input" accept="image/*" style="padding:8px;"></div>
+                            <div class="form-group"><label class="form-label">O Enlace Web (URL)</label><input type="url" id="newGameImg" class="form-input" placeholder="https://ejemplo.com/imagen.jpg"></div>
+                            <div class="form-group"><label class="form-label">Subtítulo / Etiqueta</label><input type="text" id="newGameBadge" class="form-input" placeholder="Ej: ⚡ RECARGA ID"></div>
+                            <button class="btn-secondary" onclick="addNewGame()">➕ Guardar Juego</button>
+                        </div>
+                    </div>
+
+                    <div id="tab-add-offer" class="admin-panel-section">
+                        <div class="admin-card">
+                            <div class="admin-card-title">💎 Crear nueva oferta</div>
+                            <div class="form-group"><label class="form-label">Selecciona el Juego</label><select id="selectGameForOffer" class="form-select"></select></div>
+                            <div class="form-group"><label class="form-label">Nombre del Paquete</label><input type="text" id="newOfferTitle" class="form-input" placeholder="Ej: 80 Robux"></div>
+                            <div class="form-group"><label class="form-label">Etiqueta Destacada</label><select id="newOfferTag" class="form-select"><option value="ENTREGA ID">⚡ ENTREGA ID</option><option value="POPULAR">🔥 POPULAR</option><option value="OFERTA">🏷️ OFERTA</option><option value="MEJOR PRECIO">⭐ MEJOR PRECIO</option></select></div>
+                            <div class="form-group"><label class="form-label">Costo en Créditos</label><input type="number" step="0.01" id="newOfferCredits" class="form-input" placeholder="Ej: 0.99"></div>
+                            <div class="form-group"><label class="form-label" style="color:var(--accent-cyan);">💰 Ganancia en Saldo Móvil (SM)</label><input type="number" step="1" id="newOfferProfitSM" class="form-input" placeholder="Ej: 50"></div>
+                            <button class="btn-secondary" onclick="addNewOffer()">➕ Agregar Oferta</button>
+                        </div>
+                    </div>
+
+                    <div id="tab-manage-offers" class="admin-panel-section">
+                        <div class="admin-card">
+                            <div class="admin-card-title">📋 Gestor de ofertas</div>
+                            <div class="form-group"><label class="form-label">🎯 Seleccionar Juego</label><select id="selectGameForManage" class="form-select" onchange="renderOffersManager()"></select></div>
+                            <div class="form-group" style="background:rgba(0,0,0,.3);padding:10px;border-radius:10px;"><label class="form-label">Cambiar Imagen del Juego</label><input type="file" id="editGameFile" class="form-input" accept="image/*" style="padding:6px;margin-bottom:6px;"><input type="url" id="editGameImgUrl" class="form-input" placeholder="O pega un enlace web aquí..."><button class="btn-secondary" onclick="updateGameImage()" style="margin-top:6px;">🖼️ Actualizar Imagen</button></div>
+                            <div class="form-header" style="margin:15px 0 8px;display:flex;justify-content:space-between;align-items:center;"><span style="font-size:.85rem;font-weight:700;color:var(--accent-cyan);">💎 Paquetes y edición</span></div>
+                            <div id="offersManageList"></div>
+                            <hr style="border-color:var(--border-color);margin:15px 0;"><button class="btn-danger" style="width:100%;" onclick="deleteCurrentGame()">🗑️ Eliminar Juego Completo</button>
+                        </div>
+                    </div>
+
+                    <div id="tab-finance" class="admin-panel-section">
+                        <div class="admin-card">
+                            <div class="admin-card-title">💰 Control de crédito y dinero</div>
+                            <div class="admin-card-sub">Se calcula automáticamente usando las ofertas realizadas y los pedidos que no estén cancelados.</div>
+                            <div class="finance-grid">
+                                <div class="finance-box"><span>💳 Crédito inicial</span><strong id="financeInitialCredits">0</strong></div>
+                                <div class="finance-box"><span>📉 Crédito utilizado</span><strong id="financeUsedCredits">0</strong></div>
+                                <div class="finance-box"><span>💳 Crédito restante</span><strong id="financeRemainingCredits">0</strong></div>
+                                <div class="finance-box"><span>📱 Deberías tener en SM</span><strong id="financeExpectedSM">0 SM</strong></div>
+                                <div class="finance-box"><span>💵 Deberías tener en CUP</span><strong id="financeExpectedCUP">0 CUP</strong></div>
+                            </div>
+                            <div class="finance-note" id="financeNote">ℹ️ Los pedidos cancelados no descuentan crédito ni se cuentan como ingreso.</div>
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;">
+                                <button class="btn-secondary" onclick="loadAdminOrders()">🔄 Actualizar cálculos</button>
+                                <button class="btn-danger" onclick="resetFinanceCycle()">♻️ Reiniciar inversión</button>
+                            </div>
+                            <div style="font-size:.64rem;color:var(--text-muted);text-align:center;margin-top:8px;">Reinicia los cálculos sin borrar los pedidos históricos.</div>
+                        </div>
+                    </div>
+
+                    <div id="tab-admin-orders" class="admin-panel-section">
+                        <div class="admin-card" style="padding:12px;"><div class="orders-toolbar"><div><div class="admin-card-title" style="margin:0;">📥 Pedidos recibidos</div><span class="orders-count" id="adminOrdersCount">Cargando...</span></div><button class="btn-secondary" onclick="loadAdminOrders()" style="padding:8px 12px;">🔄 Actualizar</button></div></div>
+                        <div id="adminOrdersContainer"><p style="text-align:center;color:var(--text-muted);font-size:.85rem;">Cargando pedidos...</p></div>
+                    </div>
+                </main>
             </div>
-
-            <!-- TAB 1: TASAS -->
-            <div id="tab-rates" class="admin-panel-section active">
-                <div class="form-group">
-                    <label class="form-label">1 Crédito = ¿Cuánto Saldo Móvil?</label>
-                    <input type="number" step="0.1" id="cfgCreditRate" class="form-input">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Tasa Cambio (1 SM = X CUP)</label>
-                    <input type="number" step="0.1" id="cfgSmToCupRate" class="form-input">
-                </div>
-                <button class="btn-submit" onclick="saveAdminSettings()">💾 Guardar Tasas Globales</button>
-            </div>
-
-            <!-- TAB 2: NUEVO JUEGO -->
-            <div id="tab-add-game" class="admin-panel-section">
-                <div class="form-group">
-                    <label class="form-label">Nombre del Juego</label>
-                    <input type="text" id="newGameName" class="form-input" placeholder="Ej: Roblox">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">📁 Imagen de Galería</label>
-                    <input type="file" id="newGameFile" class="form-input" accept="image/*" style="padding: 8px;">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">O Enlace Web (URL)</label>
-                    <input type="url" id="newGameImg" class="form-input" placeholder="https://ejemplo.com/imagen.jpg">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Subtítulo / Etiqueta</label>
-                    <input type="text" id="newGameBadge" class="form-input" placeholder="Ej: ⚡ RECARGA ID">
-                </div>
-                <button class="btn-secondary" onclick="addNewGame()">➕ Guardar Juego</button>
-            </div>
-
-            <!-- TAB 3: NUEVA OFERTA -->
-            <div id="tab-add-offer" class="admin-panel-section">
-                <div class="form-group">
-                    <label class="form-label">Selecciona el Juego</label>
-                    <select id="selectGameForOffer" class="form-select"></select>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Nombre del Paquete</label>
-                    <input type="text" id="newOfferTitle" class="form-input" placeholder="Ej: 80 Robux">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Etiqueta Destacada</label>
-                    <select id="newOfferTag" class="form-select">
-                        <option value="ENTREGA ID">⚡ ENTREGA ID</option>
-                        <option value="POPULAR">🔥 POPULAR</option>
-                        <option value="OFERTA">🏷️ OFERTA</option>
-                        <option value="MEJOR PRECIO">⭐ MEJOR PRECIO</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Costo en Créditos</label>
-                    <input type="number" step="0.01" id="newOfferCredits" class="form-input" placeholder="Ej: 0.99">
-                </div>
-                <div class="form-group">
-                    <label class="form-label" style="color:var(--accent-cyan);">💰 Ganancia en Saldo Móvil (SM)</label>
-                    <input type="number" step="1" id="newOfferProfitSM" class="form-input" placeholder="Ej: 50">
-                </div>
-                <button class="btn-secondary" onclick="addNewOffer()">➕ Agregar Oferta</button>
-            </div>
-
-            <!-- TAB 4: GESTOR DE OFERTAS POR JUEGO -->
-            <div id="tab-manage-offers" class="admin-panel-section">
-                <div class="form-group">
-                    <label class="form-label">🎯 Seleccionar Juego para Gestionar</label>
-                    <select id="selectGameForManage" class="form-select" onchange="renderOffersManager()"></select>
-                </div>
-
-                <div class="form-group" style="background: rgba(0,0,0,0.3); padding: 10px; border-radius:10px;">
-                    <label class="form-label">Cambiar Imagen del Juego:</label>
-                    <input type="file" id="editGameFile" class="form-input" accept="image/*" style="padding: 6px; margin-bottom: 6px;">
-                    <input type="url" id="editGameImgUrl" class="form-input" placeholder="O pega un enlace web aquí...">
-                    <button class="btn-secondary" onclick="updateGameImage()" style="margin-top:6px;">🖼️ Actualizar Imagen</button>
-                </div>
-
-                <div class="form-header" style="margin: 15px 0 8px 0; display: flex; justify-content: space-between; align-items: center;">
-                    <span style="font-size: 0.85rem; font-weight: 700; color: var(--accent-cyan);">💎 Paquetes y Edición (Orden, Costo y Ganancia)</span>
-                </div>
-
-                <div id="offersManageList"></div>
-
-                <hr style="border-color: var(--border-color); margin: 15px 0;">
-                <button class="btn-danger" style="width:100%;" onclick="deleteCurrentGame()">🗑️ Eliminar Juego Completo</button>
-            </div>
-
-            <!-- TAB 5: PANEL DE PEDIDOS -->
-            <div id="tab-admin-orders" class="admin-panel-section">
-                <div class="section-title" style="font-size: 1rem; margin-bottom: 8px;">📥 Pedidos Recibidos</div>
-                <div class="orders-toolbar">
-                    <span class="orders-count" id="adminOrdersCount">Cargando...</span>
-                    <button class="btn-secondary" onclick="loadAdminOrders()" style="padding:8px 12px;">🔄 Actualizar</button>
-                </div>
-                <div id="adminOrdersContainer">
-                    <p style="text-align:center;color:var(--text-muted);font-size:.85rem;">Cargando pedidos...</p>
-                </div>
-            </div>
-
-            <button class="btn-secondary" onclick="closeAdminModal()" style="margin-top:15px; width:100%;">Cerrar Ventana</button>
         </div>
     </div>
 
@@ -961,8 +918,12 @@
 
         let config = {
             creditRateSM: 315,
-            smToCupRate: 3.3
+            smToCupRate: 3.3,
+            initialCredits: 0,
+            financeResetAt: null
         };
+
+        let adminOrdersCache = [];
 
         let gamesData = [
             {
@@ -1006,8 +967,12 @@
                 if (error) throw error;
 
                 if (data && data.data) {
-                    config = data.data.config || config;
-                    gamesData = Array.isArray(data.data.games) ? data.data.games : gamesData;
+                    config = { ...config, ...(data.data.config || {}) };
+                    if (Array.isArray(data.data.games) && data.data.games.length > 0) {
+                        gamesData = data.data.games;
+                    } else {
+                        console.warn('store_state no contiene juegos; se conservan los datos actuales para evitar borrarlos.');
+                    }
                     renderGames();
                 }
             } catch (error) {
@@ -1143,8 +1108,8 @@
             const noticeBox = document.getElementById('addressNotice');
             const btnSubmitOrder = document.getElementById('btnSubmitOrder');
 
-            if(method === 'Saldo Móvil') {
-                document.getElementById('pay-sm').classList.add('selected');
+            if(method === 'Saldo Móvil' || method === 'Transferencia CUP') {
+                if (method === 'Saldo Móvil') document.getElementById('pay-sm').classList.add('selected');
                 btnSubmitOrder.innerText = "➡️ Continuar al Pago";
             } else {
                 btnSubmitOrder.innerText = "🟢 Pedir por WhatsApp";
@@ -1195,9 +1160,14 @@
                 timestamp: new Date().toLocaleString()
             };
 
-            // Si es Saldo Móvil, redirigir a la vista de transferencia e imagen obligatoria
+            // Métodos que requieren comprobante: cada uno tiene su propia página de pago.
             if (selectedPaymentMethod === "Saldo Móvil") {
                 showView('view-saldo-movil');
+                return;
+            }
+            if (selectedPaymentMethod === "Transferencia CUP") {
+                document.getElementById('displayBankWhatsapp').textContent = "50237996";
+                showView('view-transfer-cup');
                 return;
             }
 
@@ -1219,7 +1189,9 @@
 ${addressSection}📱 *WhatsApp cliente:* ${clientWhatsapp}
 📝 *Nota extra:* ${orderNote}
 ───────────────────────
-Solicitud enviada desde la web REFILLS SHOP.`;
+🌐 *Origen:* Compra solicitada desde la Web REFILLS SHOP.
+📲 *Acción:* Entrar al *Panel ADM → Pedidos* para revisar y gestionar el pedido.
+📸 *Comprobante:* Disponible en el pedido dentro del panel web cuando corresponda.`;
 
             generatedWhatsAppUrl = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(currentMessageText)}`;
             
@@ -1244,7 +1216,44 @@ Solicitud enviada desde la web REFILLS SHOP.`;
             }
         }
 
-        function handleSaldoMovilSubmit(event) {
+        async function compressImageForOrder(file) {
+            // Reduce la captura antes de enviarla a Supabase para evitar pedidos demasiado pesados.
+            if (!file || !file.type || !file.type.startsWith('image/')) {
+                throw new Error('El archivo seleccionado no es una imagen válida.');
+            }
+
+            const maxWidth = 1200;
+            const quality = 0.72;
+
+            return await new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const img = new Image();
+                    img.onload = () => {
+                        try {
+                            const scale = Math.min(1, maxWidth / img.width);
+                            const width = Math.max(1, Math.round(img.width * scale));
+                            const height = Math.max(1, Math.round(img.height * scale));
+                            const canvas = document.createElement('canvas');
+                            canvas.width = width;
+                            canvas.height = height;
+                            const ctx = canvas.getContext('2d');
+                            if (!ctx) throw new Error('No se pudo preparar la captura.');
+                            ctx.drawImage(img, 0, 0, width, height);
+                            resolve(canvas.toDataURL('image/jpeg', quality));
+                        } catch (err) {
+                            reject(err);
+                        }
+                    };
+                    img.onerror = () => reject(new Error('No se pudo leer la captura de pantalla.'));
+                    img.src = reader.result;
+                };
+                reader.onerror = () => reject(new Error('No se pudo cargar la captura de pantalla.'));
+                reader.readAsDataURL(file);
+            });
+        }
+
+        async function handleSaldoMovilSubmit(event) {
             event.preventDefault();
             const fileInput = document.getElementById('paymentScreenshot');
 
@@ -1252,41 +1261,41 @@ Solicitud enviada desde la web REFILLS SHOP.`;
                 return alert("⚠️ Debes adjuntar la captura de pantalla obligatoriamente.");
             }
 
-            const reader = new FileReader();
-            reader.onload = async function(e) {
+            const submitButton = document.querySelector('#saldoMovilForm button[type="submit"]');
+            const originalText = submitButton ? submitButton.innerText : '🚀 Hacer Pedido';
+
+            try {
+                if (submitButton) {
+                    submitButton.disabled = true;
+                    submitButton.innerText = '⏳ Enviando pedido...';
+                    submitButton.style.opacity = '0.7';
+                }
+
                 const screenshotBase64 = await compressImageForOrder(fileInput.files[0]);
+                const priceText = tempFormData.price;
 
-                let addressSection = "";
-                let priceText = tempFormData.price;
+                currentMessageText =
+`🛒 *NUEVA SOLICITUD — REFILLS SHOP*
 
-                currentMessageText = 
-`🛒 *NUEVO PEDIDO DE RECARGA (SALDO MÓVIL)*
-───────────────────────
-🎮 *Juego/Servicio:* ${tempFormData.game}
-📦 *Paquete:* ${tempFormData.offer}
-🔢 *Cantidad:* 1
-💰 *Monto Total:* ${priceText}
-📌 *User ID:* \`${tempFormData.playerId}\`
-💳 *Método de Pago:* Saldo Móvil (Comprobante adjunto en web)
-📱 *WhatsApp cliente:* ${tempFormData.whatsapp}
-📝 *Nota extra:* ${tempFormData.note}
-───────────────────────
-Solicitud enviada desde la web REFILLS SHOP.`;
+✅ *YA REALICÉ LA SOLICITUD DE LA COMPRA DENTRO DE LA WEB.*
+📦 *ESPERO SU SOLICITUD DE LA RECARGA COMPLETADA.*`;
 
                 generatedWhatsAppUrl = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(currentMessageText)}`;
 
-                // Guardar pedido completo con captura en Supabase
-                try {
-                    await saveOrderToSupabase({ ...tempFormData, screenshot: screenshotBase64 });
-                } catch (error) {
-                    console.error(error);
-                    return alert('❌ No se pudo guardar el pedido. Revisa la configuración de Supabase e inténtalo de nuevo.');
-                }
+                await saveOrderToSupabase({ ...tempFormData, screenshot: screenshotBase64 });
 
                 showView('view-success');
                 openWhatsAppUrl();
-            };
-            reader.readAsDataURL(fileInput.files[0]);
+            } catch (error) {
+                console.error('Error al crear pedido con captura:', error);
+                alert('❌ No se pudo crear el pedido.\n\n' + (error.message || 'Error desconocido') + '\n\nLa captura NO se envió.');
+            } finally {
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.innerText = originalText;
+                    submitButton.style.opacity = '1';
+                }
+            }
         }
 
         async function saveOrderToSupabase(orderInfo) {
@@ -1295,6 +1304,7 @@ Solicitud enviada desde la web REFILLS SHOP.`;
                 p_order: orderInfo
             });
             if (error) throw new Error(error.message || 'No se pudo guardar el pedido.');
+            if (!data) throw new Error('Supabase no devolvió confirmación del pedido.');
             return data;
         }
 
@@ -1323,7 +1333,10 @@ Solicitud enviada desde la web REFILLS SHOP.`;
                 if (error) throw error;
 
                 const orders = Array.isArray(data) ? data : [];
+                adminOrdersCache = orders;
+                updateAdminFinance(orders);
                 count.textContent = `${orders.length} pedido${orders.length === 1 ? '' : 's'}`;
+                const dash = document.getElementById('adminDashOrders'); if (dash) dash.textContent = orders.length;
 
                 if (!orders.length) {
                     container.innerHTML = `<div class="offer-manage-item" style="text-align:center;color:var(--text-muted);">📭 No hay pedidos registrados todavía.</div>`;
@@ -1338,49 +1351,69 @@ Solicitud enviada desde la web REFILLS SHOP.`;
                     const div = document.createElement('div');
                     div.className = 'order-admin-card';
                     div.innerHTML = `
-                        <div class="order-admin-head">
-                            <div>
+                        <button type="button" class="order-summary" onclick="toggleOrderDetails(${id})">
+                            <div class="order-summary-main">
                                 <div class="order-code">🧾 ${escapeHtml(ord.order_code || ('PED-' + id))}</div>
-                                <strong style="font-size:.9rem;">${escapeHtml(ord.game)} · ${escapeHtml(ord.offer)}</strong>
+                                <div class="order-summary-row"><span>📱 ${escapeHtml(ord.whatsapp || 'Sin teléfono')}</span></div>
+                                <div class="order-summary-row offer-highlight">💎 ${escapeHtml(ord.offer || 'Oferta no indicada')}</div>
                             </div>
-                            <div class="order-date">${escapeHtml(ord.timestamp || ord.created_at || '')}</div>
-                        </div>
-                        <div class="order-grid">
-                            <div class="order-field">
-                                <span class="order-field-label">🆔 ID del jugador</span>
-                                <span class="order-field-value order-id-value">${escapeHtml(ord.player_id || ord.playerId)}</span>
+                            <div class="order-summary-side">
+                                <span class="order-status-mini">${escapeHtml(status)}</span>
+                                <span class="order-chevron" id="order-chevron-${id}">▼</span>
                             </div>
-                            <div class="order-field">
-                                <span class="order-field-label">📱 # de teléfono</span>
-                                <span class="order-field-value">${escapeHtml(ord.whatsapp)}</span>
+                        </button>
+                        <div class="order-details" id="order-details-${id}">
+                            <div class="order-details-inner">
+                                <div class="order-grid">
+                                    <div class="order-field">
+                                        <span class="order-field-label">🎮 Juego</span>
+                                        <span class="order-field-value">${escapeHtml(ord.game)}</span>
+                                    </div>
+                                    <div class="order-field">
+                                        <span class="order-field-label">💎 Oferta</span>
+                                        <span class="order-field-value">${escapeHtml(ord.offer)}</span>
+                                    </div>
+                                    <div class="order-field">
+                                        <span class="order-field-label">🆔 ID del jugador</span>
+                                        <span class="order-field-value order-id-value">${escapeHtml(ord.player_id || ord.playerId)}</span>
+                                    </div>
+                                    <div class="order-field">
+                                        <span class="order-field-label">📱 # de teléfono</span>
+                                        <span class="order-field-value">${escapeHtml(ord.whatsapp)}</span>
+                                    </div>
+                                    <div class="order-field">
+                                        <span class="order-field-label">💰 Total</span>
+                                        <span class="order-field-value">${escapeHtml(ord.price)}</span>
+                                    </div>
+                                    <div class="order-field">
+                                        <span class="order-field-label">💳 Pago</span>
+                                        <span class="order-field-value">${escapeHtml(ord.payment_method || ord.paymentMethod)}</span>
+                                    </div>
+                                    <div class="order-field full">
+                                        <span class="order-field-label">📅 Fecha</span>
+                                        <span class="order-field-value">${escapeHtml(ord.timestamp || ord.created_at || '')}</span>
+                                    </div>
+                                    <div class="order-field full">
+                                        <span class="order-field-label">📝 Nota</span>
+                                        <span class="order-field-value">${escapeHtml(ord.note || 'Ninguna')}</span>
+                                    </div>
+                                    <div class="order-field full">
+                                        <span class="order-field-label">📌 Estado</span>
+                                        <select class="status-select" onclick="event.stopPropagation()" onchange="changeOrderStatus(${id}, this.value)">
+                                            <option value="Pendiente" ${status === 'Pendiente' ? 'selected' : ''}>🟡 Pendiente</option>
+                                            <option value="Pagado" ${status === 'Pagado' ? 'selected' : ''}>🟢 Pagado</option>
+                                            <option value="Completado" ${status === 'Completado' ? 'selected' : ''}>✅ Completado</option>
+                                            <option value="Cancelado" ${status === 'Cancelado' ? 'selected' : ''}>🔴 Cancelado</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                ${screenshot ? `<div class="order-proof"><img src="${screenshot}" alt="Comprobante de pago" onclick="event.stopPropagation(); window.open(this.src, '_blank')"></div><div style="font-size:.65rem;color:var(--accent-cyan);margin-top:3px;text-align:center;">🔍 Toca la imagen para verla completa</div>` : '<div style="margin-top:9px;font-size:.7rem;color:var(--text-muted);text-align:center;">📷 Sin comprobante de imagen</div>'}
+                                <div class="order-actions">
+                                    <button class="btn-secondary" onclick="event.stopPropagation(); copyAdminOrder(${id})">📋 Copiar ficha</button>
+                                    <button class="btn-secondary" onclick="event.stopPropagation(); openAdminWhatsApp('${escapeHtml(ord.whatsapp || '')}')">💬 WhatsApp</button>
+                                    <button class="btn-danger" onclick="event.stopPropagation(); deleteAdminOrder(${id})">🗑️ Eliminar</button>
+                                </div>
                             </div>
-                            <div class="order-field">
-                                <span class="order-field-label">💰 Total</span>
-                                <span class="order-field-value">${escapeHtml(ord.price)}</span>
-                            </div>
-                            <div class="order-field">
-                                <span class="order-field-label">💳 Pago</span>
-                                <span class="order-field-value">${escapeHtml(ord.payment_method || ord.paymentMethod)}</span>
-                            </div>
-                            <div class="order-field full">
-                                <span class="order-field-label">📝 Nota</span>
-                                <span class="order-field-value">${escapeHtml(ord.note || 'Ninguna')}</span>
-                            </div>
-                            <div class="order-field full">
-                                <span class="order-field-label">📌 Estado</span>
-                                <select class="status-select" id="order-status-${id}" onchange="changeOrderStatus(${id}, this.value)">
-                                    <option value="Pendiente" ${status === 'Pendiente' ? 'selected' : ''}>🟡 Pendiente</option>
-                                    <option value="Pagado" ${status === 'Pagado' ? 'selected' : ''}>🟢 Pagado</option>
-                                    <option value="Completado" ${status === 'Completado' ? 'selected' : ''}>✅ Completado</option>
-                                    <option value="Cancelado" ${status === 'Cancelado' ? 'selected' : ''}>🔴 Cancelado</option>
-                                </select>
-                            </div>
-                        </div>
-                        ${screenshot ? `<div class="order-proof"><img src="${screenshot}" alt="Comprobante de pago" onclick="window.open(this.src, '_blank')"></div><div style="font-size:.65rem;color:var(--accent-cyan);margin-top:3px;text-align:center;">🔍 Toca la imagen para verla completa</div>` : '<div style="margin-top:9px;font-size:.7rem;color:var(--text-muted);text-align:center;">📷 Sin comprobante de imagen</div>'}
-                        <div class="order-actions">
-                            <button class="btn-secondary" onclick="copyAdminOrder(${id})">📋 Copiar ficha</button>
-                            <button class="btn-secondary" onclick="openAdminWhatsApp('${escapeHtml(ord.whatsapp || '')}')">💬 WhatsApp</button>
-                            <button class="btn-danger" onclick="deleteAdminOrder(${id})">🗑️ Eliminar</button>
                         </div>
                     `;
                     container.appendChild(div);
@@ -1392,12 +1425,87 @@ Solicitud enviada desde la web REFILLS SHOP.`;
             }
         }
 
+        function updateAdminFinance(orders) {
+            const list = Array.isArray(orders) ? orders : [];
+            const initial = Number(config.initialCredits || 0);
+            let used = 0;
+            let expectedSM = 0;
+            let expectedCUP = 0;
+            let unknownCosts = 0;
+
+            const resetAt = config.financeResetAt ? new Date(config.financeResetAt).getTime() : 0;
+
+            list.forEach(ord => {
+                if (String(ord.status || 'Pendiente') === 'Cancelado') return;
+                const orderDate = new Date(ord.created_at || ord.timestamp || '').getTime();
+                if (resetAt && (!orderDate || orderDate < resetAt)) return;
+
+                const game = gamesData.find(g => String(g.name) === String(ord.game));
+                const offer = game && Array.isArray(game.offers) ? game.offers.find(o => String(o.title) === String(ord.offer)) : null;
+                if (offer && !isNaN(Number(offer.creditsCost))) {
+                    used += Number(offer.creditsCost);
+                } else {
+                    unknownCosts++;
+                }
+
+                const amount = parseFloat(String(ord.price || '').replace(/[^0-9.\-]/g, ''));
+                if (isNaN(amount)) return;
+                const method = String(ord.payment_method || ord.paymentMethod || '');
+                if (method === 'Saldo Móvil') expectedSM += amount;
+                else if (method === 'Transferencia CUP' || method.includes('EFECTIVO')) expectedCUP += amount;
+            });
+
+            const remaining = initial - used;
+            const set = (id, value) => { const el = document.getElementById(id); if (el) el.textContent = value; };
+            set('financeInitialCredits', initial.toFixed(2));
+            set('financeUsedCredits', used.toFixed(2));
+            set('financeRemainingCredits', remaining.toFixed(2));
+            set('financeExpectedSM', `${Math.round(expectedSM)} SM`);
+            set('financeExpectedCUP', `${Math.round(expectedCUP)} CUP`);
+
+            const note = document.getElementById('financeNote');
+            if (note) {
+                note.textContent = unknownCosts
+                    ? `⚠️ ${unknownCosts} pedido(s) no pudieron descontar crédito porque su oferta ya no existe o no tiene costo configurado.`
+                    : 'ℹ️ Los pedidos cancelados no descuentan crédito ni se cuentan como ingreso.';
+            }
+        }
+
+        async function resetFinanceCycle() {
+            const ok = confirm('¿Reiniciar la inversión? Esto pondrá las Finanzas en 0 y comenzará un nuevo ciclo. Los pedidos anteriores NO se borrarán.');
+            if (!ok) return;
+
+            const oldConfig = { ...config };
+            config.initialCredits = 0;
+            config.financeResetAt = new Date().toISOString();
+
+            try {
+                await syncStore();
+                updateAdminFinance(adminOrdersCache);
+                document.getElementById('cfgInitialCredits').value = 0;
+                alert('♻️ Finanzas reiniciadas a 0. Ya puedes registrar tu nueva inversión.');
+            } catch (error) {
+                config = oldConfig;
+                alert('❌ No se pudo reiniciar Finanzas: ' + (error.message || 'Error'));
+            }
+        }
+
+        function toggleOrderDetails(orderId) {
+            const details = document.getElementById('order-details-' + orderId);
+            const chevron = document.getElementById('order-chevron-' + orderId);
+            if (!details) return;
+            const opening = !details.classList.contains('open');
+            details.classList.toggle('open', opening);
+            if (chevron) chevron.style.transform = opening ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+
         async function changeOrderStatus(orderId, status) {
             try {
                 const { error } = await supabaseClient.rpc('update_order_status', {
                     p_password: adminSessionPassword, p_order_id: orderId, p_status: status
                 });
                 if (error) throw error;
+                await loadAdminOrders();
             } catch (err) {
                 alert('❌ No se pudo cambiar el estado: ' + (err.message || 'Error'));
                 loadAdminOrders();
@@ -1456,6 +1564,36 @@ Solicitud enviada desde la web REFILLS SHOP.`;
             }
         }
 
+        async function handleTransferCupSubmit(event) {
+            event.preventDefault();
+            const fileInput = document.getElementById('transferScreenshot');
+            if (!fileInput.files || !fileInput.files[0]) return alert('⚠️ Debes adjuntar la captura de la transferencia obligatoriamente.');
+            const submitButton = document.getElementById('btnTransferSubmit');
+            try {
+                submitButton.disabled = true; submitButton.innerText = '⏳ Enviando pedido...'; submitButton.style.opacity = '.7';
+                const screenshotBase64 = await compressImageForOrder(fileInput.files[0]);
+                const priceText = tempFormData.price;
+                currentMessageText = `🛒 *NUEVA SOLICITUD — REFILLS SHOP*
+
+✅ *YA REALICÉ LA SOLICITUD DE LA COMPRA DENTRO DE LA WEB.*
+📦 *ESPERO SU SOLICITUD DE LA RECARGA COMPLETADA.*`;
+                generatedWhatsAppUrl = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(currentMessageText)}`;
+                await saveOrderToSupabase({ ...tempFormData, screenshot: screenshotBase64 });
+                showView('view-success'); openWhatsAppUrl();
+            } catch (error) {
+                console.error(error); alert('❌ No se pudo crear el pedido.\n\n' + (error.message || 'Error desconocido'));
+            } finally {
+                submitButton.disabled = false; submitButton.innerText = '🚀 Confirmar Pedido'; submitButton.style.opacity = '1';
+            }
+        }
+
+        function copyBankCard() {
+            navigator.clipboard?.writeText('9204-1299-7870-3553').then(() => alert('📋 Número de tarjeta copiado.'));
+        }
+        function copyBankWhatsapp() {
+            navigator.clipboard?.writeText('50237996').then(() => alert('📋 Número de WhatsApp copiado.'));
+        }
+
         function copyOrderDetails() {
             if (navigator.clipboard && currentMessageText) {
                 navigator.clipboard.writeText(currentMessageText).then(() => {
@@ -1473,6 +1611,7 @@ Solicitud enviada desde la web REFILLS SHOP.`;
             rawPlayerId = "";
             document.getElementById('orderForm').reset();
             document.getElementById('saldoMovilForm').reset();
+            document.getElementById('transferCupForm').reset();
             document.getElementById('addressNotice').classList.remove('show');
             selectPayment('Saldo Móvil');
             showView('view-games');
@@ -1481,9 +1620,11 @@ Solicitud enviada desde la web REFILLS SHOP.`;
         function switchAdminTab(tabId, btn) {
             document.querySelectorAll('.admin-panel-section').forEach(sec => sec.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            btn.classList.add('active');
-
+            const section = document.getElementById(tabId);
+            if (section) section.classList.add('active');
+            if (btn) btn.classList.add('active');
+            const titles = { 'tab-rates':'⚙️ Tasas', 'tab-add-game':'🎮 Juegos', 'tab-add-offer':'💎 Ofertas', 'tab-manage-offers':'📋 Gestor', 'tab-admin-orders':'📥 Pedidos', 'tab-finance':'💰 Finanzas' };
+            const title = document.getElementById('adminPageTitle'); if (title) title.textContent = titles[tabId] || 'Administración';
             if(tabId === 'tab-manage-offers') renderOffersManager();
             if(tabId === 'tab-admin-orders') loadAdminOrders();
         }
@@ -1499,7 +1640,11 @@ Solicitud enviada desde la web REFILLS SHOP.`;
                 adminSessionPassword = code;
                 document.getElementById('cfgCreditRate').value = config.creditRateSM;
                 document.getElementById('cfgSmToCupRate').value = config.smToCupRate;
+                document.getElementById('cfgInitialCredits').value = Number(config.initialCredits || 0);
                 populateGameSelects();
+                document.getElementById('adminDashGames').textContent = gamesData.length;
+                document.getElementById('adminDashOffers').textContent = gamesData.reduce((n,g) => n + ((g.offers || []).length), 0);
+                document.getElementById('adminDashOrders').textContent = '...';
                 document.getElementById('adminModal').classList.add('active');
             } catch (error) {
                 alert(error.message);
@@ -1770,14 +1915,16 @@ Solicitud enviada desde la web REFILLS SHOP.`;
         async function saveAdminSettings() {
             const creditRate = parseFloat(document.getElementById('cfgCreditRate').value);
             const smToCup = parseFloat(document.getElementById('cfgSmToCupRate').value);
+            const initialCredits = parseFloat(document.getElementById('cfgInitialCredits').value);
 
-            if (isNaN(creditRate) || isNaN(smToCup)) {
+            if (isNaN(creditRate) || isNaN(smToCup) || isNaN(initialCredits) || initialCredits < 0) {
                 return alert("Ingresa datos válidos.");
             }
 
             const oldConfig = { ...config };
             config.creditRateSM = creditRate;
             config.smToCupRate = smToCup;
+            config.initialCredits = initialCredits;
 
             try {
                 await syncStore();
@@ -1785,6 +1932,7 @@ Solicitud enviada desde la web REFILLS SHOP.`;
                 closeAdminModal();
                 renderGames();
                 if (selectedGameObj) renderOffers();
+                updateAdminFinance(adminOrdersCache);
             } catch (error) {
                 config = oldConfig;
                 alert(error.message);
