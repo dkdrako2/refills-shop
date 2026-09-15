@@ -608,16 +608,46 @@
         .admin-panel-section.active { display: block; }
 
         .offer-manage-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
             background: var(--bg-input);
-            padding: 10px 12px;
-            border-radius: 10px;
-            margin-bottom: 8px;
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 10px;
             border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
             gap: 8px;
         }
+
+        /* ===== PEDIDOS ADMINISTRATIVOS ===== */
+        .orders-toolbar {
+            display:flex; gap:8px; align-items:center; justify-content:space-between;
+            margin-bottom:12px; flex-wrap:wrap;
+        }
+        .orders-count {
+            color:var(--text-muted); font-size:.75rem; font-weight:700;
+        }
+        .order-admin-card {
+            background:linear-gradient(145deg, rgba(8,15,36,.98), rgba(10,20,45,.88));
+            border:1px solid var(--border-color); border-radius:16px; padding:13px;
+            margin-bottom:10px; box-shadow:0 6px 20px rgba(0,0,0,.25);
+        }
+        .order-admin-head {
+            display:flex; justify-content:space-between; align-items:flex-start; gap:8px; margin-bottom:10px;
+        }
+        .order-code { color:var(--accent-cyan); font-family:var(--font-title); font-size:.78rem; font-weight:800; }
+        .order-date { color:var(--text-muted); font-size:.65rem; text-align:right; }
+        .order-grid { display:grid; grid-template-columns:1fr 1fr; gap:7px; }
+        .order-field { background:rgba(0,0,0,.22); border:1px solid rgba(255,255,255,.05); border-radius:10px; padding:8px; }
+        .order-field.full { grid-column:1/-1; }
+        .order-field-label { display:block; color:var(--text-muted); font-size:.6rem; text-transform:uppercase; font-weight:800; margin-bottom:3px; }
+        .order-field-value { display:block; color:#fff; font-size:.82rem; font-weight:700; word-break:break-word; }
+        .order-id-value { color:var(--accent-cyan); font-family:var(--font-display); font-size:1rem; }
+        .order-actions { display:flex; gap:7px; flex-wrap:wrap; margin-top:10px; }
+        .order-actions button { flex:1; min-width:110px; }
+        .order-proof { margin-top:10px; border-radius:12px; overflow:hidden; border:1px solid var(--border-color); background:#000; }
+        .order-proof img { display:block; width:100%; max-height:280px; object-fit:contain; cursor:pointer; }
+        .status-select { width:100%; padding:8px 10px; border-radius:10px; background:var(--bg-input); color:#fff; border:1px solid var(--border-color); }
+        @media (max-width:420px) { .order-grid { grid-template-columns:1fr; } .order-field.full { grid-column:auto; } }
 
         .floating-whatsapp {
             position: fixed;
@@ -743,7 +773,38 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn-submit">🟢 Pedir por WhatsApp</button>
+                    <button type="submit" class="btn-submit" id="btnSubmitOrder">🟢 Continuar Pedido</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- VISTA NUEVA: SALDO MÓVIL (PAGO E INSTRUCCIONES) -->
+        <div id="view-saldo-movil" class="view">
+            <button class="btn-back" onclick="showView('view-form')">← Volver al Formulario</button>
+            <div class="section-header">
+                <div class="section-title">📲 Pago por Saldo Móvil</div>
+                <div class="section-desc">Sigue las instrucciones para completar tu pedido.</div>
+            </div>
+
+            <div class="cyber-form-container">
+                <form id="saldoMovilForm" onsubmit="handleSaldoMovilSubmit(event)">
+                    <div class="form-group">
+                        <label class="form-label"><span>1️⃣</span> Envía el dinero a este número:</label>
+                        <div style="display: flex; gap: 10px; align-items: center; background: var(--bg-input); padding: 12px 16px; border-radius: 14px; border: 1px solid var(--accent-cyan);">
+                            <span style="font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; color: var(--accent-cyan); flex-grow: 1;" id="displayNumberTransfer">50237996</span>
+                            <button type="button" class="btn-secondary" onclick="copyTransferNumber()" style="padding: 8px 12px;">📋 Copiar</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="paymentScreenshot"><span>2️⃣</span> Captura de Pantalla del Envío (Obligatorio) *</label>
+                        <div style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 8px;">
+                            Sube una captura donde se vea la pantalla completa confirmando la transferencia de saldo.
+                        </div>
+                        <input type="file" id="paymentScreenshot" class="form-input" accept="image/*" required style="padding: 10px;">
+                    </div>
+
+                    <button type="submit" class="btn-submit">🚀 Hacer Pedido</button>
                 </form>
             </div>
         </div>
@@ -778,6 +839,7 @@
                 <button class="tab-btn" onclick="switchAdminTab('tab-add-game', this)">🎮 Nuevo Juego</button>
                 <button class="tab-btn" onclick="switchAdminTab('tab-add-offer', this)">💎 Nueva Oferta</button>
                 <button class="tab-btn" onclick="switchAdminTab('tab-manage-offers', this)">📋 Gestor</button>
+                <button class="tab-btn" onclick="switchAdminTab('tab-admin-orders', this)" style="background: rgba(37,211,102,0.2); color: #25d366;">📥 Pedidos</button>
             </div>
 
             <!-- TAB 1: TASAS -->
@@ -859,13 +921,25 @@
                 </div>
 
                 <div class="form-header" style="margin: 15px 0 8px 0; display: flex; justify-content: space-between; align-items: center;">
-                    <span style="font-size: 0.85rem; font-weight: 700; color: var(--accent-cyan);">💎 Paquetes y Ofertas Activas (Usa ⬆️ ⬇️ para ordenar)</span>
+                    <span style="font-size: 0.85rem; font-weight: 700; color: var(--accent-cyan);">💎 Paquetes y Edición (Orden, Costo y Ganancia)</span>
                 </div>
 
                 <div id="offersManageList"></div>
 
                 <hr style="border-color: var(--border-color); margin: 15px 0;">
                 <button class="btn-danger" style="width:100%;" onclick="deleteCurrentGame()">🗑️ Eliminar Juego Completo</button>
+            </div>
+
+            <!-- TAB 5: PANEL DE PEDIDOS -->
+            <div id="tab-admin-orders" class="admin-panel-section">
+                <div class="section-title" style="font-size: 1rem; margin-bottom: 8px;">📥 Pedidos Recibidos</div>
+                <div class="orders-toolbar">
+                    <span class="orders-count" id="adminOrdersCount">Cargando...</span>
+                    <button class="btn-secondary" onclick="loadAdminOrders()" style="padding:8px 12px;">🔄 Actualizar</button>
+                </div>
+                <div id="adminOrdersContainer">
+                    <p style="text-align:center;color:var(--text-muted);font-size:.85rem;">Cargando pedidos...</p>
+                </div>
             </div>
 
             <button class="btn-secondary" onclick="closeAdminModal()" style="margin-top:15px; width:100%;">Cerrar Ventana</button>
@@ -916,6 +990,7 @@
         let generatedWhatsAppUrl = "";
         let currentMessageText = "";
         let rawPlayerId = "";
+        let tempFormData = {};
 
         renderGames();
         loadStoreData();
@@ -1066,8 +1141,15 @@
             document.getElementById('pay-cash').classList.remove('selected');
 
             const noticeBox = document.getElementById('addressNotice');
+            const btnSubmitOrder = document.getElementById('btnSubmitOrder');
 
-            if(method === 'Saldo Móvil') document.getElementById('pay-sm').classList.add('selected');
+            if(method === 'Saldo Móvil') {
+                document.getElementById('pay-sm').classList.add('selected');
+                btnSubmitOrder.innerText = "➡️ Continuar al Pago";
+            } else {
+                btnSubmitOrder.innerText = "🟢 Pedir por WhatsApp";
+            }
+
             if(method === 'Transferencia CUP') document.getElementById('pay-cup').classList.add('selected');
             if(method === 'EFECTIVO ( Solo Habana )') {
                 document.getElementById('pay-cash').classList.add('selected');
@@ -1091,7 +1173,7 @@
             document.getElementById('summary-price').innerText = price;
         }
 
-        function handleFormSubmit(event) {
+        async function handleFormSubmit(event) {
             event.preventDefault();
 
             rawPlayerId = document.getElementById('playerId').value.trim();
@@ -1102,6 +1184,24 @@
                 ? selectedOffer.formattedSM 
                 : selectedOffer.formattedCUP;
 
+            tempFormData = {
+                game: selectedGameObj.name,
+                offer: selectedOffer.title,
+                price: priceText,
+                playerId: rawPlayerId,
+                whatsapp: clientWhatsapp,
+                paymentMethod: selectedPaymentMethod,
+                note: orderNote,
+                timestamp: new Date().toLocaleString()
+            };
+
+            // Si es Saldo Móvil, redirigir a la vista de transferencia e imagen obligatoria
+            if (selectedPaymentMethod === "Saldo Móvil") {
+                showView('view-saldo-movil');
+                return;
+            }
+
+            // Para otros métodos, procesar directo
             let addressSection = "";
             if(selectedPaymentMethod === "EFECTIVO ( Solo Habana )") {
                 addressSection = `📍 *Dirección de entrega:* 5ta % Central y Lindero #6205 Vía Blanca, Guanabacoa Habana\n⚠️ *Aviso:* Escribirnos antes de venir para confirmar su recarga.\n`;
@@ -1122,8 +1222,224 @@ ${addressSection}📱 *WhatsApp cliente:* ${clientWhatsapp}
 Solicitud enviada desde la web REFILLS SHOP.`;
 
             generatedWhatsAppUrl = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(currentMessageText)}`;
+            
+            // Guardar pedido estándar en Supabase
+            try {
+                await saveOrderToSupabase({ ...tempFormData, screenshot: null });
+            } catch (error) {
+                console.error(error);
+                alert('❌ El pedido no pudo guardarse. No se abrirá WhatsApp para evitar perderlo.');
+                return;
+            }
+
             showView('view-success');
             openWhatsAppUrl();
+        }
+
+        function copyTransferNumber() {
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText("50237996").then(() => {
+                    alert("📋 Número copiado al portapapeles!");
+                });
+            }
+        }
+
+        function handleSaldoMovilSubmit(event) {
+            event.preventDefault();
+            const fileInput = document.getElementById('paymentScreenshot');
+
+            if (!fileInput.files || !fileInput.files[0]) {
+                return alert("⚠️ Debes adjuntar la captura de pantalla obligatoriamente.");
+            }
+
+            const reader = new FileReader();
+            reader.onload = async function(e) {
+                const screenshotBase64 = await compressImageForOrder(fileInput.files[0]);
+
+                let addressSection = "";
+                let priceText = tempFormData.price;
+
+                currentMessageText = 
+`🛒 *NUEVO PEDIDO DE RECARGA (SALDO MÓVIL)*
+───────────────────────
+🎮 *Juego/Servicio:* ${tempFormData.game}
+📦 *Paquete:* ${tempFormData.offer}
+🔢 *Cantidad:* 1
+💰 *Monto Total:* ${priceText}
+📌 *User ID:* \`${tempFormData.playerId}\`
+💳 *Método de Pago:* Saldo Móvil (Comprobante adjunto en web)
+📱 *WhatsApp cliente:* ${tempFormData.whatsapp}
+📝 *Nota extra:* ${tempFormData.note}
+───────────────────────
+Solicitud enviada desde la web REFILLS SHOP.`;
+
+                generatedWhatsAppUrl = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(currentMessageText)}`;
+
+                // Guardar pedido completo con captura en Supabase
+                try {
+                    await saveOrderToSupabase({ ...tempFormData, screenshot: screenshotBase64 });
+                } catch (error) {
+                    console.error(error);
+                    return alert('❌ No se pudo guardar el pedido. Revisa la configuración de Supabase e inténtalo de nuevo.');
+                }
+
+                showView('view-success');
+                openWhatsAppUrl();
+            };
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+
+        async function saveOrderToSupabase(orderInfo) {
+            // Los pedidos ahora van a una tabla propia. Esto evita perderlos al actualizar store_state.
+            const { data, error } = await supabaseClient.rpc('create_order', {
+                p_order: orderInfo
+            });
+            if (error) throw new Error(error.message || 'No se pudo guardar el pedido.');
+            return data;
+        }
+
+        function escapeHtml(value) {
+            return String(value ?? '')
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        async function loadAdminOrders() {
+            const container = document.getElementById('adminOrdersContainer');
+            const count = document.getElementById('adminOrdersCount');
+            container.innerHTML = `<p style="text-align:center;color:var(--text-muted);font-size:.85rem;">⏳ Cargando pedidos...</p>`;
+            count.textContent = 'Cargando...';
+
+            if (!adminSessionPassword) {
+                container.innerHTML = `<p style="text-align:center;color:var(--danger);font-size:.85rem;">Sesión de administrador no válida.</p>`;
+                return;
+            }
+
+            try {
+                const { data, error } = await supabaseClient.rpc('get_admin_orders', {
+                    p_password: adminSessionPassword
+                });
+                if (error) throw error;
+
+                const orders = Array.isArray(data) ? data : [];
+                count.textContent = `${orders.length} pedido${orders.length === 1 ? '' : 's'}`;
+
+                if (!orders.length) {
+                    container.innerHTML = `<div class="offer-manage-item" style="text-align:center;color:var(--text-muted);">📭 No hay pedidos registrados todavía.</div>`;
+                    return;
+                }
+
+                container.innerHTML = '';
+                orders.forEach((ord) => {
+                    const id = Number(ord.id);
+                    const status = ord.status || 'Pendiente';
+                    const screenshot = ord.screenshot || '';
+                    const div = document.createElement('div');
+                    div.className = 'order-admin-card';
+                    div.innerHTML = `
+                        <div class="order-admin-head">
+                            <div>
+                                <div class="order-code">🧾 ${escapeHtml(ord.order_code || ('PED-' + id))}</div>
+                                <strong style="font-size:.9rem;">${escapeHtml(ord.game)} · ${escapeHtml(ord.offer)}</strong>
+                            </div>
+                            <div class="order-date">${escapeHtml(ord.timestamp || ord.created_at || '')}</div>
+                        </div>
+                        <div class="order-grid">
+                            <div class="order-field">
+                                <span class="order-field-label">🆔 ID del jugador</span>
+                                <span class="order-field-value order-id-value">${escapeHtml(ord.player_id || ord.playerId)}</span>
+                            </div>
+                            <div class="order-field">
+                                <span class="order-field-label">📱 # de teléfono</span>
+                                <span class="order-field-value">${escapeHtml(ord.whatsapp)}</span>
+                            </div>
+                            <div class="order-field">
+                                <span class="order-field-label">💰 Total</span>
+                                <span class="order-field-value">${escapeHtml(ord.price)}</span>
+                            </div>
+                            <div class="order-field">
+                                <span class="order-field-label">💳 Pago</span>
+                                <span class="order-field-value">${escapeHtml(ord.payment_method || ord.paymentMethod)}</span>
+                            </div>
+                            <div class="order-field full">
+                                <span class="order-field-label">📝 Nota</span>
+                                <span class="order-field-value">${escapeHtml(ord.note || 'Ninguna')}</span>
+                            </div>
+                            <div class="order-field full">
+                                <span class="order-field-label">📌 Estado</span>
+                                <select class="status-select" id="order-status-${id}" onchange="changeOrderStatus(${id}, this.value)">
+                                    <option value="Pendiente" ${status === 'Pendiente' ? 'selected' : ''}>🟡 Pendiente</option>
+                                    <option value="Pagado" ${status === 'Pagado' ? 'selected' : ''}>🟢 Pagado</option>
+                                    <option value="Completado" ${status === 'Completado' ? 'selected' : ''}>✅ Completado</option>
+                                    <option value="Cancelado" ${status === 'Cancelado' ? 'selected' : ''}>🔴 Cancelado</option>
+                                </select>
+                            </div>
+                        </div>
+                        ${screenshot ? `<div class="order-proof"><img src="${screenshot}" alt="Comprobante de pago" onclick="window.open(this.src, '_blank')"></div><div style="font-size:.65rem;color:var(--accent-cyan);margin-top:3px;text-align:center;">🔍 Toca la imagen para verla completa</div>` : '<div style="margin-top:9px;font-size:.7rem;color:var(--text-muted);text-align:center;">📷 Sin comprobante de imagen</div>'}
+                        <div class="order-actions">
+                            <button class="btn-secondary" onclick="copyAdminOrder(${id})">📋 Copiar ficha</button>
+                            <button class="btn-secondary" onclick="openAdminWhatsApp('${escapeHtml(ord.whatsapp || '')}')">💬 WhatsApp</button>
+                            <button class="btn-danger" onclick="deleteAdminOrder(${id})">🗑️ Eliminar</button>
+                        </div>
+                    `;
+                    container.appendChild(div);
+                });
+            } catch (err) {
+                console.error('Error cargando pedidos:', err);
+                count.textContent = 'Error';
+                container.innerHTML = `<div class="offer-manage-item" style="text-align:center;color:var(--danger);">❌ No se pudieron cargar los pedidos.<br><small>${escapeHtml(err.message || 'Error desconocido')}</small></div>`;
+            }
+        }
+
+        async function changeOrderStatus(orderId, status) {
+            try {
+                const { error } = await supabaseClient.rpc('update_order_status', {
+                    p_password: adminSessionPassword, p_order_id: orderId, p_status: status
+                });
+                if (error) throw error;
+            } catch (err) {
+                alert('❌ No se pudo cambiar el estado: ' + (err.message || 'Error'));
+                loadAdminOrders();
+            }
+        }
+
+        async function deleteAdminOrder(orderId) {
+            if (!confirm('¿Eliminar este pedido del panel? Esta acción no se puede deshacer.')) return;
+            try {
+                const { error } = await supabaseClient.rpc('delete_order', {
+                    p_password: adminSessionPassword, p_order_id: orderId
+                });
+                if (error) throw error;
+                loadAdminOrders();
+            } catch (err) {
+                alert('❌ No se pudo eliminar: ' + (err.message || 'Error'));
+            }
+        }
+
+        async function copyAdminOrder(orderId) {
+            try {
+                const { data, error } = await supabaseClient.rpc('get_admin_orders', { p_password: adminSessionPassword });
+                if (error) throw error;
+                const ord = (Array.isArray(data) ? data : []).find(o => Number(o.id) === Number(orderId));
+                if (!ord) return alert('Pedido no encontrado.');
+                const text = `🧾 ${ord.order_code || 'PED-' + ord.id}
+🎮 ${ord.game}
+📦 ${ord.offer}
+💰 ${ord.price}
+🆔 ID: ${ord.player_id || ord.playerId}
+📱 Teléfono: ${ord.whatsapp}
+💳 Pago: ${ord.payment_method || ord.paymentMethod}
+📌 Estado: ${ord.status || 'Pendiente'}
+📝 Nota: ${ord.note || 'Ninguna'}`;
+                await navigator.clipboard.writeText(text);
+                alert('📋 Ficha del pedido copiada.');
+            } catch (err) { alert('No se pudo copiar el pedido.'); }
+        }
+
+        function openAdminWhatsApp(phone) {
+            const clean = String(phone || '').replace(/[^0-9]/g, '');
+            if (clean) window.open(`https://wa.me/${clean}`, '_blank');
         }
 
         function openWhatsAppUrl() {
@@ -1156,6 +1472,7 @@ Solicitud enviada desde la web REFILLS SHOP.`;
             currentMessageText = "";
             rawPlayerId = "";
             document.getElementById('orderForm').reset();
+            document.getElementById('saldoMovilForm').reset();
             document.getElementById('addressNotice').classList.remove('show');
             selectPayment('Saldo Móvil');
             showView('view-games');
@@ -1168,6 +1485,7 @@ Solicitud enviada desde la web REFILLS SHOP.`;
             btn.classList.add('active');
 
             if(tabId === 'tab-manage-offers') renderOffersManager();
+            if(tabId === 'tab-admin-orders') loadAdminOrders();
         }
 
         async function promptAdminLogin() {
@@ -1230,18 +1548,58 @@ Solicitud enviada desde la web REFILLS SHOP.`;
                 const div = document.createElement('div');
                 div.className = "offer-manage-item";
                 div.innerHTML = `
-                    <div style="flex: 1; overflow: hidden;">
-                        <strong style="font-size: 0.9rem;">${offer.title}</strong><br>
-                        <small style="color:var(--text-muted); font-size: 0.72rem;">Costo: ${offer.creditsCost} Cr | Ganancia: +${offer.profitSM || 0} SM</small>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <strong style="font-size: 0.9rem;">${offer.title}</strong>
+                        <div style="display: flex; gap: 4px; align-items: center;">
+                            <button class="btn-secondary" style="padding: 4px 8px; font-size: 0.7rem;" onclick="moveOffer(${gameIndex}, ${offerIndex}, -1)" ${offerIndex === 0 ? 'disabled style="opacity:0.3; cursor:not-allowed;"' : ''}>⬆️</button>
+                            <button class="btn-secondary" style="padding: 4px 8px; font-size: 0.7rem;" onclick="moveOffer(${gameIndex}, ${offerIndex}, 1)" ${offerIndex === offers.length - 1 ? 'disabled style="opacity:0.3; cursor:not-allowed;"' : ''}>⬇️</button>
+                            <button class="btn-danger" style="padding: 4px 8px; font-size: 0.7rem;" onclick="deleteOffer(${gameIndex}, ${offerIndex})">🗑️</button>
+                        </div>
                     </div>
-                    <div style="display: flex; gap: 4px; align-items: center; flex-shrink: 0;">
-                        <button class="btn-secondary" style="padding: 6px 9px; font-size: 0.75rem;" onclick="moveOffer(${gameIndex}, ${offerIndex}, -1)" ${offerIndex === 0 ? 'disabled style="opacity:0.3; cursor:not-allowed;"' : ''}>⬆️</button>
-                        <button class="btn-secondary" style="padding: 6px 9px; font-size: 0.75rem;" onclick="moveOffer(${gameIndex}, ${offerIndex}, 1)" ${offerIndex === offers.length - 1 ? 'disabled style="opacity:0.3; cursor:not-allowed;"' : ''}>⬇️</button>
-                        <button class="btn-danger" style="padding: 6px 10px;" onclick="deleteOffer(${gameIndex}, ${offerIndex})">🗑️</button>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px;">
+                        <div>
+                            <label style="font-size:0.65rem; color:var(--text-muted); display:block; margin-bottom:2px;">Costo (Créditos)</label>
+                            <input type="number" step="0.01" id="edit-cost-${gameIndex}-${offerIndex}" class="form-input" style="padding:8px 10px; font-size:0.85rem;" value="${offer.creditsCost}">
+                        </div>
+                        <div>
+                            <label style="font-size:0.65rem; color:var(--accent-cyan); display:block; margin-bottom:2px;">Ganancia (SM)</label>
+                            <input type="number" step="1" id="edit-profit-${gameIndex}-${offerIndex}" class="form-input" style="padding:8px 10px; font-size:0.85rem;" value="${offer.profitSM !== undefined ? offer.profitSM : 0}">
+                        </div>
                     </div>
+                    <button class="btn-secondary" style="width:100%; padding:6px; font-size:0.75rem; margin-top:4px;" onclick="saveOfferEdit(${gameIndex}, ${offerIndex})">💾 Guardar Cambios de Oferta</button>
                 `;
                 container.appendChild(div);
             });
+        }
+
+        async function saveOfferEdit(gameIdx, offerIdx) {
+            const costInput = document.getElementById(`edit-cost-${gameIdx}-${offerIdx}`);
+            const profitInput = document.getElementById(`edit-profit-${gameIdx}-${offerIdx}`);
+
+            const newCost = parseFloat(costInput.value);
+            const newProfit = parseFloat(profitInput.value);
+
+            if (isNaN(newCost) || isNaN(newProfit)) {
+                return alert("Por favor ingresa valores numéricos válidos.");
+            }
+
+            const offer = gamesData[gameIdx].offers[offerIdx];
+            const oldCost = offer.creditsCost;
+            const oldProfit = offer.profitSM;
+
+            offer.creditsCost = newCost;
+            offer.profitSM = newProfit;
+
+            try {
+                await syncStore();
+                alert("✅ ¡Oferta actualizada correctamente!");
+                renderOffersManager();
+                if (selectedGameObj) renderOffers();
+            } catch (error) {
+                offer.creditsCost = oldCost;
+                offer.profitSM = oldProfit;
+                alert(error.message);
+            }
         }
 
         async function moveOffer(gameIdx, offerIdx, direction) {
