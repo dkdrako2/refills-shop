@@ -822,6 +822,7 @@
             <div class="form-group" id="authNameGroup" style="display:none"><label class="form-label">Nombre</label><input id="authName" class="form-input" maxlength="60" placeholder="Tu nombre"></div>
             <div class="form-group"><label class="form-label">Número de teléfono</label><input id="authPhone" class="form-input" type="tel" placeholder="5351234567"></div>
             <div class="form-group"><label class="form-label">Contraseña</label><input id="authPassword" class="form-input" type="password" minlength="6" placeholder="Mínimo 6 caracteres"></div>
+            <div style="font-size:.72rem;color:var(--text-muted);margin:-4px 2px 10px">🔒 Registro con teléfono y contraseña. No usamos SMS ni Twilio.</div>
             <button class="btn-submit" id="authSubmitBtn" onclick="submitAuth()">🔐 Entrar</button>
             <button class="btn-secondary" id="authLogoutBtn" style="display:none;margin-top:8px" onclick="logoutUser()">🚪 Cerrar sesión</button>
             <div id="authMessage" style="font-size:.75rem;text-align:center;margin-top:10px;color:var(--text-muted)"></div>
@@ -1222,7 +1223,8 @@
                 whatsapp: clientWhatsapp,
                 paymentMethod: selectedPaymentMethod,
                 note: orderNote,
-                user_id: currentUser?.id || null,
+                customer_id: currentUser?.id || null,
+                customer_token: currentUser?.custom ? getCustomerSession() : null,
                 discount_code: activeDiscount?.code || null,
                 discount_percent: Number(activeDiscount?.percent || 0),
                 timestamp: new Date().toLocaleString()
@@ -1842,15 +1844,72 @@ ${addressSection}📱 *WhatsApp cliente:* ${clientWhatsapp}
         function openAuthModal(){ document.getElementById('authModal').classList.add('active'); updateAuthUI(); }
         function closeAuthModal(){ document.getElementById('authModal').classList.remove('active'); }
         function setAuthMode(mode){ authMode=mode; document.getElementById('authTabLogin').classList.toggle('active',mode==='login'); document.getElementById('authTabRegister').classList.toggle('active',mode==='register'); document.getElementById('authNameGroup').style.display=mode==='register'?'block':'none'; document.getElementById('authSubmitBtn').textContent=mode==='register'?'📝 Crear cuenta':'🔐 Entrar'; document.getElementById('authMessage').textContent=''; }
-        async function initAuthSession(){ try{ const {data}=await supabaseClient.auth.getSession(); currentUser=data.session?.user||null; updateAccountUI(); supabaseClient.auth.onAuthStateChange((_e,s)=>{currentUser=s?.user||null;updateAccountUI();}); }catch(e){console.warn(e)} }
-        function updateAccountUI(){ const b=document.getElementById('accountBalance'); if(!b)return; if(!currentUser){b.textContent='$0.00 USD';return;} loadMyProfile(); }
-        async function loadMyProfile(){ try{ const {data,error}=await supabaseClient.from('profiles').select('name,balance,phone').eq('id',currentUser.id).single(); if(error)throw error; document.getElementById('accountBalance').textContent=`$${Number(data.balance||0).toFixed(2)} USD`; document.getElementById('authMessage').textContent=`Hola, ${data.name||'cliente'}.`; document.getElementById('authLogoutBtn').style.display='block'; }catch(e){document.getElementById('accountBalance').textContent='$0.00 USD';} }
+        // CUENTAS REFILLS SHOP: teléfono + contraseña, sin SMS/Twilio.
+        // La autenticación de clientes se maneja mediante RPCs seguras en Supabase; la contraseña nunca se guarda en el navegador ni en texto plano.
+        const CUSTOMER_SESSION_KEY = 'refills_shop_customer_session';
+        function saveCustomerSession(token){ try{ localStorage.setItem(CUSTOMER_SESSION_KEY, token); }catch(e){} }
+        function getCustomerSession(){ try{ return localStorage.getItem(CUSTOMER_SESSION_KEY)||''; }catch(e){ return ''; } }
+        function clearCustomerSession(){ try{ localStorage.removeItem(CUSTOMER_SESSION_KEY); }catch(e){} }
+        async function initAuthSession(){
+            try{
+                const token=getCustomerSession();
+                if(!token){ currentUser=null; updateAccountUI(); return; }
+                const {data,error}=await supabaseClient.rpc('customer_get_session',{p_token:token});
+                if(error||!data?.valid){ clearCustomerSession(); currentUser=null; updateAccountUI(); return; }
+                currentUser={id:data.id,name:data.name,phone:data.phone,balance:Number(data.balance||0),custom:true};
+                updateAccountUI();
+            }catch(e){ console.warn('Sesión de cliente:',e); clearCustomerSession(); currentUser=null; updateAccountUI(); }
+        }
+        function updateAccountUI(){
+            const b=document.getElementById('accountBalance'); if(!b)return;
+            if(!currentUser){ b.textContent='$0.00 USD'; return; }
+            b.textContent=`$${Number(currentUser.balance||0).toFixed(2)} USD`;
+            const msg=document.getElementById('authMessage'); if(msg) msg.textContent=`Hola, ${currentUser.name||'cliente'}.`;
+            const logout=document.getElementById('authLogoutBtn'); if(logout) logout.style.display='block';
+        }
+        async function loadMyProfile(){
+            if(!currentUser){ updateAccountUI(); return; }
+            try{
+                const token=getCustomerSession();
+                const {data,error}=await supabaseClient.rpc('customer_get_session',{p_token:token});
+                if(error||!data?.valid) throw error||new Error('Sesión expirada');
+                currentUser={...currentUser,id:data.id,name:data.name,phone:data.phone,balance:Number(data.balance||0),custom:true};
+                updateAccountUI();
+            }catch(e){ clearCustomerSession(); currentUser=null; updateAccountUI(); }
+        }
         function updateAuthUI(){ const logged=!!currentUser; document.getElementById('authNameGroup').style.display=(authMode==='register'&&!logged)?'block':'none'; document.getElementById('authSubmitBtn').style.display=logged?'none':'block'; document.getElementById('authLogoutBtn').style.display=logged?'block':'none'; if(logged)loadMyProfile(); }
-        async function submitAuth(){ const phone=normalizePhone(document.getElementById('authPhone').value); const password=document.getElementById('authPassword').value; const name=(document.getElementById('authName').value||'').trim(); const msg=document.getElementById('authMessage'); if(!phone||password.length<6||(authMode==='register'&&!name))return msg.textContent='⚠️ Completa los datos correctamente.'; try{ if(authMode==='register'){ const {data,error}=await supabaseClient.auth.signUp({phone,password,options:{data:{name}}}); if(error){ if(error.message?.toLowerCase().includes('phone_provider_disabled')) throw new Error('El registro por teléfono está desactivado en Supabase. Activa Phone en Authentication → Providers y desactiva Confirm phone para usar el registro sin código.'); throw error; } if(data.session) await createProfileIfMissing(data.user,name,phone); else msg.textContent='Cuenta creada. Si tu proyecto exige confirmación de teléfono, desactívala en Supabase para este flujo sin código.'; }else{ const {data,error}=await supabaseClient.auth.signInWithPassword({phone,password}); if(error)throw error; currentUser=data.user; await createProfileIfMissing(currentUser,currentUser.user_metadata?.name||'Cliente',phone); } updateAccountUI(); msg.textContent='✅ Cuenta lista.'; setTimeout(closeAuthModal,500); }catch(e){msg.textContent='❌ '+(e.message||'No se pudo completar.');} }
-        async function createProfileIfMissing(user,name,phone){ if(!user)return; const {data}=await supabaseClient.from('profiles').select('id').eq('id',user.id).maybeSingle(); if(!data){ const {error}=await supabaseClient.from('profiles').insert({id:user.id,name:name||'Cliente',phone,balance:0}); if(error)console.warn(error); } }
-        async function logoutUser(){ await supabaseClient.auth.signOut(); currentUser=null; updateAccountUI(); closeAuthModal(); }
-        async function loadAdminUsers(){ const c=document.getElementById('adminUsersContainer'); if(!c)return; c.innerHTML='⏳ Cargando...'; try{const {data,error}=await supabaseClient.rpc('admin_list_profiles',{p_password:adminSessionPassword});if(error)throw error;c.innerHTML=(data||[]).map(u=>`<div class="user-admin-card"><b>👤 ${escapeHtml(u.name||'Sin nombre')}</b><div style="font-size:.75rem;color:var(--text-muted)">📱 ${escapeHtml(u.phone||'')} · 💵 $${Number(u.balance||0).toFixed(2)} USD</div><div class="admin-mini-grid" style="margin-top:7px"><input id="bal-${u.id}" type="number" class="form-input" value="${Number(u.balance||0)}" placeholder="Saldo USD"><button class="btn-secondary" onclick="adminSetBalance('${u.id}')">💾 Saldo</button></div></div>`).join('')||'<p style="color:var(--text-muted)">No hay usuarios.</p>';}catch(e){c.innerHTML='❌ '+escapeHtml(e.message||'Error');}}
-        async function adminSetBalance(id){const v=Number(document.getElementById('bal-'+id).value);if(v<0)return alert('Saldo inválido');const {error}=await supabaseClient.rpc('admin_set_balance',{p_password:adminSessionPassword,p_user_id:id,p_balance:v});if(error)return alert(error.message);loadAdminUsers();}
+        async function submitAuth(){
+            const phone=normalizePhone(document.getElementById('authPhone').value);
+            const password=document.getElementById('authPassword').value;
+            const name=(document.getElementById('authName').value||'').trim();
+            const msg=document.getElementById('authMessage');
+            if(!phone||phone.length<9||password.length<6||(authMode==='register'&&!name)) return msg.textContent='⚠️ Completa los datos correctamente.';
+            msg.textContent='⏳ Procesando...';
+            try{
+                if(authMode==='register'){
+                    const {data,error}=await supabaseClient.rpc('customer_register',{p_phone:phone,p_password:password,p_name:name});
+                    if(error) throw error;
+                    if(!data?.token) throw new Error('No se pudo crear la sesión.');
+                    saveCustomerSession(data.token);
+                    currentUser={id:data.id,name:data.name,phone:data.phone,balance:Number(data.balance||0),custom:true};
+                    msg.textContent='✅ Cuenta creada correctamente.';
+                }else{
+                    const {data,error}=await supabaseClient.rpc('customer_login',{p_phone:phone,p_password:password});
+                    if(error) throw error;
+                    if(!data?.token) throw new Error('Teléfono o contraseña incorrectos.');
+                    saveCustomerSession(data.token);
+                    currentUser={id:data.id,name:data.name,phone:data.phone,balance:Number(data.balance||0),custom:true};
+                    msg.textContent='✅ Sesión iniciada.';
+                }
+                updateAccountUI(); updateAuthUI(); setTimeout(closeAuthModal,500);
+            }catch(e){ msg.textContent='❌ '+(e.message||'No se pudo completar.'); }
+        }
+        async function logoutUser(){
+            try{ const token=getCustomerSession(); if(token) await supabaseClient.rpc('customer_logout',{p_token:token}); }catch(e){}
+            clearCustomerSession(); currentUser=null; updateAccountUI(); updateAuthUI(); closeAuthModal();
+        }
+        async function loadAdminUsers(){ const c=document.getElementById('adminUsersContainer'); if(!c)return; c.innerHTML='⏳ Cargando...'; try{const {data,error}=await supabaseClient.rpc('admin_list_customer_accounts',{p_password:adminSessionPassword});if(error)throw error;c.innerHTML=(data||[]).map(u=>`<div class="user-admin-card"><b>👤 ${escapeHtml(u.name||'Sin nombre')}</b><div style="font-size:.75rem;color:var(--text-muted)">📱 ${escapeHtml(u.phone||'')} · 💵 $${Number(u.balance||0).toFixed(2)} USD</div><div class="admin-mini-grid" style="margin-top:7px"><input id="bal-${u.id}" type="number" class="form-input" value="${Number(u.balance||0)}" placeholder="Saldo USD"><button class="btn-secondary" onclick="adminSetBalance('${u.id}')">💾 Saldo</button></div></div>`).join('')||'<p style="color:var(--text-muted)">No hay usuarios.</p>';}catch(e){c.innerHTML='❌ '+escapeHtml(e.message||'Error');}}
+        async function adminSetBalance(id){const v=Number(document.getElementById('bal-'+id).value);if(v<0)return alert('Saldo inválido');const {error}=await supabaseClient.rpc('admin_set_customer_balance',{p_password:adminSessionPassword,p_customer_id:id,p_balance:v});if(error)return alert(error.message);loadAdminUsers();}
         function renderDiscountOfferChecks(){const c=document.getElementById('discountOfferChecks');if(!c)return; c.innerHTML=gamesData.map((g,gi)=>{const offers=(g.offers||[]).map((o,oi)=>`<label class="discount-offer-item"><input type="checkbox" class="discount-offer-check" data-game="${escapeHtml(g.name)}" data-offer="${escapeHtml(o.title)}"> <span>${escapeHtml(o.title)}</span></label>`).join('');return offers?`<div class="discount-offer-group"><b>🎮 ${escapeHtml(g.name)}</b>${offers}</div>`:''}).join('')||'<span style="color:var(--text-muted);padding:8px;display:block">No hay ofertas disponibles.</span>'; }
         async function createDiscountCode(){const code=(document.getElementById('discountCode').value||'').trim().toUpperCase();const percent=Number(document.getElementById('discountPercent').value);const duration=Number(document.getElementById('discountDuration').value);const maxUses=Math.max(0,Number(document.getElementById('discountMaxUses').value||0));const offers=[...document.querySelectorAll('.discount-offer-check:checked')].map(x=>({game:x.dataset.game,offer:x.dataset.offer}));if(!code||percent<1||percent>100||!offers.length)return alert('Completa código, porcentaje y al menos una oferta.');try{const {error}=await supabaseClient.rpc('admin_create_discount_code',{p_password:adminSessionPassword,p_code:code,p_percent:percent,p_duration_days:duration,p_max_uses:maxUses,p_offers:offers});if(error)throw error;alert('✅ Código creado correctamente.');document.getElementById('discountCode').value='';document.getElementById('discountPercent').value='';document.getElementById('discountMaxUses').value='';document.querySelectorAll('.discount-offer-check').forEach(x=>x.checked=false);loadDiscountCodes();}catch(e){alert('❌ '+(e.message||'No se pudo crear'));}}
         async function loadDiscountCodes(){const c=document.getElementById('discountList');if(!c)return;try{const {data,error}=await supabaseClient.rpc('admin_list_discount_codes',{p_password:adminSessionPassword});if(error)throw error;c.innerHTML=(data||[]).map(d=>{const uses=Number(d.max_uses||0),used=Number(d.used_count||0);return `<div class="discount-list-item"><div class="discount-list-top"><b class="discount-code-badge">${escapeHtml(d.code)}</b><strong>${Number(d.percent)}% OFF</strong></div><div class="discount-expiry">${d.expires_at?`Vence: ${new Date(d.expires_at).toLocaleString()}`:'Sin vencimiento'} · ${d.active?'Activo':'Desactivado'}</div><div class="discount-uses">Usos: ${used}${uses>0?` / ${uses}`:' / ∞'}</div><div class="discount-expiry">${Array.isArray(d.offers)?d.offers.map(x=>escapeHtml(x.game)+' · '+escapeHtml(x.offer)).join(' • '):''}</div><div class="discount-actions"><button class="btn-secondary" onclick="toggleDiscountCode(${d.id},${!d.active})">${d.active?'⏸️ Desactivar':'▶️ Activar'}</button><button class="btn-secondary" onclick="deleteDiscountCode(${d.id})">🗑️ Eliminar</button></div></div>`}).join('')||'<p style="color:var(--text-muted)">No hay códigos creados.</p>';}catch(e){c.innerHTML='❌ '+escapeHtml(e.message||'Error');}}
