@@ -329,8 +329,8 @@
 
         .offer-bottom {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            grid-template-columns: repeat(3,1fr);
+            gap: 8px;
             background: rgba(4, 7, 17, 0.7);
             padding: 10px;
             border-radius: 12px;
@@ -348,12 +348,16 @@
             margin-bottom: 2px;
         }
 
+        .price-equivalence{display:block;margin-top:2px;font-size:.55rem;color:var(--text-muted);font-weight:600;line-height:1.2;}
+
         .price-value {
             font-family: var(--font-display);
             font-size: 1.4rem;
             font-weight: 700;
             color: var(--accent-cyan);
         }
+
+        .rate-live-preview{margin:-3px 0 14px;padding:10px 12px;border-radius:10px;background:rgba(0,242,254,.07);border:1px solid rgba(0,242,254,.18);font-size:.78rem;color:var(--accent-cyan);font-weight:700;line-height:1.5;}
 
         .summary-card {
             background: linear-gradient(135deg, rgba(0, 102, 255, 0.25), rgba(0, 242, 254, 0.1));
@@ -558,6 +562,9 @@
         .tab-btn{width:100%; padding:11px 12px; background:transparent; border:1px solid transparent; color:var(--text-muted); font-size:.78rem; font-weight:800; border-radius:11px; cursor:pointer; text-align:left; transition:.2s;}
         .tab-btn:hover{background:rgba(255,255,255,.04); color:#fff}
         .tab-btn.active{background:linear-gradient(90deg,rgba(0,102,255,.25),rgba(0,242,254,.08)); border-color:rgba(0,242,254,.22); color:#fff; box-shadow:none;}
+        .payment-choice{padding:13px 10px;border:1px solid rgba(255,255,255,.10);border-radius:12px;background:rgba(255,255,255,.035);color:var(--text-muted);font-weight:800;cursor:pointer;transition:.2s;font-size:.78rem;}
+        .payment-choice:hover{border-color:rgba(0,242,254,.35);color:#fff;background:rgba(0,102,255,.10)}
+        .payment-choice.active{border-color:var(--accent-cyan);color:#fff;background:linear-gradient(90deg,rgba(0,102,255,.25),rgba(0,242,254,.10));box-shadow:0 0 14px rgba(0,242,254,.10)}
         .tab-discount{background:linear-gradient(90deg,rgba(255,196,66,.08),rgba(0,102,255,.08));border-color:rgba(255,196,66,.16);color:#fff;display:flex;flex-direction:column;align-items:flex-start;gap:2px}.tab-discount small{font-size:.58rem;color:#f7c95b;font-weight:700}.tab-discount.active{border-color:#f7c95b;background:linear-gradient(90deg,rgba(247,201,91,.16),rgba(0,102,255,.08))}
         .admin-close{margin-top:auto; width:100%;}
         .admin-content{flex:1; min-width:0; overflow-y:auto; padding:22px;}
@@ -585,7 +592,7 @@
         .order-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}.order-field{background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.05);border-radius:10px;padding:8px}.order-field.full{grid-column:1/-1}.order-field-label{display:block;color:var(--text-muted);font-size:.6rem;text-transform:uppercase;font-weight:800;margin-bottom:3px}.order-field-value{display:block;color:#fff;font-size:.82rem;font-weight:700;word-break:break-word}.order-id-value{color:var(--accent-cyan);font-family:var(--font-display);font-size:1rem}.order-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.order-actions button{flex:1;min-width:110px}.order-proof{margin-top:10px;border-radius:12px;overflow:hidden;border:1px solid var(--border-color);background:#000}.order-proof img{display:block;width:100%;max-height:280px;object-fit:contain;cursor:pointer}.proof-file-info{margin-top:10px;background:rgba(0,242,254,.035);border:1px solid rgba(0,242,254,.16);border-radius:12px;padding:10px}.proof-file-title{font-size:.7rem;font-weight:900;color:var(--accent-cyan);margin-bottom:8px;letter-spacing:.3px}.proof-file-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}.proof-file-grid>div{background:rgba(0,0,0,.18);border-radius:9px;padding:7px;min-width:0}.proof-file-grid b{display:block;color:var(--text-muted);font-size:.58rem;text-transform:uppercase;margin-bottom:3px}.proof-file-grid span{display:block;color:#fff;font-size:.72rem;word-break:break-word}.proof-file-note{margin-top:8px;color:#f7c95b;font-size:.62rem;line-height:1.4}.proof-url-box{margin-top:10px;background:rgba(0,0,0,.2);border:1px solid rgba(0,242,254,.15);border-radius:12px;padding:10px}.proof-url-input{width:100%;padding:9px 10px;border-radius:9px;background:#02050d;color:#9fefff;border:1px solid rgba(0,242,254,.2);font-size:.68rem;outline:none}.proof-url-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}.proof-url-actions button,.proof-link-btn{flex:1;min-width:105px;text-align:center;text-decoration:none}.proof-old-url{font-size:.72rem;line-height:1.45;color:#f7c95b;background:rgba(247,201,91,.06);border:1px solid rgba(247,201,91,.15);padding:9px;border-radius:9px}.status-select{width:100%;padding:8px 10px;border-radius:10px;background:var(--bg-input);color:#fff;border:1px solid var(--border-color)}
         .finance-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:12px 0}.finance-box{background:linear-gradient(145deg,rgba(10,28,60,.95),rgba(5,12,29,.95));border:1px solid rgba(0,242,254,.12);border-radius:14px;padding:13px}.finance-box span{display:block;color:var(--text-muted);font-size:.65rem;font-weight:800;text-transform:uppercase}.finance-box strong{display:block;color:#fff;font-family:var(--font-display);font-size:1.25rem;margin-top:6px;word-break:break-word}.finance-note{font-size:.68rem;color:var(--text-muted);background:rgba(255,255,255,.03);border-radius:10px;padding:10px;margin-bottom:10px}
         @media(max-width:720px){header{padding-right:10px;padding-top:58px}.account-header{position:absolute;right:8px;top:7px;justify-content:flex-end;width:auto;margin:0}.account-balance{font-size:.64rem;padding:6px 8px}.account-btn{width:34px;height:34px}.modal-box{height:94vh}.admin-shell{flex-direction:column}.admin-sidebar{width:100%;padding:10px;border-right:0;border-bottom:1px solid rgba(255,255,255,.07)}.admin-brand{display:none}.admin-nav{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}.tab-btn{text-align:left;padding:9px 8px;font-size:.65rem}.tab-discount{align-items:flex-start}.admin-close{display:none}.admin-content{padding:14px}.admin-topbar{margin-bottom:12px}.admin-dashboard{grid-template-columns:repeat(3,1fr);gap:7px}.admin-stat{padding:10px 8px}.admin-stat strong{font-size:1.1rem}.admin-actions{grid-template-columns:1fr}.order-grid{grid-template-columns:1fr}.order-field.full{grid-column:auto}}
-        @media(max-width:430px){header{padding-top:56px}.admin-nav{grid-template-columns:repeat(2,1fr)}.admin-stat small{font-size:.56rem}.admin-stat strong{font-size:1rem}.admin-mini-grid{grid-template-columns:1fr}.account-balance{padding:6px 8px;font-size:.66rem}.account-btn{width:36px;height:36px}}
+        @media(max-width:430px){header{padding-top:56px}.admin-nav{grid-template-columns:repeat(2,1fr)}.admin-stat small{font-size:.56rem}.admin-stat strong{font-size:1rem}.admin-mini-grid{grid-template-columns:1fr}.balance-adjust-grid{grid-template-columns:1fr}.account-balance{padding:6px 8px;font-size:.66rem}.account-btn{width:36px;height:36px}}
 
         .floating-whatsapp {
             position: fixed;
@@ -618,13 +625,81 @@
         .auth-tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:15px}.auth-tab{padding:10px;border-radius:10px;border:1px solid var(--border-color);background:transparent;color:#fff;cursor:pointer}.auth-tab.active{border-color:var(--accent-cyan);background:rgba(0,242,254,.08)}
         .discount-preview{font-size:.72rem;color:var(--accent-cyan);margin-top:5px;font-weight:700}
         .admin-mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.discount-offers-picker{max-height:210px;overflow:auto;border:1px solid var(--border-color);border-radius:12px;background:rgba(0,0,0,.16);padding:5px}.discount-offer-group{padding:7px 8px;border-bottom:1px solid rgba(255,255,255,.05)}.discount-offer-group:last-child{border-bottom:0}.discount-offer-group b{display:block;color:#fff;font-size:.7rem;margin-bottom:4px}.discount-offer-item{display:flex;align-items:center;gap:7px;padding:5px 3px;color:var(--text-muted);font-size:.7rem;cursor:pointer}.discount-offer-item input{accent-color:var(--accent-cyan)}.discount-toggle{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:.72rem;color:var(--text-muted)}.discount-toggle input{accent-color:var(--accent-cyan)}.discount-uses{font-size:.65rem;color:var(--text-muted);margin-top:5px}.discount-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.discount-actions button{flex:1;min-width:100px}.discount-list-item{background:rgba(0,0,0,.18);border:1px solid var(--border-color);border-radius:12px;padding:10px;margin-bottom:8px}.discount-list-top{display:flex;justify-content:space-between;gap:8px;align-items:center}.discount-code-badge{font-family:var(--font-display);color:var(--accent-cyan);font-size:1rem}.discount-expiry{font-size:.65rem;color:var(--text-muted);margin-top:5px}.user-admin-card{background:rgba(0,0,0,.2);border:1px solid var(--border-color);border-radius:12px;padding:10px;margin-bottom:8px}
+
+        /* PERFIL DEL CLIENTE */
+        .profile-overlay{position:fixed;inset:0;background:rgba(0,0,0,.78);backdrop-filter:blur(9px);display:none;align-items:center;justify-content:center;z-index:3200;padding:14px}
+        .profile-overlay.active{display:flex}
+        .profile-box{width:min(520px,100%);max-height:92vh;overflow:auto;background:linear-gradient(145deg,#07132d,#0b1838);border:1px solid rgba(0,242,254,.3);border-radius:22px;box-shadow:0 25px 80px rgba(0,0,0,.55);padding:18px}
+        .profile-head{display:flex;align-items:center;gap:12px;padding:4px 2px 14px;border-bottom:1px solid rgba(255,255,255,.07)}
+        .profile-avatar{width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#0066ff,#00bcd4);color:#fff;font-weight:900;font-size:1.25rem;box-shadow:0 8px 25px rgba(0,102,255,.28)}
+        .profile-name{font-family:var(--font-title);font-size:1rem}.profile-phone{font-size:.7rem;color:var(--text-muted);margin-top:3px}
+        .profile-close{margin-left:auto}
+        .profile-balance{margin:14px 0;background:linear-gradient(135deg,rgba(0,242,254,.12),rgba(0,102,255,.16));border:1px solid rgba(0,242,254,.25);border-radius:16px;padding:14px}.profile-balance small{display:block;color:var(--text-muted);font-size:.68rem}.profile-balance strong{display:block;font-family:var(--font-display);font-size:1.8rem;margin-top:2px}
+        .profile-section-title{font-family:var(--font-display);font-size:.95rem;color:var(--accent-cyan);margin:14px 0 8px;font-weight:800}
+        .profile-history{display:flex;flex-direction:column;gap:7px;max-height:310px;overflow:auto}.history-item{border:1px solid rgba(255,255,255,.07);background:rgba(0,0,0,.18);border-radius:12px;padding:10px}.history-top{display:flex;justify-content:space-between;gap:8px}.history-offer{font-weight:800;font-size:.78rem}.history-status{font-size:.62rem;padding:4px 7px;border-radius:8px;background:rgba(0,242,254,.1);color:var(--accent-cyan)}.history-meta{font-size:.65rem;color:var(--text-muted);margin-top:5px;line-height:1.45}
+        .profile-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+        .balance-adjust-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+        /* MENÚ HAMBURGUESA DEL ADM */
+        .admin-menu-btn{position:absolute;left:14px;top:14px;width:42px;height:42px;border-radius:12px;border:1px solid rgba(0,242,254,.28);background:#091735;color:#fff;cursor:pointer;z-index:20;display:flex;align-items:center;justify-content:center;font-size:1.35rem;line-height:1}
+        .admin-menu-btn span{display:block;transform:scaleX(1.15)}
+        .admin-menu-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.5);display:none;z-index:24}.admin-menu-backdrop.open{display:block}
+        .admin-sidebar{position:relative;z-index:25;transition:transform .2s ease}
+        .admin-drawer-close{display:none;position:absolute;right:10px;top:10px}
+        /* USD */
+        .usd-balance-note{font-size:.7rem;color:var(--text-muted);background:rgba(0,102,255,.09);border:1px solid rgba(0,242,254,.14);border-radius:10px;padding:9px;margin:8px 0}
+        .balance-warning{color:#ffcc66!important}
+        /* El ADM usa siempre el botón ☰ como menú principal */
+        .admin-shell{position:relative}
+        .admin-sidebar{position:absolute;left:0;top:0;bottom:0;width:250px;transform:translateX(-105%);box-shadow:18px 0 50px rgba(0,0,0,.5);transition:transform .2s ease;z-index:25}
+        .admin-modal-open .admin-sidebar{transform:translateX(0)}
+        .admin-sidebar.open{transform:translateX(0)}
+        .admin-drawer-close{display:block}
+        .admin-content{width:100%;padding-top:70px}
+        @media(max-width:720px){
+          .admin-menu-btn{left:10px;top:10px}.admin-sidebar{width:min(285px,82%);padding:18px 12px}.admin-brand{padding-top:38px}
+          .admin-topbar>button{display:none}
+        }
+
+        /* V1 cliente: flujo directo por WhatsApp. Las pantallas antiguas quedan fuera del flujo. */
+        #view-saldo-movil, #view-transfer-cup { display:none !important; }
+        #tab-admin-orders, #tab-discounts, #tab-finance, #tab-users { display:none !important; }
     </style>
+
+<style id="easyCustomerUI">
+.easy-help{margin:12px 0 16px;padding:13px 15px;border-radius:16px;background:rgba(0,102,255,.10);border:1px solid rgba(0,242,254,.22);font-size:.82rem;line-height:1.45;color:#dbe7ff}.easy-help strong{display:block;color:#fff;font-size:.9rem;margin-bottom:3px}.offer-card-simple{padding:16px;border-radius:18px;cursor:pointer}.offer-card-simple .offer-main{font-size:1.15rem;font-weight:800}.offer-card-simple .offer-sub{margin-top:4px;color:var(--text-muted);font-size:.78rem}.offer-prices-simple{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:13px}.offer-price-simple{padding:10px 5px;border-radius:12px;background:rgba(0,0,0,.22);text-align:center}.offer-price-simple b{display:block;font-size:.72rem;color:var(--text-muted);margin-bottom:4px}.offer-price-simple span{font-weight:800;font-size:.9rem}.offer-tap{margin-top:11px;text-align:center;font-size:.75rem;color:var(--accent-cyan)}.payment-help{margin-bottom:12px}.payment-item{min-height:66px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;text-align:center}.payment-item small{color:var(--text-muted)}
+@media(max-width:380px){.offer-prices-simple{grid-template-columns:1fr}.offer-price-simple{padding:8px}}
+</style>
+        <style id="simpleCustomerMode">
+            .account-header { display:none !important; }
+            #view-saldo-movil, #view-transfer-cup { display:none !important; }
+            #view-form .summary-card { margin-bottom:18px; }
+            #view-form .btn-submit { margin-top:8px; }
+        </style>
+
+<style id="final-usability-css">
+.simple-payment-box{margin:14px 0;padding:14px;border:1px solid rgba(74,170,255,.22);border-radius:16px;background:rgba(7,18,38,.48)}
+.simple-payment-title{font-weight:800;margin-bottom:10px;font-size:.9rem}
+.simple-payment-options{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.simple-payment-option{border:1px solid rgba(120,190,255,.18);background:rgba(10,27,52,.78);color:inherit;border-radius:14px;padding:12px 8px;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;transition:.18s}
+.simple-payment-option span{font-size:1.35rem}.simple-payment-option b{font-size:.78rem}.simple-payment-option small{opacity:.8;font-size:.7rem}
+.simple-payment-option.selected{border-color:rgba(52,180,255,.9);box-shadow:0 0 0 2px rgba(52,180,255,.12);transform:translateY(-1px)}
+.simple-payment-note{font-size:.68rem;opacity:.68;text-align:center;margin-top:9px}
+.success-card{max-width:520px;margin:0 auto;padding:24px;border-radius:22px;background:rgba(8,22,45,.9);border:1px solid rgba(73,174,255,.22);box-shadow:0 18px 55px rgba(0,0,0,.25);text-align:center}
+.success-icon{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;margin:0 auto 12px;background:rgba(43,206,133,.14);border:1px solid rgba(43,206,133,.35);font-size:1.8rem}
+.success-card h2{margin:0 0 5px}.success-subtitle{opacity:.72;font-size:.82rem;margin:0 0 18px}
+.success-details{text-align:left;border-radius:16px;background:rgba(0,0,0,.14);padding:7px 13px;margin-bottom:15px}
+.success-row{display:flex;justify-content:space-between;gap:15px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:.78rem}
+.success-row:last-child{border-bottom:0}.success-row strong{text-align:right}
+.success-actions{display:grid;gap:9px}.success-help{margin-top:14px;padding:11px;border-radius:12px;background:rgba(50,150,255,.07);font-size:.7rem;display:grid;gap:3px}.success-help span{opacity:.68}
+@media(max-width:520px){.simple-payment-options{grid-template-columns:1fr}.success-card{padding:18px}}
+</style>
+
 </head>
 <body>
 
     <div class="container">
         <header>
-            <div class="account-header"><span class="account-balance" id="accountBalance">$0.00 USD</span><button class="account-btn" onclick="openAuthModal()" title="Mi cuenta" aria-label="Mi cuenta"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.2"></circle><path d="M5.5 19.2c.8-3.1 3-4.7 6.5-4.7s5.7 1.6 6.5 4.7"></path></svg></button></div>
+            <div class="account-header"><span class="account-balance" id="accountBalance">$0.00 USD</span><button class="account-btn" onclick="openAccountPanel()" title="Mi cuenta" aria-label="Mi cuenta"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.2"></circle><path d="M5.5 19.2c.8-3.1 3-4.7 6.5-4.7s5.7 1.6 6.5 4.7"></path></svg></button></div>
             <div class="brand-badge">Tienda Oficial</div>
             <div class="logo">REFILLS <span>SHOP</span></div>
             <div class="subtitle">Recargas rápidas y seguras por WhatsApp</div>
@@ -643,6 +718,7 @@
             <div class="section-header">
                 <div class="section-title">🎮 Selecciona un Juego</div>
                 <div class="section-desc">Elige el juego donde deseas recibir tu recarga.</div>
+            <div class="easy-help"><strong>🧭 ¿Cómo funciona?</strong>1️⃣ Elige tu juego → 2️⃣ Elige una oferta → 3️⃣ Escribe tu ID → 4️⃣ Elige cómo pagar → 5️⃣ Envías el comprobante si hace falta.</div>
             </div>
             <div class="grid-cards" id="games-container"></div>
         </div>
@@ -653,79 +729,45 @@
             <div class="section-header">
                 <div class="section-title" id="offers-title">Ofertas</div>
                 <div class="section-desc">Toca sobre el paquete que deseas recargar.</div>
+            <div class="easy-help"><strong>Elige tu recarga</strong>Toca la oferta que deseas. Aquí verás el precio en <b>SM</b> y <b>CUP</b>.</div>
             </div>
             <div class="grid-cards" id="offers-container"></div>
         </div>
 
-        <!-- VISTA 3: FORMULARIO -->
+        <!-- VISTA 3: FORMULARIO SIMPLE -->
         <div id="view-form" class="view">
             <button class="btn-back" onclick="showView('view-offers')">← Volver a Ofertas</button>
+            <div class="section-header">
+                <div class="section-title">Datos de la recarga</div>
+                <div class="section-desc">Solo necesitas escribir el ID del jugador.</div>
+            </div>
 
             <div class="summary-card">
-                <div class="summary-row">
-                    <span>Juego:</span>
-                    <strong id="summary-game">-</strong>
-                </div>
-                <div class="summary-row">
-                    <span>Paquete:</span>
-                    <strong id="summary-offer">-</strong>
-                </div>
-                <div class="summary-row">
-                    <span>Total a pagar:</span>
-                    <span class="summary-price" id="summary-price">-</span>
-                </div>
+                <div class="summary-row"><span>Juego:</span><strong id="summary-game">-</strong></div>
+                <div class="summary-row"><span>Oferta:</span><strong id="summary-offer">-</strong></div>
+                <div class="summary-row"><span>Saldo Móvil:</span><span class="summary-price" id="summary-price-sm">-</span></div>
+                <div class="summary-row"><span>CUP:</span><span class="summary-price" id="summary-price-cup">-</span></div>
             </div>
 
             <div class="cyber-form-container">
                 <form id="orderForm" onsubmit="handleFormSubmit(event)">
                     <div class="form-group">
-                        <label class="form-label" for="playerId"><span>🆔</span> ID del Jugador *</label>
+                        <label class="form-label" for="playerId">ID del Jugador *</label>
                         <div class="cyber-input-wrapper">
-                            <input type="number" id="playerId" class="form-input" placeholder="Ej: 72827" required>
+                            <input type="text" inputmode="numeric" id="playerId" class="form-input"
+                                   placeholder="Escribe el ID del jugador" required maxlength="30">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label" for="clientWhatsapp"><span>📱</span> Tu WhatsApp *</label>
-                        <div class="cyber-input-wrapper">
-                            <input type="tel" id="clientWhatsapp" class="form-input" placeholder="Ej: 5351234567" required>
+                        <label class="form-label">Método de pago *</label>
+                        <div id="paymentMethodChoices" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                            <button type="button" class="payment-choice" data-payment="Saldo Móvil" onclick="selectSimplePayment('Saldo Móvil', this)">📲 Saldo Móvil</button>
+                            <button type="button" class="payment-choice" data-payment="Transferencia CUP" onclick="selectSimplePayment('Transferencia CUP', this)">💵 Transferencia CUP</button>
                         </div>
+                        <div id="selectedPaymentHint" style="font-size:.72rem;color:var(--text-muted);margin-top:8px;">Selecciona cómo vas a pagar.</div>
                     </div>
-
-                    <div class="form-group">
-                        <label class="form-label"><span>💳</span> Método de Pago *</label>
-                        <div class="payment-grid">
-                            <div class="payment-item selected" id="pay-sm" onclick="selectPayment('Saldo Móvil')">
-                                <span>📲 Saldo Móvil</span>
-                                <span style="font-size:0.75rem; opacity:0.7;">Recomendado</span>
-                            </div>
-                            <div class="payment-item" id="pay-cup" onclick="selectPayment('Transferencia CUP')">
-                                <span>🏦 Transferencia CUP</span>
-                                <span style="font-size:0.75rem; opacity:0.7;">Bancaria</span>
-                            </div>
-                            <div class="payment-item" id="pay-cash" onclick="selectPayment('EFECTIVO ( Solo Habana )')">
-                                <span>💵 EFECTIVO ( Solo Habana )</span>
-                                <span style="font-size:0.75rem; opacity:0.7;">Presencial</span>
-                            </div>
-                        </div>
-
-                        <div class="form-group"><label class="form-label">🏷️ Código de descuento (opcional)</label><input id="discountInput" class="form-input" placeholder="Ej: DRAKO10" oninput="previewDiscount()"><div id="discountPreview" class="discount-preview"></div></div>
-
-                        <div class="address-box" id="addressNotice">
-                            📍 <strong>Dirección de entrega:</strong><br>
-                            5ta % Central y Lindero #6205 Vía Blanca, Guanabacoa Habana.<br>
-                            ⚠️ <strong>Aviso:</strong> Escribirnos antes de venir para confirmar su recarga.
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label" for="orderNote"><span>📝</span> Nota Adicional</label>
-                        <div class="cyber-input-wrapper">
-                            <textarea id="orderNote" class="form-textarea" placeholder="Instrucción extra opcional..."></textarea>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn-submit" id="btnSubmitOrder">🟢 Continuar Pedido</button>
+                    <button type="submit" class="btn-submit" id="btnSubmitOrder">Enviar solicitud por WhatsApp</button>
                 </form>
             </div>
         </div>
@@ -796,56 +838,83 @@
 
         <!-- VISTA 4: ÉXITO -->
         <div id="view-success" class="view">
-            <div style="text-align:center; padding:20px;">
-                <div style="font-size:3.5rem; margin-bottom:10px;">✅</div>
-                <div class="section-title" style="justify-content:center;">¡Solicitud enviada!</div>
-                <p class="section-desc" style="margin: 10px 0 20px;">Ya realizaste tu solicitud dentro de la web. Te avisaremos cuando tu recarga haya sido enviada.</p>
-                
-                <button class="btn-submit" onclick="openWhatsAppUrl()">💬 Abrir WhatsApp</button>
-                <button class="btn-secondary" onclick="copyPlayerIdOnly()">📋 Copiar ID del Jugador</button>
-                <button class="btn-secondary" onclick="copyOrderDetails()">📑 Copiar Ficha Completa</button>
-                <a href="https://chat.whatsapp.com/G5T5145stOUECBQmemiHiw?s=cl&p=a&mlu=4&ilr=4" class="group-link-badge" target="_blank" style="display:block; text-align:center; margin-top:10px; padding:12px;">💬 Unirme al Grupo de WhatsApp</a>
-                <button class="btn-secondary" onclick="resetApp()">🔄 Hacer otro pedido</button>
+                <div class="success-card">
+                    <div class="success-icon">✓</div>
+                    <h2>¡Solicitud preparada!</h2>
+                    <p class="success-subtitle">Revisa los datos y abre WhatsApp para enviarlos a REFILLS SHOP.</p>
+                    <div class="success-details" id="successDetails">
+                        <div class="success-row"><span>🎮 Juego</span><strong id="successGame">—</strong></div>
+                        <div class="success-row"><span>📦 Oferta</span><strong id="successOffer">—</strong></div>
+                        <div class="success-row"><span>🆔 ID</span><strong id="successPlayerId">—</strong></div>
+                        <div class="success-row"><span>💳 Método</span><strong id="successPayment">—</strong></div>
+                        <div class="success-row"><span>💰 Precio</span><strong id="successPrice">—</strong></div>
+                    </div>
+                    <div class="success-actions">
+                        <button type="button" class="btn-submit" onclick="openWhatsAppUrl()">💬 Enviar pedido por WhatsApp</button>
+                        <button class="btn-secondary" onclick="newRequest()">🛒 Hacer otra solicitud</button>
+                    </div>
+                    <div class="success-help">
+                        <b>¿Ya enviaste el mensaje?</b>
+                        <span>No necesitas llenar nada más. Espera la confirmación de tu recarga por WhatsApp.</span>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="admin-trigger">
-            <button class="btn-admin-link" onclick="promptAdminLogin()">⚙️ Panel ADM</button>
+    <!-- PANEL ADM: se mantiene abajo de la web, como en el diseño original -->
+    <div class="admin-trigger">
+        <button type="button" class="btn-admin-link" onclick="promptAdminLogin()">⚙️ Panel ADM</button>
+    </div>
+
+    <!-- PERFIL COMPLETO DEL CLIENTE -->
+    <div class="profile-overlay" id="profileModal" onclick="if(event.target===this)closeProfileModal()">
+        <div class="profile-box">
+            <div class="profile-head">
+                <div class="profile-avatar" id="profileAvatar">U</div>
+                <div><div class="profile-name" id="profileName">Cliente</div><div class="profile-phone" id="profilePhone">—</div></div>
+                <button class="btn-secondary profile-close" onclick="closeProfileModal()">✕</button>
+            </div>
+            <div class="profile-section-title">📦 Historial de recargas</div>
+            <div class="profile-history" id="profileHistory"><div style="text-align:center;color:var(--text-muted);font-size:.72rem;padding:15px">Inicia sesión para ver tu historial.</div></div>
+            <div class="profile-actions">
+                <button class="btn-secondary" onclick="loadCustomerHistory()">🔄 Actualizar</button>
+                <button class="btn-danger" onclick="logoutUser()">🚪 Cerrar sesión</button>
+            </div>
         </div>
     </div>
 
-    <!-- CUENTA DE CLIENTE -->
-    <div class="auth-overlay" id="authModal" onclick="if(event.target===this) closeAuthModal()">
-        <div class="auth-box">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;"><div><div class="section-title">👤 Mi cuenta</div><div class="section-desc">Regístrate o inicia sesión para gestionar tu saldo.</div></div><button class="btn-secondary" onclick="closeAuthModal()">✕</button></div>
-            <div class="auth-tabs"><button class="auth-tab active" id="authTabLogin" onclick="setAuthMode('login')">Iniciar sesión</button><button class="auth-tab" id="authTabRegister" onclick="setAuthMode('register')">Registrarme</button></div>
-            <div class="form-group" id="authNameGroup" style="display:none"><label class="form-label">Nombre</label><input id="authName" class="form-input" maxlength="60" placeholder="Tu nombre"></div>
-            <div class="form-group"><label class="form-label">Número de teléfono</label><input id="authPhone" class="form-input" type="tel" placeholder="5351234567"></div>
-            <div class="form-group"><label class="form-label">Contraseña</label><input id="authPassword" class="form-input" type="password" minlength="6" placeholder="Mínimo 6 caracteres"></div>
-            <div style="font-size:.72rem;color:var(--text-muted);margin:-4px 2px 10px">🔒 Registro con teléfono y contraseña. No usamos SMS ni Twilio.</div>
-            <button class="btn-submit" id="authSubmitBtn" onclick="submitAuth()">🔐 Entrar</button>
-            <button class="btn-secondary" id="authLogoutBtn" style="display:none;margin-top:8px" onclick="logoutUser()">🚪 Cerrar sesión</button>
-            <div id="authMessage" style="font-size:.75rem;text-align:center;margin-top:10px;color:var(--text-muted)"></div>
+    <div class="modal-overlay" id="offerAdModal">
+        <div class="modal-box" style="max-width:430px;">
+            <div class="admin-topbar"><div><h2>📣 Anuncio de oferta</h2><p>Prepara la oferta para publicarla donde quieras.</p></div><button class="btn-secondary" onclick="closeOfferAd()">✕</button></div>
+            <div class="admin-card">
+                <div id="offerAdPreview" style="padding:18px;border-radius:16px;background:linear-gradient(145deg,#071735,#0b1f48);text-align:center;">
+                    <div style="font-size:.7rem;letter-spacing:2px;color:#00f2fe;">REFILLS SHOP</div>
+                    <h2 id="adOfferTitle" style="margin:8px 0;font-family:var(--font-title);">Oferta</h2>
+                    <div id="adOfferPrices" style="font-weight:700;font-size:1rem;"></div>
+                    <div id="adOfferTag" style="margin-top:10px;font-size:.75rem;color:#8fa0c9;"></div>
+                </div>
+                <textarea id="offerAdText" class="form-textarea" style="margin-top:12px;min-height:130px;" readonly></textarea>
+                <button class="btn-submit" onclick="copyOfferAdText()">📋 Copiar anuncio</button>
+                <button class="btn-secondary" style="width:100%;margin-top:8px;" onclick="closeOfferAd()">Cerrar</button>
+            </div>
         </div>
     </div>
 
     <!-- PANEL DE ADMINISTRADORES -->
     <div class="modal-overlay" id="adminModal">
-        <div class="modal-box">
+        <div class="modal-box" style="position:relative;">
+            <button type="button" class="admin-menu-btn" onclick="toggleAdminMenu()" aria-label="Abrir menú"><span>☰</span></button>
+            <div class="admin-menu-backdrop" id="adminMenuBackdrop" onclick="toggleAdminMenu(false)"></div>
             <div class="admin-shell">
-                <aside class="admin-sidebar">
+                <aside class="admin-sidebar" id="adminSidebar"><button type="button" class="btn-secondary admin-drawer-close" onclick="toggleAdminMenu(false)">✕</button>
                     <div class="admin-brand"><b>DK · REFILLS SHOP</b><span>Panel de administración</span></div>
                     <div class="admin-nav">
                         <button class="tab-btn active" onclick="switchAdminTab('tab-rates', this)">⚙️ Tasas</button>
                         <button class="tab-btn" onclick="switchAdminTab('tab-add-game', this)">🎮 Juegos</button>
                         <button class="tab-btn" onclick="switchAdminTab('tab-add-offer', this)">💎 Ofertas</button>
                         <button class="tab-btn" onclick="switchAdminTab('tab-manage-offers', this)">📋 Gestor</button>
-                        <button class="tab-btn" onclick="switchAdminTab('tab-admin-orders', this)">📥 Pedidos</button>
-                        <button class="tab-btn tab-discount" onclick="switchAdminTab('tab-discounts', this)"><span>🏷️ Descuentos</span><small>Promociones y códigos</small></button>
-                        <button class="tab-btn" onclick="switchAdminTab('tab-finance', this)">💰 Finanzas</button>
-                        <button class="tab-btn" onclick="switchAdminTab('tab-users', this)">👥 Usuarios</button>
                     </div>
-                    <button class="btn-secondary admin-close" onclick="closeAdminModal()">✕ Cerrar panel</button>
+                    <button class="btn-secondary admin-close" onclick="closeAdminModal()">🚪 Salir del panel</button>
+                    <button class="btn-secondary" style="width:100%;margin-top:8px;" onclick="closeAdminModal()">🏠 Volver a la tienda</button>
                 </aside>
 
                 <main class="admin-content">
@@ -854,18 +923,14 @@
                         <button class="btn-secondary" onclick="closeAdminModal()">✕</button>
                     </div>
 
-                    <div class="admin-dashboard">
-                        <div class="admin-stat" onclick="switchAdminTab('tab-admin-orders', document.querySelector('.tab-btn[onclick*=\"tab-admin-orders\"]'))"><small>Pedidos</small><strong id="adminDashOrders">—</strong></div>
-                        <div class="admin-stat" onclick="switchAdminTab('tab-add-game', document.querySelector('.tab-btn[onclick*=\"tab-add-game\"]'))"><small>Juegos</small><strong id="adminDashGames">—</strong></div>
-                        <div class="admin-stat" onclick="switchAdminTab('tab-manage-offers', document.querySelector('.tab-btn[onclick*=\"tab-manage-offers\"]'))"><small>Ofertas</small><strong id="adminDashOffers">—</strong></div>
-                    </div>
-
                     <div id="tab-rates" class="admin-panel-section active">
                         <div class="admin-card">
                             <div class="admin-card-title">⚙️ Configuración de precios</div>
                             <div class="admin-card-sub">Estas tasas se usan para calcular los precios de las ofertas.</div>
-                            <div class="form-group"><label class="form-label">1 Crédito = ¿Cuánto Saldo Móvil?</label><input type="number" step="0.1" id="cfgCreditRate" class="form-input"></div>
-                            <div class="form-group"><label class="form-label">Tasa Cambio (1 SM = X CUP)</label><input type="number" step="0.1" id="cfgSmToCupRate" class="form-input"></div>
+                            <div class="form-group"><label class="form-label">⚙️ Tasa interna para calcular ofertas (SM)</label><input type="number" step="0.1" id="cfgCreditRate" class="form-input"></div>
+                            <div class="form-group"><label class="form-label">💲 Equivalencia USD: 1 USD = X SM</label><input type="number" step="0.01" min="0.01" id="cfgUsdRateSM" class="form-input" placeholder="Ej: 279"></div>
+                            <div class="form-group"><label class="form-label">💵 Equivalencia CUP: 1 SM = X CUP</label><input type="number" step="0.01" min="0.01" id="cfgSmToCupRate" class="form-input"></div>
+                            <div class="rate-live-preview" id="rateLivePreview">💲 1 USD = 279 SM</div>
                             <div class="form-group"><label class="form-label">💳 Crédito total disponible para trabajar</label><input type="number" step="0.01" min="0" id="cfgInitialCredits" class="form-input" placeholder="Ej: 100"></div>
                             <div style="font-size:.68rem;color:var(--text-muted);margin:-3px 0 12px;">El panel descontará automáticamente el costo en créditos de cada pedido no cancelado.</div>
                             <button class="btn-submit" onclick="saveAdminSettings()">💾 Guardar Configuración</button>
@@ -890,6 +955,7 @@
                             <div class="form-group"><label class="form-label">Nombre del Paquete</label><input type="text" id="newOfferTitle" class="form-input" placeholder="Ej: 80 Robux"></div>
                             <div class="form-group"><label class="form-label">Etiqueta Destacada</label><select id="newOfferTag" class="form-select"><option value="ENTREGA ID">⚡ ENTREGA ID</option><option value="POPULAR">🔥 POPULAR</option><option value="OFERTA">🏷️ OFERTA</option><option value="MEJOR PRECIO">⭐ MEJOR PRECIO</option></select></div>
                             <div class="form-group"><label class="form-label">Costo en Créditos</label><input type="number" step="0.01" id="newOfferCredits" class="form-input" placeholder="Ej: 0.99"></div>
+                            <div class="form-group"><label class="form-label">💳 Costo real de la recarga (USD)</label><input type="number" step="0.01" min="0" id="newOfferProviderCost" class="form-input" placeholder="Ej: 0.70"></div>
                             <div class="form-group"><label class="form-label" style="color:var(--accent-cyan);">💰 Ganancia en Saldo Móvil (SM)</label><input type="number" step="1" id="newOfferProfitSM" class="form-input" placeholder="Ej: 50"></div>
                             <button class="btn-secondary" onclick="addNewOffer()">➕ Agregar Oferta</button>
                         </div>
@@ -906,7 +972,7 @@
                         </div>
                     </div>
 
-                    <div id="tab-finance" class="admin-panel-section">
+                    <div id="tab-finance" class="admin-panel-section" style="display:none">
                         <div class="admin-card">
                             <div class="admin-card-title">💰 Control de crédito y dinero</div>
                             <div class="admin-card-sub">Se calcula automáticamente usando las ofertas realizadas y los pedidos que no estén cancelados.</div>
@@ -926,11 +992,11 @@
                         </div>
                     </div>
 
-                    <div id="tab-users" class="admin-panel-section">
+                    <div id="tab-users" class="admin-panel-section" style="display:none">
                         <div class="admin-card"><div class="admin-card-title">👥 Cuentas de clientes</div><div class="admin-card-sub">Administra saldo interno y estado de las cuentas.</div><button class="btn-secondary" onclick="loadAdminUsers()">🔄 Actualizar usuarios</button><div id="adminUsersContainer" style="margin-top:12px"></div></div>
                     </div>
 
-                    <div id="tab-discounts" class="admin-panel-section">
+                    <div id="tab-discounts" class="admin-panel-section" style="display:none">
                         <div class="admin-card discount-admin-card">
                             <div class="admin-card-title">🏷️ Crear descuento</div>
                             <div class="admin-card-sub">Configúralo en menos pasos: código, descuento, duración y ofertas.</div>
@@ -945,7 +1011,7 @@
                         <div class="admin-card"><div class="admin-card-title">📋 Códigos creados</div><div id="discountList"></div></div>
                     </div>
 
-                    <div id="tab-admin-orders" class="admin-panel-section">
+                    <div id="tab-admin-orders" class="admin-panel-section" style="display:none">
                         <div class="admin-card" style="padding:12px;"><div class="orders-toolbar"><div><div class="admin-card-title" style="margin:0;">📥 Pedidos recibidos</div><span class="orders-count" id="adminOrdersCount">Cargando...</span></div><button class="btn-secondary" onclick="loadAdminOrders()" style="padding:8px 12px;">🔄 Actualizar</button></div></div>
                         <div id="adminOrdersContainer"><p style="text-align:center;color:var(--text-muted);font-size:.85rem;">Cargando pedidos...</p></div>
                     </div>
@@ -973,7 +1039,8 @@
         let discountCache = [];
 
         let config = {
-            creditRateSM: 315,
+            creditRateSM: 290,
+            usdRateSM: 279,
             smToCupRate: 3.3,
             initialCredits: 0,
             financeResetAt: null
@@ -1011,7 +1078,11 @@
 
         renderGames();
         loadStoreData();
-        initAuthSession();
+        (async()=>{
+            await initAuthSession();
+            enforceLoginAtStart();
+        })();
+        document.addEventListener('input', (e) => { if(e.target?.id === 'cfgUsdRateSM' || e.target?.id === 'cfgSmToCupRate') updateRateLivePreview(); });
 
         async function loadStoreData() {
             try {
@@ -1098,53 +1169,55 @@
 
         function selectGame(game) {
             selectedGameObj = game;
+            selectedOffer = null;
+            selectedPaymentMethod = null;
+            window.simpleSelectedPayment = null;
+            document.querySelectorAll('#paymentMethodChoices .payment-choice').forEach(b => b.classList.remove('active'));
+            const paymentHint = document.getElementById('selectedPaymentHint');
+            if (paymentHint) paymentHint.textContent = 'Selecciona cómo vas a pagar.';
             document.getElementById('offers-title').innerText = `Ofertas · ${game.name}`;
             renderOffers();
             showView('view-offers');
         }
 
         function renderOffers() {
+    if(window.simpleSelectedPayment) window.simpleSelectedPayment = null;
             const container = document.getElementById('offers-container');
             container.innerHTML = "";
 
             if (!selectedGameObj.offers || selectedGameObj.offers.length === 0) {
-                container.innerHTML = `<p style="text-align:center; color:var(--text-muted);">No hay ofertas disponibles en este juego.</p>`;
+                container.innerHTML = `<p style="text-align:center;color:var(--text-muted);">No hay ofertas disponibles en este juego.</p>`;
                 return;
             }
 
             selectedGameObj.offers.forEach(offer => {
-                const profitSM = offer.profitSM !== undefined ? offer.profitSM : 0;
-                const baseCostSM = offer.creditsCost * config.creditRateSM;
-                const priceSM = Math.round(baseCostSM + profitSM);
-                const priceCUP = Math.round(priceSM * config.smToCupRate);
+                const fallbackSM = Math.round(
+                    Number(offer.creditsCost || 0) * Number(config.creditRateSM || 0) +
+                    Number(offer.profitSM || 0)
+                );
+                const priceSM = (offer.priceSM !== undefined && offer.priceSM !== null && offer.priceSM !== '')
+                    ? Number(offer.priceSM) : fallbackSM;
+                const priceCUP = (offer.priceCUP !== undefined && offer.priceCUP !== null && offer.priceCUP !== '')
+                    ? Number(offer.priceCUP) : Math.round(priceSM * Number(config.smToCupRate || 0));
 
-                const offerCalculated = {
-                    ...offer,
-                    formattedSM: `${priceSM} SM`,
-                    formattedCUP: `${priceCUP} CUP`
-                };
-
+                const offerCalculated = {...offer, priceSM, priceCUP};
                 const card = document.createElement('div');
-                card.className = 'card card-offer';
+                card.className = 'card card-offer offer-card-simple';
                 card.onclick = () => selectOffer(offerCalculated);
 
                 card.innerHTML = `
                     <div class="offer-top">
                         <div class="offer-title-group">
-                            <span class="offer-name">${offer.title}</span>
+                            <span class="offer-name offer-main">${escapeHtml(offer.title)}</span>
                         </div>
-                        <span class="tag-badge">${offer.tag || '⚡ ENTREGA ID'}</span>
+                        <span class="tag-badge">${escapeHtml(offer.tag || 'RECARGA')}</span>
                     </div>
-                    <div class="offer-bottom">
-                        <div class="price-box">
-                            <span class="price-label">Saldo Móvil</span>
-                            <span class="price-value">${offerCalculated.formattedSM}</span>
-                        </div>
-                        <div class="price-box">
-                            <span class="price-label">CUP</span>
-                            <span class="price-value">${offerCalculated.formattedCUP}</span>
-                        </div>
+                    <div class="offer-sub">Toca aquí para elegir esta recarga</div>
+                    <div class="offer-prices-simple" style="grid-template-columns:repeat(2,1fr)">
+                        <div class="offer-price-simple"><b>SM</b><span>${priceSM} SM</span></div>
+                        <div class="offer-price-simple"><b>CUP</b><span>${priceCUP} CUP</span></div>
                     </div>
+                    <div class="offer-tap">Toca para continuar</div>
                 `;
                 container.appendChild(card);
             });
@@ -1152,52 +1225,52 @@
 
         function selectOffer(offer) {
             selectedOffer = offer;
+            window.selectedOffer = offer;
+            selectedPaymentMethod = null;
+            window.simpleSelectedPayment = null;
+            document.querySelectorAll('#paymentMethodChoices .payment-choice').forEach(b => b.classList.remove('active'));
+            const paymentHint = document.getElementById('selectedPaymentHint');
+            if (paymentHint) paymentHint.textContent = 'Selecciona cómo vas a pagar.';
             updateSummary();
+            if (typeof window.updateSimplePaymentPrices === 'function') window.updateSimplePaymentPrices();
             showView('view-form');
         }
 
         function selectPayment(method) {
             selectedPaymentMethod = method;
-            document.getElementById('pay-sm').classList.remove('selected');
-            document.getElementById('pay-cup').classList.remove('selected');
-            document.getElementById('pay-cash').classList.remove('selected');
-
-            const noticeBox = document.getElementById('addressNotice');
+            ['pay-sm','pay-cup','pay-cash'].forEach(id => document.getElementById(id)?.classList.remove('selected'));
             const btnSubmitOrder = document.getElementById('btnSubmitOrder');
-
-            if(method === 'Saldo Móvil' || method === 'Transferencia CUP') {
-                if (method === 'Saldo Móvil') document.getElementById('pay-sm').classList.add('selected');
-                btnSubmitOrder.innerText = "➡️ Continuar al Pago";
-            } else {
-                btnSubmitOrder.innerText = "🟢 Pedir por WhatsApp";
-            }
-
-            if(method === 'Transferencia CUP') document.getElementById('pay-cup').classList.add('selected');
-            if(method === 'EFECTIVO ( Solo Habana )') {
-                document.getElementById('pay-cash').classList.add('selected');
-                noticeBox.classList.add('show');
-            } else {
-                noticeBox.classList.remove('show');
-            }
-
+            if(method === 'Saldo Móvil'){ document.getElementById('pay-sm')?.classList.add('selected'); if(btnSubmitOrder) btnSubmitOrder.innerText='➡️ Continuar al Pago'; }
+            else if(method === 'Transferencia CUP'){ document.getElementById('pay-cup')?.classList.add('selected'); if(btnSubmitOrder) btnSubmitOrder.innerText='➡️ Continuar al Pago'; }
+            else if(method === 'EFECTIVO ( Solo Habana )'){ document.getElementById('pay-cash')?.classList.add('selected'); if(btnSubmitOrder) btnSubmitOrder.innerText='💵 Continuar al Pago'; }
             updateSummary();
         }
 
         function updateSummary() {
-            if (!selectedOffer) return;
-            document.getElementById('summary-game').innerText = selectedGameObj.name;
-            document.getElementById('summary-offer').innerText = selectedOffer.title;
-            
-            document.getElementById('summary-price').innerText = getCurrentPriceText();
+            document.getElementById('summary-game').textContent = selectedGameObj?.name || '-';
+            document.getElementById('summary-offer').textContent = selectedOffer?.title || '-';
+            const sm = selectedOffer?.priceSM ?? '-';
+            const cup = selectedOffer?.priceCUP ?? '-';
+            const smEl = document.getElementById('summary-price-sm');
+            const cupEl = document.getElementById('summary-price-cup');
+            if (smEl) smEl.textContent = sm === '-' ? '-' : `${sm} SM`;
+            if (cupEl) cupEl.textContent = cup === '-' ? '-' : `${cup} CUP`;
         }
 
         function getCurrentPriceText(){
             if(!selectedOffer) return '';
-            const base = selectedPaymentMethod === 'Saldo Móvil' ? parseFloat(String(selectedOffer.formattedSM).replace(/[^0-9.]/g,'')) : parseFloat(String(selectedOffer.formattedCUP).replace(/[^0-9.]/g,''));
-            const pct = activeDiscount ? Number(activeDiscount.percent || 0) : 0;
-            const final = Math.max(0, Math.round(base * (1 - pct/100)));
-            return selectedPaymentMethod === 'Saldo Móvil' ? `${final} SM` : `${final} CUP`;
+            const pct=activeDiscount?Number(activeDiscount.percent||0):0;
+            if(selectedPaymentMethod==='Saldo Móvil'){ const base=Number(String(selectedOffer.formattedSM).replace(/[^0-9.]/g,'')); return `${Math.max(0,Math.round(base*(1-pct/100)))} SM`; }
+            if(selectedPaymentMethod==='Transferencia CUP'){ const base=Number(String(selectedOffer.formattedCUP).replace(/[^0-9.]/g,'')); return `${Math.max(0,Math.round(base*(1-pct/100)))} CUP`; }
+            return '';
         }
+
+        function getCurrentUsdAmount(){
+            if(!selectedOffer) return 0;
+            const pct=activeDiscount?Number(activeDiscount.percent||0):0;
+            const baseUSD=Number(selectedOffer.priceSM||0)/Number(config.usdRateSM||279);             return Math.max(0,baseUSD*(1-pct/100));
+        }
+
         async function previewDiscount(){
             const code=(document.getElementById('discountInput')?.value||'').trim().toUpperCase();
             activeDiscount=null;
@@ -1206,76 +1279,56 @@
             updateSummary();
         }
 
+        function selectSimplePayment(method, button) {
+            selectedPaymentMethod = method;
+            window.simpleSelectedPayment = method;
+            document.querySelectorAll('#paymentMethodChoices .payment-choice').forEach(b => b.classList.remove('active'));
+            if (button) button.classList.add('active');
+            const hint = document.getElementById('selectedPaymentHint');
+            if (hint) hint.textContent = `Método seleccionado: ${method}`;
+        }
+
         async function handleFormSubmit(event) {
             event.preventDefault();
 
-            rawPlayerId = document.getElementById('playerId').value.trim();
-            const clientWhatsapp = document.getElementById('clientWhatsapp').value.trim();
-            const orderNote = document.getElementById('orderNote').value.trim() || 'Ninguna';
-
-            const priceText = getCurrentPriceText();
-
-            tempFormData = {
-                game: selectedGameObj.name,
-                offer: selectedOffer.title,
-                price: priceText,
-                playerId: rawPlayerId,
-                whatsapp: clientWhatsapp,
-                paymentMethod: selectedPaymentMethod,
-                note: orderNote,
-                customer_id: currentUser?.id || null,
-                customer_token: currentUser?.custom ? getCustomerSession() : null,
-                discount_code: activeDiscount?.code || null,
-                discount_percent: Number(activeDiscount?.percent || 0),
-                timestamp: new Date().toLocaleString()
-            };
-
-            // Métodos que requieren comprobante: cada uno tiene su propia página de pago.
-            if (selectedPaymentMethod === "Saldo Móvil") {
-                showView('view-saldo-movil');
-                return;
-            }
-            if (selectedPaymentMethod === "Transferencia CUP") {
-                document.getElementById('displayBankWhatsapp').textContent = "50237996";
-                showView('view-transfer-cup');
+            if (!selectedGameObj || !selectedOffer) {
+                alert('🎮 Selecciona primero el juego y la oferta.');
                 return;
             }
 
-            // Para otros métodos, procesar directo
-            let addressSection = "";
-            if(selectedPaymentMethod === "EFECTIVO ( Solo Habana )") {
-                addressSection = `📍 *Dirección de entrega:* 5ta % Central y Lindero #6205 Vía Blanca, Guanabacoa Habana\n⚠️ *Aviso:* Escribirnos antes de venir para confirmar su recarga.\n`;
+            const playerId = String(document.getElementById('playerId')?.value || '').trim();
+            if (!playerId) {
+                alert('🆔 Escribe el ID del jugador.');
+                document.getElementById('playerId')?.focus();
+                return;
             }
 
-            currentMessageText = 
-`🛒 *NUEVO PEDIDO DE RECARGA*
-───────────────────────
-🎮 *Juego/Servicio:* ${selectedGameObj.name}
-📦 *Paquete:* ${selectedOffer.title}
-🔢 *Cantidad:* 1
-💰 *Monto Total:* ${priceText}
-📌 *User ID de ${selectedGameObj.name}:* \`${rawPlayerId}\`
-💳 *Método de Pago:* ${selectedPaymentMethod}
-${addressSection}📱 *WhatsApp cliente:* ${clientWhatsapp}
-📝 *Nota extra:* ${orderNote}
-───────────────────────
-🌐 *Origen:* Compra solicitada desde la Web REFILLS SHOP.
-📲 *Acción:* Entrar al *Panel ADM → Pedidos* para revisar y gestionar el pedido.
-📸 *Comprobante:* Disponible en el pedido dentro del panel web cuando corresponda.`;
+            // La selección del método usa una sola variable para evitar que se pierda al enviar.
+            const method = window.simpleSelectedPayment || selectedPaymentMethod;
+            if (method !== 'Saldo Móvil' && method !== 'Transferencia CUP') {
+                alert('💳 Selecciona un método de pago para continuar.');
+                return;
+            }
+            selectedPaymentMethod = method;
 
+            const sm = Number(selectedOffer.priceSM ?? 0);
+            const cup = Number(selectedOffer.priceCUP ?? 0);
+            const paymentPrice = method === 'Saldo Móvil' ? `${sm.toLocaleString('es-ES')} SM` : `${cup.toLocaleString('es-ES')} CUP`;
+            const paymentIcon = method === 'Saldo Móvil' ? '📲' : '💵';
+
+            currentMessageText = `🛒 *NUEVA SOLICITUD — REFILLS SHOP*\n\n🎮 *Juego:* ${selectedGameObj.name}\n📦 *Oferta:* ${selectedOffer.title}\n🆔 *ID del jugador:* ${playerId}\n${paymentIcon} *Método de pago:* ${method}\n💰 *Precio:* ${paymentPrice}`;
             generatedWhatsAppUrl = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(currentMessageText)}`;
-            
-            // Guardar pedido estándar en Supabase
-            try {
-                await saveOrderToSupabase({ ...tempFormData, screenshot: null });
-            } catch (error) {
-                console.error(error);
-                alert('❌ El pedido no pudo guardarse. No se abrirá WhatsApp para evitar perderlo.');
-                return;
-            }
+
+            // Mostrar el resumen antes de abrir WhatsApp.
+            const setText = (id, value) => { const el = document.getElementById(id); if (el) el.textContent = value; };
+            setText('successGame', selectedGameObj.name);
+            setText('successOffer', selectedOffer.title);
+            setText('successPlayerId', playerId);
+            setText('successPayment', method);
+            setText('successPrice', paymentPrice);
 
             showView('view-success');
-            openWhatsAppUrl();
+            // El pedido queda preparado y el botón visible funciona con navegación directa a WhatsApp.
         }
 
         function copyTransferNumber() {
@@ -1772,7 +1825,12 @@ ${addressSection}📱 *WhatsApp cliente:* ${clientWhatsapp}
         }
 
         function openWhatsAppUrl() {
-            if (generatedWhatsAppUrl) window.open(generatedWhatsAppUrl, '_blank');
+            if (!generatedWhatsAppUrl) {
+                alert('⚠️ Primero prepara la solicitud.');
+                return;
+            }
+            // Navegación directa desde el clic: evita que el navegador móvil bloquee WhatsApp como popup.
+            window.location.href = generatedWhatsAppUrl;
         }
 
         function copyPlayerIdOnly() {
@@ -1825,109 +1883,25 @@ ${addressSection}📱 *WhatsApp cliente:* ${clientWhatsapp}
         }
 
         function resetApp() {
+            selectedPaymentMethod = null;
+            window.simpleSelectedPayment = null;
             selectedGameObj = null;
             selectedOffer = null;
-            selectedPaymentMethod = "Saldo Móvil";
+            window.selectedOffer = null;
             generatedWhatsAppUrl = "";
             currentMessageText = "";
             rawPlayerId = "";
             activeDiscount = null;
-            document.getElementById('orderForm').reset();
-            document.getElementById('saldoMovilForm').reset();
-            document.getElementById('transferCupForm').reset();
-            document.getElementById('addressNotice').classList.remove('show');
-            selectPayment('Saldo Móvil');
+            document.querySelectorAll('#paymentMethodChoices .payment-choice').forEach(b => b.classList.remove('active'));
+            const hint = document.getElementById('selectedPaymentHint');
+            if (hint) hint.textContent = 'Selecciona cómo vas a pagar.';
+            document.getElementById('orderForm')?.reset();
+            document.getElementById('saldoMovilForm')?.reset();
+            document.getElementById('transferCupForm')?.reset();
+            document.getElementById('addressNotice')?.classList.remove('show');
+            document.querySelectorAll('.simple-payment-option').forEach(x => x.classList.remove('selected'));
             showView('view-games');
-        }
-
-        function normalizePhone(v){ let p=String(v||'').replace(/\D/g,''); if(p.startsWith('00')) p=p.slice(2); if(p.length===8) p='53'+p; return p.startsWith('+')?p:'+'+p; }
-        function openAuthModal(){ document.getElementById('authModal').classList.add('active'); updateAuthUI(); }
-        function closeAuthModal(){ document.getElementById('authModal').classList.remove('active'); }
-        function setAuthMode(mode){ authMode=mode; document.getElementById('authTabLogin').classList.toggle('active',mode==='login'); document.getElementById('authTabRegister').classList.toggle('active',mode==='register'); document.getElementById('authNameGroup').style.display=mode==='register'?'block':'none'; document.getElementById('authSubmitBtn').textContent=mode==='register'?'📝 Crear cuenta':'🔐 Entrar'; document.getElementById('authMessage').textContent=''; }
-        // CUENTAS REFILLS SHOP: teléfono + contraseña, sin SMS/Twilio.
-        // La autenticación de clientes se maneja mediante RPCs seguras en Supabase; la contraseña nunca se guarda en el navegador ni en texto plano.
-        const CUSTOMER_SESSION_KEY = 'refills_shop_customer_session';
-        function saveCustomerSession(token){ try{ localStorage.setItem(CUSTOMER_SESSION_KEY, token); }catch(e){} }
-        function getCustomerSession(){ try{ return localStorage.getItem(CUSTOMER_SESSION_KEY)||''; }catch(e){ return ''; } }
-        function clearCustomerSession(){ try{ localStorage.removeItem(CUSTOMER_SESSION_KEY); }catch(e){} }
-        async function initAuthSession(){
-            try{
-                const token=getCustomerSession();
-                if(!token){ currentUser=null; updateAccountUI(); return; }
-                const {data,error}=await supabaseClient.rpc('customer_get_session',{p_token:token});
-                if(error||!data?.valid){ clearCustomerSession(); currentUser=null; updateAccountUI(); return; }
-                currentUser={id:data.id,name:data.name,phone:data.phone,balance:Number(data.balance||0),custom:true};
-                updateAccountUI();
-            }catch(e){ console.warn('Sesión de cliente:',e); clearCustomerSession(); currentUser=null; updateAccountUI(); }
-        }
-        function updateAccountUI(){
-            const b=document.getElementById('accountBalance'); if(!b)return;
-            if(!currentUser){ b.textContent='$0.00 USD'; return; }
-            b.textContent=`$${Number(currentUser.balance||0).toFixed(2)} USD`;
-            const msg=document.getElementById('authMessage'); if(msg) msg.textContent=`Hola, ${currentUser.name||'cliente'}.`;
-            const logout=document.getElementById('authLogoutBtn'); if(logout) logout.style.display='block';
-        }
-        async function loadMyProfile(){
-            if(!currentUser){ updateAccountUI(); return; }
-            try{
-                const token=getCustomerSession();
-                const {data,error}=await supabaseClient.rpc('customer_get_session',{p_token:token});
-                if(error||!data?.valid) throw error||new Error('Sesión expirada');
-                currentUser={...currentUser,id:data.id,name:data.name,phone:data.phone,balance:Number(data.balance||0),custom:true};
-                updateAccountUI();
-            }catch(e){ clearCustomerSession(); currentUser=null; updateAccountUI(); }
-        }
-        function updateAuthUI(){ const logged=!!currentUser; document.getElementById('authNameGroup').style.display=(authMode==='register'&&!logged)?'block':'none'; document.getElementById('authSubmitBtn').style.display=logged?'none':'block'; document.getElementById('authLogoutBtn').style.display=logged?'block':'none'; if(logged)loadMyProfile(); }
-        async function submitAuth(){
-            const phone=normalizePhone(document.getElementById('authPhone').value);
-            const password=document.getElementById('authPassword').value;
-            const name=(document.getElementById('authName').value||'').trim();
-            const msg=document.getElementById('authMessage');
-            if(!phone||phone.length<9||password.length<6||(authMode==='register'&&!name)) return msg.textContent='⚠️ Completa los datos correctamente.';
-            msg.textContent='⏳ Procesando...';
-            try{
-                if(authMode==='register'){
-                    const {data,error}=await supabaseClient.rpc('customer_register',{p_phone:phone,p_password:password,p_name:name});
-                    if(error) throw error;
-                    if(!data?.token) throw new Error('No se pudo crear la sesión.');
-                    saveCustomerSession(data.token);
-                    currentUser={id:data.id,name:data.name,phone:data.phone,balance:Number(data.balance||0),custom:true};
-                    msg.textContent='✅ Cuenta creada correctamente.';
-                }else{
-                    const {data,error}=await supabaseClient.rpc('customer_login',{p_phone:phone,p_password:password});
-                    if(error) throw error;
-                    if(!data?.token) throw new Error('Teléfono o contraseña incorrectos.');
-                    saveCustomerSession(data.token);
-                    currentUser={id:data.id,name:data.name,phone:data.phone,balance:Number(data.balance||0),custom:true};
-                    msg.textContent='✅ Sesión iniciada.';
-                }
-                updateAccountUI(); updateAuthUI(); setTimeout(closeAuthModal,500);
-            }catch(e){ msg.textContent='❌ '+(e.message||'No se pudo completar.'); }
-        }
-        async function logoutUser(){
-            try{ const token=getCustomerSession(); if(token) await supabaseClient.rpc('customer_logout',{p_token:token}); }catch(e){}
-            clearCustomerSession(); currentUser=null; updateAccountUI(); updateAuthUI(); closeAuthModal();
-        }
-        async function loadAdminUsers(){ const c=document.getElementById('adminUsersContainer'); if(!c)return; c.innerHTML='⏳ Cargando...'; try{const {data,error}=await supabaseClient.rpc('admin_list_customer_accounts',{p_password:adminSessionPassword});if(error)throw error;c.innerHTML=(data||[]).map(u=>`<div class="user-admin-card"><b>👤 ${escapeHtml(u.name||'Sin nombre')}</b><div style="font-size:.75rem;color:var(--text-muted)">📱 ${escapeHtml(u.phone||'')} · 💵 $${Number(u.balance||0).toFixed(2)} USD</div><div class="admin-mini-grid" style="margin-top:7px"><input id="bal-${u.id}" type="number" class="form-input" value="${Number(u.balance||0)}" placeholder="Saldo USD"><button class="btn-secondary" onclick="adminSetBalance('${u.id}')">💾 Saldo</button></div></div>`).join('')||'<p style="color:var(--text-muted)">No hay usuarios.</p>';}catch(e){c.innerHTML='❌ '+escapeHtml(e.message||'Error');}}
-        async function adminSetBalance(id){const v=Number(document.getElementById('bal-'+id).value);if(v<0)return alert('Saldo inválido');const {error}=await supabaseClient.rpc('admin_set_customer_balance',{p_password:adminSessionPassword,p_customer_id:id,p_balance:v});if(error)return alert(error.message);loadAdminUsers();}
-        function renderDiscountOfferChecks(){const c=document.getElementById('discountOfferChecks');if(!c)return; c.innerHTML=gamesData.map((g,gi)=>{const offers=(g.offers||[]).map((o,oi)=>`<label class="discount-offer-item"><input type="checkbox" class="discount-offer-check" data-game="${escapeHtml(g.name)}" data-offer="${escapeHtml(o.title)}"> <span>${escapeHtml(o.title)}</span></label>`).join('');return offers?`<div class="discount-offer-group"><b>🎮 ${escapeHtml(g.name)}</b>${offers}</div>`:''}).join('')||'<span style="color:var(--text-muted);padding:8px;display:block">No hay ofertas disponibles.</span>'; }
-        async function createDiscountCode(){const code=(document.getElementById('discountCode').value||'').trim().toUpperCase();const percent=Number(document.getElementById('discountPercent').value);const duration=Number(document.getElementById('discountDuration').value);const maxUses=Math.max(0,Number(document.getElementById('discountMaxUses').value||0));const offers=[...document.querySelectorAll('.discount-offer-check:checked')].map(x=>({game:x.dataset.game,offer:x.dataset.offer}));if(!code||percent<1||percent>100||!offers.length)return alert('Completa código, porcentaje y al menos una oferta.');try{const {error}=await supabaseClient.rpc('admin_create_discount_code',{p_password:adminSessionPassword,p_code:code,p_percent:percent,p_duration_days:duration,p_max_uses:maxUses,p_offers:offers});if(error)throw error;alert('✅ Código creado correctamente.');document.getElementById('discountCode').value='';document.getElementById('discountPercent').value='';document.getElementById('discountMaxUses').value='';document.querySelectorAll('.discount-offer-check').forEach(x=>x.checked=false);loadDiscountCodes();}catch(e){alert('❌ '+(e.message||'No se pudo crear'));}}
-        async function loadDiscountCodes(){const c=document.getElementById('discountList');if(!c)return;try{const {data,error}=await supabaseClient.rpc('admin_list_discount_codes',{p_password:adminSessionPassword});if(error)throw error;c.innerHTML=(data||[]).map(d=>{const uses=Number(d.max_uses||0),used=Number(d.used_count||0);return `<div class="discount-list-item"><div class="discount-list-top"><b class="discount-code-badge">${escapeHtml(d.code)}</b><strong>${Number(d.percent)}% OFF</strong></div><div class="discount-expiry">${d.expires_at?`Vence: ${new Date(d.expires_at).toLocaleString()}`:'Sin vencimiento'} · ${d.active?'Activo':'Desactivado'}</div><div class="discount-uses">Usos: ${used}${uses>0?` / ${uses}`:' / ∞'}</div><div class="discount-expiry">${Array.isArray(d.offers)?d.offers.map(x=>escapeHtml(x.game)+' · '+escapeHtml(x.offer)).join(' • '):''}</div><div class="discount-actions"><button class="btn-secondary" onclick="toggleDiscountCode(${d.id},${!d.active})">${d.active?'⏸️ Desactivar':'▶️ Activar'}</button><button class="btn-secondary" onclick="deleteDiscountCode(${d.id})">🗑️ Eliminar</button></div></div>`}).join('')||'<p style="color:var(--text-muted)">No hay códigos creados.</p>';}catch(e){c.innerHTML='❌ '+escapeHtml(e.message||'Error');}}
-        async function toggleDiscountCode(id,active){try{const {error}=await supabaseClient.rpc('admin_set_discount_active',{p_password:adminSessionPassword,p_id:id,p_active:active});if(error)throw error;loadDiscountCodes();}catch(e){alert('❌ '+(e.message||'No se pudo cambiar el estado'));}}
-        async function deleteDiscountCode(id){if(!confirm('¿Eliminar este código de descuento?'))return;try{const {error}=await supabaseClient.rpc('admin_delete_discount_code',{p_password:adminSessionPassword,p_id:id});if(error)throw error;loadDiscountCodes();}catch(e){alert('❌ '+(e.message||'No se pudo eliminar'));}}
-
-        function switchAdminTab(tabId, btn) {
-            document.querySelectorAll('.admin-panel-section').forEach(sec => sec.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            const section = document.getElementById(tabId);
-            if (section) section.classList.add('active');
-            if (btn) btn.classList.add('active');
-            const titles = { 'tab-rates':'⚙️ Tasas', 'tab-add-game':'🎮 Juegos', 'tab-add-offer':'💎 Ofertas', 'tab-manage-offers':'📋 Gestor', 'tab-admin-orders':'📥 Pedidos', 'tab-finance':'💰 Finanzas', 'tab-users':'👥 Usuarios', 'tab-discounts':'🏷️ Descuentos' };
-            const title = document.getElementById('adminPageTitle'); if (title) title.textContent = titles[tabId] || 'Administración';
-            if(tabId === 'tab-manage-offers') renderOffersManager();
-            if(tabId === 'tab-admin-orders') loadAdminOrders();
-            if(tabId === 'tab-users') loadAdminUsers();
-            if(tabId === 'tab-discounts') { renderDiscountOfferChecks(); loadDiscountCodes(); }
+            window.scrollTo({top:0,behavior:'smooth'});
         }
 
         async function promptAdminLogin() {
@@ -1940,16 +1914,49 @@ ${addressSection}📱 *WhatsApp cliente:* ${clientWhatsapp}
 
                 adminSessionPassword = code;
                 document.getElementById('cfgCreditRate').value = config.creditRateSM;
+            document.getElementById('cfgUsdRateSM').value = config.usdRateSM || 279;
+            updateRateLivePreview();
                 document.getElementById('cfgSmToCupRate').value = config.smToCupRate;
                 document.getElementById('cfgInitialCredits').value = Number(config.initialCredits || 0);
                 populateGameSelects();
-                document.getElementById('adminDashGames').textContent = gamesData.length;
-                document.getElementById('adminDashOffers').textContent = gamesData.reduce((n,g) => n + ((g.offers || []).length), 0);
-                document.getElementById('adminDashOrders').textContent = '...';
                 document.getElementById('adminModal').classList.add('active');
+                document.getElementById('adminModal').classList.add('admin-modal-open');
+                toggleAdminMenu(true);
             } catch (error) {
                 alert(error.message);
             }
+        }
+
+        function toggleAdminMenu(force) {
+            const sidebar = document.getElementById('adminSidebar');
+            const backdrop = document.getElementById('adminMenuBackdrop');
+            const modal = document.getElementById('adminModal');
+            if (!sidebar || !backdrop) return;
+
+            const isOpen = sidebar.classList.contains('open');
+            const shouldOpen = typeof force === 'boolean' ? force : !isOpen;
+
+            sidebar.classList.toggle('open', shouldOpen);
+            backdrop.classList.toggle('open', shouldOpen);
+            if (modal) modal.classList.toggle('admin-modal-open', shouldOpen);
+        }
+
+        function switchAdminTab(tabId, button) {
+            const sections = document.querySelectorAll('#adminModal .admin-panel-section');
+            sections.forEach(section => section.classList.remove('active'));
+
+            const target = document.getElementById(tabId);
+            if (!target) {
+                console.warn('Pestaña ADM no encontrada:', tabId);
+                return;
+            }
+            target.classList.add('active');
+
+            document.querySelectorAll('#adminModal .admin-nav .tab-btn').forEach(btn => btn.classList.remove('active'));
+            if (button) button.classList.add('active');
+
+            // En móvil cerramos el menú después de seleccionar una sección.
+            if (window.innerWidth <= 720) toggleAdminMenu(false);
         }
 
         function populateGameSelects() {
@@ -2011,8 +2018,13 @@ ${addressSection}📱 *WhatsApp cliente:* ${clientWhatsapp}
                             <label style="font-size:0.65rem; color:var(--accent-cyan); display:block; margin-bottom:2px;">Ganancia (SM)</label>
                             <input type="number" step="1" id="edit-profit-${gameIndex}-${offerIndex}" class="form-input" style="padding:8px 10px; font-size:0.85rem;" value="${offer.profitSM !== undefined ? offer.profitSM : 0}">
                         </div>
+                        <div>
+                            <label style="font-size:0.65rem; color:#f7c95b; display:block; margin-bottom:2px;">Costo real USD</label>
+                            <input type="number" step="0.01" min="0" id="edit-provider-${gameIndex}-${offerIndex}" class="form-input" style="padding:8px 10px; font-size:0.85rem;" value="${offer.providerCostUSD !== undefined ? offer.providerCostUSD : offer.creditsCost}">
+                        </div>
                     </div>
                     <button class="btn-secondary" style="width:100%; padding:6px; font-size:0.75rem; margin-top:4px;" onclick="saveOfferEdit(${gameIndex}, ${offerIndex})">💾 Guardar Cambios de Oferta</button>
+                    <button class="btn-secondary" style="width:100%; padding:6px; font-size:0.75rem; margin-top:5px;" onclick="openOfferAd(${gameIndex}, ${offerIndex})">📣 Crear anuncio de esta oferta</button>
                 `;
                 container.appendChild(div);
             });
@@ -2021,20 +2033,24 @@ ${addressSection}📱 *WhatsApp cliente:* ${clientWhatsapp}
         async function saveOfferEdit(gameIdx, offerIdx) {
             const costInput = document.getElementById(`edit-cost-${gameIdx}-${offerIdx}`);
             const profitInput = document.getElementById(`edit-profit-${gameIdx}-${offerIdx}`);
+            const providerInput = document.getElementById(`edit-provider-${gameIdx}-${offerIdx}`);
 
             const newCost = parseFloat(costInput.value);
             const newProfit = parseFloat(profitInput.value);
+            const newProviderCost = parseFloat(providerInput.value);
 
-            if (isNaN(newCost) || isNaN(newProfit)) {
+            if (isNaN(newCost) || isNaN(newProfit) || isNaN(newProviderCost) || newProviderCost<0) {
                 return alert("Por favor ingresa valores numéricos válidos.");
             }
 
             const offer = gamesData[gameIdx].offers[offerIdx];
             const oldCost = offer.creditsCost;
             const oldProfit = offer.profitSM;
+            const oldProviderCost = offer.providerCostUSD;
 
             offer.creditsCost = newCost;
             offer.profitSM = newProfit;
+            offer.providerCostUSD = newProviderCost;
 
             try {
                 await syncStore();
@@ -2044,6 +2060,7 @@ ${addressSection}📱 *WhatsApp cliente:* ${clientWhatsapp}
             } catch (error) {
                 offer.creditsCost = oldCost;
                 offer.profitSM = oldProfit;
+                offer.providerCostUSD = oldProviderCost;
                 alert(error.message);
             }
         }
@@ -2180,8 +2197,9 @@ ${addressSection}📱 *WhatsApp cliente:* ${clientWhatsapp}
             const tag = document.getElementById('newOfferTag').value;
             const creditsCost = parseFloat(document.getElementById('newOfferCredits').value);
             const profitSM = parseFloat(document.getElementById('newOfferProfitSM').value);
+            const providerCostUSD = parseFloat(document.getElementById('newOfferProviderCost').value || creditsCost);
 
-            if (gameIndex === "" || !title || isNaN(creditsCost) || isNaN(profitSM)) {
+            if (gameIndex === "" || !title || isNaN(creditsCost) || isNaN(profitSM) || isNaN(providerCostUSD) || providerCostUSD<0) {
                 return alert("Completa todos los campos incluyendo la ganancia.");
             }
 
@@ -2189,7 +2207,8 @@ ${addressSection}📱 *WhatsApp cliente:* ${clientWhatsapp}
                 title: title,
                 tag: tag,
                 creditsCost: creditsCost,
-                profitSM: profitSM
+                providerCostUSD: providerCostUSD,
+                profitSM: profitSM,
             });
 
             try {
@@ -2203,27 +2222,53 @@ ${addressSection}📱 *WhatsApp cliente:* ${clientWhatsapp}
             document.getElementById('newOfferTitle').value = "";
             document.getElementById('newOfferCredits').value = "";
             document.getElementById('newOfferProfitSM').value = "";
+            document.getElementById('newOfferProviderCost').value = "";
 
             alert(`✅ Oferta guardada en ${gamesData[gameIndex].name}.`);
             if (selectedGameObj) renderOffers();
         }
 
+        function openOfferAd(gameIdx, offerIdx){
+            const game=gamesData[gameIdx]; const offer=game?.offers?.[offerIdx];
+            if(!offer)return;
+            const priceSM=Math.round(Number(offer.creditsCost||0)*Number(config.creditRateSM||290)+Number(offer.profitSM||0));
+            const priceCUP=Math.round(priceSM*Number(config.smToCupRate||0));
+            document.getElementById('adOfferTitle').textContent=offer.title;
+            document.getElementById('adOfferPrices').textContent=`📲 ${priceSM} SM  ·  💵 ${priceCUP} CUP`;
+            document.getElementById('adOfferTag').textContent=offer.tag||'⚡ ENTREGA ID';
+            document.getElementById('offerAdText').value=`🔥 ${offer.title} — ${game.name}\n\n📲 ${priceSM} SM\n💵 ${priceCUP} CUP\n\n⚡ ${offer.tag||'ENTREGA ID'}\n🛒 REFILLS SHOP`;
+            document.getElementById('offerAdModal').classList.add('active');
+        }
+        function closeOfferAd(){document.getElementById('offerAdModal')?.classList.remove('active');}
+        function copyOfferAdText(){const el=document.getElementById('offerAdText'); navigator.clipboard?.writeText(el.value).then(()=>alert('📋 Anuncio copiado.'));}
+
         function closeAdminModal() {
             document.getElementById('adminModal').classList.remove('active');
+            document.getElementById('adminModal').classList.remove('admin-modal-open');
+            toggleAdminMenu(false);
             adminSessionPassword = null;
+        }
+
+        function updateRateLivePreview(){
+            const usdRate = Number(document.getElementById('cfgUsdRateSM')?.value || config.usdRateSM || 279);
+            const smToCup = Number(document.getElementById('cfgSmToCupRate')?.value || config.smToCupRate || 0);
+            const el = document.getElementById('rateLivePreview');
+            if(el) el.textContent = `💲 1 USD = ${usdRate.toLocaleString('es-ES')} SM  ·  💵 1 USD ≈ ${(usdRate*smToCup).toFixed(0)} CUP`;
         }
 
         async function saveAdminSettings() {
             const creditRate = parseFloat(document.getElementById('cfgCreditRate').value);
+            const usdRateSM = parseFloat(document.getElementById('cfgUsdRateSM').value);
             const smToCup = parseFloat(document.getElementById('cfgSmToCupRate').value);
             const initialCredits = parseFloat(document.getElementById('cfgInitialCredits').value);
 
-            if (isNaN(creditRate) || isNaN(smToCup) || isNaN(initialCredits) || initialCredits < 0) {
+            if (isNaN(creditRate) || isNaN(usdRateSM) || usdRateSM <= 0 || isNaN(smToCup) || smToCup <= 0 || isNaN(initialCredits) || initialCredits < 0) {
                 return alert("Ingresa datos válidos.");
             }
 
             const oldConfig = { ...config };
             config.creditRateSM = creditRate;
+            config.usdRateSM = usdRateSM;
             config.smToCupRate = smToCup;
             config.initialCredits = initialCredits;
 
@@ -2240,5 +2285,54 @@ ${addressSection}📱 *WhatsApp cliente:* ${clientWhatsapp}
             }
         }
     </script>
+
+<script id="final-usability-js">
+(function(){
+  window.simpleSelectedPayment = null;
+
+  window.chooseSimplePayment = function(method, el){
+    window.simpleSelectedPayment = method;
+    if (typeof selectedPaymentMethod !== 'undefined') selectedPaymentMethod = method;
+    document.querySelectorAll('.simple-payment-option').forEach(x=>x.classList.remove('selected'));
+    if(el) el.classList.add('selected');
+    var sm = document.getElementById('simpleSMPrice');
+    var cup = document.getElementById('simpleCUPPrice');
+    if(window.selectedOffer){
+      var smVal = Number(window.selectedOffer.priceSM || 0);
+      var cupVal = Number(window.selectedOffer.priceCUP || 0);
+      if(sm) sm.textContent = smVal ? smVal.toLocaleString('es-ES')+' SM' : '—';
+      if(cup) cup.textContent = cupVal ? cupVal.toLocaleString('es-ES')+' CUP' : '—';
+    }
+  };
+
+  window.newRequest = function(){
+    selectedPaymentMethod = null;
+    window.simpleSelectedPayment = null;
+    selectedGameObj = null;
+    selectedOffer = null;
+    window.selectedOffer = null;
+    currentMessageText = '';
+    generatedWhatsAppUrl = '';
+    rawPlayerId = '';
+    document.getElementById('orderForm')?.reset();
+    document.querySelectorAll('#paymentMethodChoices .payment-choice').forEach(x=>x.classList.remove('active'));
+    const hint=document.getElementById('selectedPaymentHint');
+    if(hint) hint.textContent='Selecciona cómo vas a pagar.';
+    if(typeof renderGames==='function') renderGames();
+    if(typeof showView==='function') showView('view-games');
+    window.scrollTo({top:0,behavior:'smooth'});
+  };
+
+  window.updateSimplePaymentPrices = function(){
+    var o = window.selectedOffer;
+    if(!o) return;
+    var sm = document.getElementById('simpleSMPrice');
+    var cup = document.getElementById('simpleCUPPrice');
+    if(sm) sm.textContent = Number(o.priceSM||0) ? Number(o.priceSM).toLocaleString('es-ES')+' SM' : '—';
+    if(cup) cup.textContent = Number(o.priceCUP||0) ? Number(o.priceCUP).toLocaleString('es-ES')+' CUP' : '—';
+  };
+})();
+</script>
+
 </body>
 </html>
