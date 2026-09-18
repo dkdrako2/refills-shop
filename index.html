@@ -738,8 +738,8 @@
         <div id="view-form" class="view">
             <button class="btn-back" onclick="showView('view-offers')">← Volver a Ofertas</button>
             <div class="section-header">
-                <div class="section-title">Datos de la recarga</div>
-                <div class="section-desc">Solo necesitas escribir el ID del jugador.</div>
+                <div class="section-title" id="formSectionTitle">Datos de la recarga</div>
+                <div class="section-desc" id="formSectionDesc">Solo necesitas escribir el ID del jugador.</div>
             </div>
 
             <div class="summary-card">
@@ -751,15 +751,15 @@
 
             <div class="cyber-form-container">
                 <form id="orderForm" onsubmit="handleFormSubmit(event)">
-                    <div class="form-group">
+                    <div class="form-group" id="playerIdGroup">
                         <label class="form-label" for="playerId">ID del Jugador *</label>
                         <div class="cyber-input-wrapper">
                             <input type="text" inputmode="numeric" id="playerId" class="form-input"
-                                   placeholder="Escribe el ID del jugador" required maxlength="30">
+                                   placeholder="Escribe el ID del jugador" maxlength="30">
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" id="paymentMethodGroup">
                         <label class="form-label">Método de pago *</label>
                         <div id="paymentMethodChoices" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
                             <button type="button" class="payment-choice" data-payment="Saldo Móvil" onclick="selectSimplePayment('Saldo Móvil', this)">📲 Saldo Móvil</button>
@@ -845,9 +845,10 @@
                     <div class="success-details" id="successDetails">
                         <div class="success-row"><span>🎮 Juego</span><strong id="successGame">—</strong></div>
                         <div class="success-row"><span>📦 Oferta</span><strong id="successOffer">—</strong></div>
-                        <div class="success-row"><span>🆔 ID</span><strong id="successPlayerId">—</strong></div>
-                        <div class="success-row"><span>💳 Método</span><strong id="successPayment">—</strong></div>
-                        <div class="success-row"><span>💰 Precio</span><strong id="successPrice">—</strong></div>
+                        <div class="success-row" id="successPlayerRow"><span>🆔 ID</span><strong id="successPlayerId">—</strong></div>
+                        <div class="success-row" id="successPaymentRow"><span>💳 Método</span><strong id="successPayment">—</strong></div>
+                        <div class="success-row" id="successPriceRow"><span>💰 Precio</span><strong id="successPrice">—</strong></div>
+                        <div class="success-row" id="successGiftRow" style="display:none"><span>🎁 Entrega</span><strong>Código de tarjeta por WhatsApp</strong></div>
                     </div>
                     <div class="success-actions">
                         <button type="button" class="btn-submit" onclick="openWhatsAppUrl()">💬 Enviar pedido por WhatsApp</button>
@@ -944,6 +945,7 @@
                             <div class="form-group"><label class="form-label">📁 Imagen de Galería</label><input type="file" id="newGameFile" class="form-input" accept="image/*" style="padding:8px;"></div>
                             <div class="form-group"><label class="form-label">O Enlace Web (URL)</label><input type="url" id="newGameImg" class="form-input" placeholder="https://ejemplo.com/imagen.jpg"></div>
                             <div class="form-group"><label class="form-label">Subtítulo / Etiqueta</label><input type="text" id="newGameBadge" class="form-input" placeholder="Ej: ⚡ RECARGA ID"></div>
+                            <div class="form-group" style="display:flex;align-items:center;gap:10px;"><input type="checkbox" id="newGameGiftCard" style="width:18px;height:18px;"><label for="newGameGiftCard" class="form-label" style="margin:0;">🎁 Este producto es tarjeta de regalo (no pide ID)</label></div>
                             <button class="btn-secondary" onclick="addNewGame()">➕ Guardar Juego</button>
                         </div>
                     </div>
@@ -1167,6 +1169,14 @@
             });
         }
 
+        // Determina si el producto se entrega como código de tarjeta de regalo.
+        function isGiftCardGame(game) {
+            if (!game) return false;
+            if (game.giftCard === true || game.type === 'gift-card' || game.deliveryType === 'code') return true;
+            // Roblox se trata como tarjeta de regalo aunque el juego antiguo no tenga la propiedad.
+            return String(game.name || '').trim().toLowerCase() === 'roblox';
+        }
+
         function selectGame(game) {
             selectedGameObj = game;
             selectedOffer = null;
@@ -1231,6 +1241,19 @@
             document.querySelectorAll('#paymentMethodChoices .payment-choice').forEach(b => b.classList.remove('active'));
             const paymentHint = document.getElementById('selectedPaymentHint');
             if (paymentHint) paymentHint.textContent = 'Selecciona cómo vas a pagar.';
+
+            const gift = isGiftCardGame(selectedGameObj);
+            const idGroup = document.getElementById('playerIdGroup');
+            const paymentGroup = document.getElementById('paymentMethodGroup');
+            const title = document.getElementById('formSectionTitle');
+            const desc = document.getElementById('formSectionDesc');
+            const playerInput = document.getElementById('playerId');
+            if (idGroup) idGroup.style.display = gift ? 'none' : '';
+            if (paymentGroup) paymentGroup.style.display = gift ? 'none' : '';
+            if (playerInput) playerInput.required = !gift;
+            if (title) title.textContent = gift ? 'Solicitud de tarjeta de regalo' : 'Datos de la recarga';
+            if (desc) desc.textContent = gift ? 'No necesitas escribir ID. Selecciona la tarjeta y espera el código por WhatsApp.' : 'Solo necesitas escribir el ID del jugador.';
+
             updateSummary();
             if (typeof window.updateSimplePaymentPrices === 'function') window.updateSimplePaymentPrices();
             showView('view-form');
@@ -1296,6 +1319,26 @@
                 return;
             }
 
+            const gift = isGiftCardGame(selectedGameObj);
+
+            // Tarjetas de regalo: solo se envía la oferta elegida y se espera el código.
+            if (gift) {
+                currentMessageText = `🛒 *NUEVA SOLICITUD — REFILLS SHOP*\n\n📦 *Oferta:* ${selectedOffer.title}`;
+                generatedWhatsAppUrl = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(currentMessageText)}`;
+
+                const setText = (id, value) => { const el = document.getElementById(id); if (el) el.textContent = value; };
+                setText('successGame', selectedGameObj.name);
+                setText('successOffer', selectedOffer.title);
+                setText('successPlayerId', 'No aplica');
+                setText('successPayment', 'No aplica');
+                setText('successPrice', 'No aplica');
+                ['successPlayerRow','successPaymentRow','successPriceRow'].forEach(id => { const el=document.getElementById(id); if(el) el.style.display='none'; });
+                const giftRow=document.getElementById('successGiftRow'); if(giftRow) giftRow.style.display='flex';
+                const sub=document.querySelector('#view-success .success-subtitle'); if(sub) sub.textContent='Envía la solicitud y espera que REFILLS SHOP te entregue el código de la tarjeta por WhatsApp.';
+                showView('view-success');
+                return;
+            }
+
             const playerId = String(document.getElementById('playerId')?.value || '').trim();
             if (!playerId) {
                 alert('🆔 Escribe el ID del jugador.');
@@ -1303,7 +1346,6 @@
                 return;
             }
 
-            // La selección del método usa una sola variable para evitar que se pierda al enviar.
             const method = window.simpleSelectedPayment || selectedPaymentMethod;
             if (method !== 'Saldo Móvil' && method !== 'Transferencia CUP') {
                 alert('💳 Selecciona un método de pago para continuar.');
@@ -1319,16 +1361,16 @@
             currentMessageText = `🛒 *NUEVA SOLICITUD — REFILLS SHOP*\n\n🎮 *Juego:* ${selectedGameObj.name}\n📦 *Oferta:* ${selectedOffer.title}\n🆔 *ID del jugador:* ${playerId}\n${paymentIcon} *Método de pago:* ${method}\n💰 *Precio:* ${paymentPrice}`;
             generatedWhatsAppUrl = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(currentMessageText)}`;
 
-            // Mostrar el resumen antes de abrir WhatsApp.
             const setText = (id, value) => { const el = document.getElementById(id); if (el) el.textContent = value; };
             setText('successGame', selectedGameObj.name);
             setText('successOffer', selectedOffer.title);
             setText('successPlayerId', playerId);
             setText('successPayment', method);
             setText('successPrice', paymentPrice);
-
+            ['successPlayerRow','successPaymentRow','successPriceRow'].forEach(id => { const el=document.getElementById(id); if(el) el.style.display='flex'; });
+            const giftRow=document.getElementById('successGiftRow'); if(giftRow) giftRow.style.display='none';
+            const sub=document.querySelector('#view-success .success-subtitle'); if(sub) sub.textContent='Revisa los datos y abre WhatsApp para enviarlos a REFILLS SHOP.';
             showView('view-success');
-            // El pedido queda preparado y el botón visible funciona con navegación directa a WhatsApp.
         }
 
         function copyTransferNumber() {
@@ -1896,6 +1938,8 @@
             const hint = document.getElementById('selectedPaymentHint');
             if (hint) hint.textContent = 'Selecciona cómo vas a pagar.';
             document.getElementById('orderForm')?.reset();
+            ['successPlayerRow','successPaymentRow','successPriceRow'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='flex';});
+            const giftRow=document.getElementById('successGiftRow');if(giftRow)giftRow.style.display='none';
             document.getElementById('saldoMovilForm')?.reset();
             document.getElementById('transferCupForm')?.reset();
             document.getElementById('addressNotice')?.classList.remove('show');
@@ -2156,22 +2200,23 @@
             const badge = document.getElementById('newGameBadge').value.trim() || '⚡ RECARGA RÁPIDA';
             const fileInput = document.getElementById('newGameFile');
             const urlInput = document.getElementById('newGameImg').value.trim();
+            const giftCard = !!document.getElementById('newGameGiftCard')?.checked;
 
             if (!name) return alert("Por favor ingresa el nombre del juego.");
 
             if (fileInput.files && fileInput.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    saveNewGameData(name, e.target.result, badge);
+                    saveNewGameData(name, e.target.result, badge, giftCard);
                 };
                 reader.readAsDataURL(fileInput.files[0]);
             } else {
-                saveNewGameData(name, urlInput, badge);
+                saveNewGameData(name, urlInput, badge, giftCard);
             }
         }
 
-        async function saveNewGameData(name, image, badge) {
-            gamesData.push({ name, image, badge, offers: [] });
+        async function saveNewGameData(name, image, badge, giftCard = false) {
+            gamesData.push({ name, image, badge, giftCard, offers: [] });
 
             try {
                 await syncStore();
@@ -2315,6 +2360,8 @@
     generatedWhatsAppUrl = '';
     rawPlayerId = '';
     document.getElementById('orderForm')?.reset();
+            ['successPlayerRow','successPaymentRow','successPriceRow'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='flex';});
+            const giftRow=document.getElementById('successGiftRow');if(giftRow)giftRow.style.display='none';
     document.querySelectorAll('#paymentMethodChoices .payment-choice').forEach(x=>x.classList.remove('active'));
     const hint=document.getElementById('selectedPaymentHint');
     if(hint) hint.textContent='Selecciona cómo vas a pagar.';
