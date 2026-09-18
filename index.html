@@ -1249,7 +1249,8 @@
             const desc = document.getElementById('formSectionDesc');
             const playerInput = document.getElementById('playerId');
             if (idGroup) idGroup.style.display = gift ? 'none' : '';
-            if (paymentGroup) paymentGroup.style.display = gift ? 'none' : '';
+            // Las tarjetas de regalo también permiten elegir el método de pago.
+            if (paymentGroup) paymentGroup.style.display = '';
             if (playerInput) playerInput.required = !gift;
             if (title) title.textContent = gift ? 'Solicitud de tarjeta de regalo' : 'Datos de la recarga';
             if (desc) desc.textContent = gift ? 'No necesitas escribir ID. Selecciona la tarjeta y espera el código por WhatsApp.' : 'Solo necesitas escribir el ID del jugador.';
@@ -1308,7 +1309,7 @@
             document.querySelectorAll('#paymentMethodChoices .payment-choice').forEach(b => b.classList.remove('active'));
             if (button) button.classList.add('active');
             const hint = document.getElementById('selectedPaymentHint');
-            if (hint) hint.textContent = `Método seleccionado: ${method}`;
+            if (hint) hint.textContent = selectedPaymentMethod ? `Método seleccionado: ${selectedPaymentMethod}` : 'Selecciona cómo vas a pagar.';
         }
 
         async function handleFormSubmit(event) {
@@ -1321,18 +1322,33 @@
 
             const gift = isGiftCardGame(selectedGameObj);
 
-            // Tarjetas de regalo: solo se envía la oferta elegida y se espera el código.
+            // Tarjetas de regalo: no piden ID, pero sí método de pago y monto correspondiente.
             if (gift) {
-                currentMessageText = `🛒 *NUEVA SOLICITUD — REFILLS SHOP*\n\n📦 *Oferta:* ${selectedOffer.title}`;
+                const giftMethod = window.simpleSelectedPayment || selectedPaymentMethod;
+                if (giftMethod !== 'Saldo Móvil' && giftMethod !== 'Transferencia CUP') {
+                    alert('💳 Selecciona un método de pago para continuar.');
+                    return;
+                }
+                selectedPaymentMethod = giftMethod;
+                const giftSM = Number(selectedOffer.priceSM ?? 0);
+                const giftCUP = Number(selectedOffer.priceCUP ?? 0);
+                const giftPaymentPrice = giftMethod === 'Saldo Móvil'
+                    ? `${giftSM.toLocaleString('es-ES')} SM`
+                    : `${giftCUP.toLocaleString('es-ES')} CUP`;
+                const giftPaymentIcon = giftMethod === 'Saldo Móvil' ? '📲' : '💵';
+
+                currentMessageText = `🛒 *NUEVA SOLICITUD — REFILLS SHOP*\n\n📦 *Oferta:* ${selectedOffer.title}\n${giftPaymentIcon} *Método de pago:* ${giftMethod}\n💰 *Monto a enviar:* ${giftPaymentPrice}`;
                 generatedWhatsAppUrl = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(currentMessageText)}`;
 
                 const setText = (id, value) => { const el = document.getElementById(id); if (el) el.textContent = value; };
                 setText('successGame', selectedGameObj.name);
                 setText('successOffer', selectedOffer.title);
                 setText('successPlayerId', 'No aplica');
-                setText('successPayment', 'No aplica');
-                setText('successPrice', 'No aplica');
-                ['successPlayerRow','successPaymentRow','successPriceRow'].forEach(id => { const el=document.getElementById(id); if(el) el.style.display='none'; });
+                setText('successPayment', giftMethod);
+                setText('successPrice', giftPaymentPrice);
+                const playerRow=document.getElementById('successPlayerRow'); if(playerRow) playerRow.style.display='none';
+                const paymentRow=document.getElementById('successPaymentRow'); if(paymentRow) paymentRow.style.display='flex';
+                const priceRow=document.getElementById('successPriceRow'); if(priceRow) priceRow.style.display='flex';
                 const giftRow=document.getElementById('successGiftRow'); if(giftRow) giftRow.style.display='flex';
                 const sub=document.querySelector('#view-success .success-subtitle'); if(sub) sub.textContent='Envía la solicitud y espera que REFILLS SHOP te entregue el código de la tarjeta por WhatsApp.';
                 showView('view-success');
