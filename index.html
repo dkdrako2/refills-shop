@@ -694,8 +694,89 @@
 @media(max-width:520px){.simple-payment-options{grid-template-columns:1fr}.success-card{padding:18px}}
 </style>
 
+
+<style id="rs-admin-v3-css">
+.rs-reseller-toolbar{display:flex;gap:8px;align-items:center;margin:0 0 12px;flex-wrap:wrap}
+.rs-reseller-toolbar input{flex:1;min-width:190px}
+.rs-reseller-card{position:relative}
+.rs-admin-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:10px}
+.rs-admin-actions .danger{border-color:rgba(255,70,90,.45)!important;color:#ff7180!important}
+.rs-account-modal{position:fixed;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:16px;z-index:99999}
+.rs-account-modal.active{display:flex}
+.rs-account-box{width:min(620px,100%);max-height:90vh;overflow:auto;background:linear-gradient(145deg,#0d1d3b,#081226);border:1px solid rgba(0,242,254,.24);border-radius:20px;padding:16px;box-shadow:0 18px 60px rgba(0,0,0,.55)}
+.rs-account-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}
+.rs-account-head h3{margin:0;font-size:1.1rem}
+.rs-account-close{border:0;background:rgba(255,255,255,.07);color:#fff;border-radius:10px;width:38px;height:38px;cursor:pointer;font-size:1.1rem}
+.rs-account-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.rs-account-stat{padding:11px;border:1px solid rgba(255,255,255,.08);border-radius:13px;background:rgba(255,255,255,.03)}
+.rs-account-stat small{display:block;color:#8ea4c7;font-size:.72rem;margin-bottom:4px}
+.rs-account-stat b{font-size:.92rem;word-break:break-word}
+.rs-account-balance{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:8px}
+.rs-account-section{margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.07)}
+.rs-account-section-title{font-weight:800;margin-bottom:9px}
+.rs-account-btns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.rs-account-btns button{min-height:42px}
+.rs-account-note{font-size:.76rem;color:#8ea4c7;line-height:1.45;margin-top:8px}
+@media(max-width:520px){.rs-account-grid,.rs-account-btns,.rs-admin-actions{grid-template-columns:1fr}.rs-account-balance{grid-template-columns:1fr}.rs-account-box{padding:13px}}
+</style>
+
+<style id="refillsSplashCSS">
+#refillsSplash{position:fixed;inset:0;z-index:999999;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 18%,rgba(0,102,255,.28),transparent 38%),linear-gradient(145deg,#02040b,#050b18 58%,#07132a);overflow:hidden;transition:opacity .55s ease,visibility .55s ease}
+#refillsSplash.rs-splash-hidden{opacity:0;visibility:hidden;pointer-events:none}
+.rs-splash-inner{width:min(390px,86vw);text-align:center;transform:translateY(-4vh)}
+.rs-splash-brand{font-family:var(--font-title);font-size:clamp(2rem,10vw,3.1rem);font-weight:900;letter-spacing:1px;line-height:1;color:#fff;text-shadow:0 0 22px rgba(0,242,254,.18)}
+.rs-splash-brand span{color:var(--accent-cyan)}
+.rs-splash-kicker{display:inline-flex;margin:13px auto 10px;padding:6px 12px;border-radius:999px;border:1px solid rgba(0,242,254,.35);background:rgba(0,242,254,.08);color:var(--accent-cyan);font-size:.68rem;font-weight:800;letter-spacing:1.2px;text-transform:uppercase}
+.rs-splash-copy{color:#a8b8d6;font-size:.78rem;line-height:1.5;margin-bottom:20px}
+.rs-splash-loader{height:7px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(0,242,254,.14);overflow:hidden;box-shadow:0 0 20px rgba(0,102,255,.08)}
+.rs-splash-bar{height:100%;width:0;background:linear-gradient(90deg,var(--accent-blue),var(--accent-cyan));box-shadow:0 0 15px rgba(0,242,254,.35);border-radius:inherit;transition:width .1s linear}
+.rs-splash-percent{margin-top:9px;color:#6f83a9;font-size:.65rem;font-weight:700;letter-spacing:.8px}
+body.rs-seller-mode .account-header{display:none!important}
+body.rs-seller-mode .rs-system-buttons{grid-template-columns:1fr}
+#rsSellerModeBar{display:none;margin:12px 0 14px;padding:10px 12px;border:1px solid rgba(0,242,254,.22);border-radius:15px;background:linear-gradient(135deg,rgba(0,102,255,.12),rgba(0,242,254,.06));align-items:center;justify-content:space-between;gap:10px}
+body.rs-seller-mode #rsSellerModeBar{display:flex}
+.rs-seller-mode-info{min-width:0}.rs-seller-mode-name{font-weight:900;font-size:.82rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.rs-seller-mode-meta{font-size:.63rem;color:var(--text-muted);margin-top:2px}.rs-seller-mode-actions{display:flex;gap:6px;flex-shrink:0}.rs-seller-mini-btn{border:1px solid rgba(255,255,255,.12);background:rgba(4,9,20,.55);color:#fff;border-radius:10px;padding:7px 9px;font-size:.66rem;font-weight:800;cursor:pointer}
+#view-reseller-checkout .rs-checkout-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px}
+.rs-checkout-card{background:rgba(8,17,38,.82);border:1px solid var(--border-color);border-radius:18px;padding:15px;margin-bottom:12px}
+.rs-checkout-summary{display:grid;gap:9px}.rs-checkout-row{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:.8rem}.rs-checkout-row:last-child{border-bottom:0}.rs-checkout-row span{color:var(--text-muted)}.rs-checkout-row strong{font-weight:900;text-align:right}
+.rs-usdt-price{font-size:1.4rem;color:var(--accent-cyan);font-family:var(--font-display);font-weight:900}.rs-balance-warning{padding:10px 11px;border-radius:11px;font-size:.7rem;line-height:1.4;margin-top:10px;background:rgba(255,71,87,.08);border:1px solid rgba(255,71,87,.28);color:#ffb1b7}.rs-balance-ok{padding:10px 11px;border-radius:11px;font-size:.7rem;line-height:1.4;margin-top:10px;background:rgba(37,211,102,.07);border:1px solid rgba(37,211,102,.2);color:#bff2cf}
+.rs-seller-home-hero{background:linear-gradient(145deg,rgba(0,102,255,.16),rgba(0,242,254,.05));border:1px solid rgba(0,242,254,.24);border-radius:20px;padding:16px;margin-bottom:12px}.rs-seller-home-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.rs-seller-home-title{font-size:1.15rem;font-family:var(--font-display);font-weight:900}.rs-seller-home-sub{color:var(--text-muted);font-size:.7rem;line-height:1.45;margin-top:4px}.rs-seller-usdt{text-align:right}.rs-seller-usdt small{display:block;color:var(--text-muted);font-size:.6rem}.rs-seller-usdt b{display:block;margin-top:3px;font-size:1.15rem;color:var(--accent-cyan)}.rs-plan-pill{display:inline-flex;margin-top:11px;padding:6px 9px;border-radius:999px;background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.08);font-size:.62rem;font-weight:900}.rs-seller-home-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.rs-seller-home-actions .btn-submit,.rs-seller-home-actions .btn-secondary{min-height:45px}.rs-simple-panel{background:rgba(8,17,38,.72);border:1px solid rgba(255,255,255,.08);border-radius:17px;padding:14px;margin-bottom:10px}.rs-simple-panel h3{font-family:var(--font-display);font-size:1rem;margin-bottom:5px}.rs-simple-panel p{color:var(--text-muted);font-size:.7rem;line-height:1.45;margin-bottom:10px}
+@media(max-width:430px){.rs-seller-home-top{display:block}.rs-seller-usdt{text-align:left;margin-top:11px}.rs-seller-home-actions{grid-template-columns:1fr}.rs-seller-mode-actions{gap:4px}.rs-seller-mini-btn{padding:6px 7px;font-size:.6rem}}
+</style>
+
+
+
+
+
+
+<style id="rfux-v13-cleanup">
+/* V14: interfaz limpia y ligera. Se conservan las funciones; se eliminan bloques duplicados. */
+#rsServicesLauncher,#rsServicesBtn,#rsServicesPopover,#rsProfessionalHub,#rsPlanRequired{display:none!important}
+/* El catálogo debe ser la primera acción visible. */
+#view-games .easy-help{display:none!important}
+#view-offers .easy-help{display:none!important}
+/* Menos coste visual en interacción móvil. */
+@media(max-width:700px){
+  body{background-attachment:scroll!important}
+  .card,.btn-submit,.btn-secondary,.btn-back,.payment-choice,.rfux-nav-btn{transform:translateZ(0);backface-visibility:hidden}
+  .card:hover,.btn-submit:hover,.btn-secondary:hover,.btn-back:hover,.payment-choice:hover,.rfux-nav-btn:hover{transform:none}
+}
+</style>
+
 </head>
 <body>
+
+
+<div id="refillsSplash" aria-label="Cargando REFILLS SHOP">
+  <div class="rs-splash-inner">
+    <div class="rs-splash-brand">REFILLS <span>SHOP</span></div>
+    <div class="rs-splash-kicker">Tu tienda gaming</div>
+    <div class="rs-splash-copy">Preparando juegos, ofertas y tu experiencia de compra.</div>
+    <div class="rs-splash-loader"><div id="refillsSplashBar" class="rs-splash-bar"></div></div>
+    <div id="refillsSplashPercent" class="rs-splash-percent">0%</div>
+  </div>
+</div>
+
 
     <div class="container">
         <header>
@@ -709,6 +790,17 @@
             </div>
         </header>
 
+        
+<div id="rsSellerModeBar">
+  <div class="rs-seller-mode-info">
+    <div id="rsSellerModeName" class="rs-seller-mode-name">Modo vendedor</div>
+    <div id="rsSellerModeMeta" class="rs-seller-mode-meta">Saldo USDT · Plan</div>
+  </div>
+  <div class="rs-seller-mode-actions">
+    <button class="rs-seller-mini-btn" type="button" onclick="rsEasyOpenHome()">Cuenta</button>
+  </div>
+</div>
+
         <!-- VISTA 1: JUEGOS -->
         <div id="view-games" class="view active">
             <div class="search-box">
@@ -718,7 +810,6 @@
             <div class="section-header">
                 <div class="section-title">🎮 Selecciona un Juego</div>
                 <div class="section-desc">Elige el juego donde deseas recibir tu recarga.</div>
-            <div class="easy-help"><strong>🧭 ¿Cómo funciona?</strong>1️⃣ Elige tu juego → 2️⃣ Elige una oferta → 3️⃣ Escribe tu ID → 4️⃣ Elige cómo pagar → 5️⃣ Envías el comprobante si hace falta.</div>
             </div>
             <div class="grid-cards" id="games-container"></div>
         </div>
@@ -729,7 +820,6 @@
             <div class="section-header">
                 <div class="section-title" id="offers-title">Ofertas</div>
                 <div class="section-desc">Toca sobre el paquete que deseas recargar.</div>
-            <div class="easy-help"><strong>Elige tu recarga</strong>Toca la oferta que deseas. Aquí verás el precio en <b>SM</b> y <b>CUP</b>.</div>
             </div>
             <div class="grid-cards" id="offers-container"></div>
         </div>
@@ -740,13 +830,6 @@
             <div class="section-header">
                 <div class="section-title" id="formSectionTitle">Datos de la recarga</div>
                 <div class="section-desc" id="formSectionDesc">Solo necesitas escribir el ID del jugador.</div>
-            </div>
-
-            <div class="summary-card">
-                <div class="summary-row"><span>Juego:</span><strong id="summary-game">-</strong></div>
-                <div class="summary-row"><span>Oferta:</span><strong id="summary-offer">-</strong></div>
-                <div class="summary-row"><span>Saldo Móvil:</span><span class="summary-price" id="summary-price-sm">-</span></div>
-                <div class="summary-row"><span>CUP:</span><span class="summary-price" id="summary-price-cup">-</span></div>
             </div>
 
             <div class="cyber-form-container">
@@ -771,6 +854,32 @@
                 </form>
             </div>
         </div>
+
+
+<div id="view-reseller-checkout" class="view">
+  <button class="btn-back" type="button" onclick="rsEasyBackToOffers()">← Volver a Ofertas</button>
+  <div class="section-header">
+    <div class="section-title">Confirmar recarga</div>
+    <div class="section-desc">Revisa los datos antes de usar tu saldo USDT.</div>
+  </div>
+  <div class="rs-checkout-card">
+    <div class="rs-checkout-summary">
+      <div class="rs-checkout-row"><span>Juego</span><strong id="rsCoGame">—</strong></div>
+      <div class="rs-checkout-row"><span>Oferta</span><strong id="rsCoOffer">—</strong></div>
+      <div class="rs-checkout-row"><span>Precio</span><strong class="rs-usdt-price" id="rsCoPrice">0.00 USDT</strong></div>
+      <div class="rs-checkout-row"><span>Tu saldo</span><strong id="rsCoBalance">0.00 USDT</strong></div>
+    </div>
+  </div>
+  <div class="rs-checkout-card">
+    <div id="rsCoIdGroup" class="form-group">
+      <label class="form-label" for="rsCoPlayerId">ID del Jugador *</label>
+      <input id="rsCoPlayerId" class="form-input" inputmode="numeric" maxlength="60" placeholder="Escribe el ID de la cuenta">
+    </div>
+    <div id="rsCoGiftNote" class="rs-note" style="display:none">🎁 Este producto se entrega como código. No necesitas escribir ID.</div>
+    <div id="rsCoBalanceState"></div>
+    <button id="rsCoButton" class="btn-submit" type="button" onclick="rsEasyCreateOrder()">Usar saldo y crear pedido</button>
+  </div>
+</div>
 
         <!-- VISTA NUEVA: SALDO MÓVIL (PAGO E INSTRUCCIONES) -->
         <div id="view-saldo-movil" class="view">
@@ -1269,17 +1378,7 @@
             else if(method === 'EFECTIVO ( Solo Habana )'){ document.getElementById('pay-cash')?.classList.add('selected'); if(btnSubmitOrder) btnSubmitOrder.innerText='💵 Continuar al Pago'; }
             updateSummary();
         }
-
-        function updateSummary() {
-            document.getElementById('summary-game').textContent = selectedGameObj?.name || '-';
-            document.getElementById('summary-offer').textContent = selectedOffer?.title || '-';
-            const sm = selectedOffer?.priceSM ?? '-';
-            const cup = selectedOffer?.priceCUP ?? '-';
-            const smEl = document.getElementById('summary-price-sm');
-            const cupEl = document.getElementById('summary-price-cup');
-            if (smEl) smEl.textContent = sm === '-' ? '-' : `${sm} SM`;
-            if (cupEl) cupEl.textContent = cup === '-' ? '-' : `${cup} CUP`;
-        }
+        function updateSummary() {}
 
         function getCurrentPriceText(){
             if(!selectedOffer) return '';
@@ -2347,6 +2446,615 @@
         }
     </script>
 
+
+<!-- REFILLS SHOP V1.1 — TORNEOS + REVENDEDORES -->
+<style id="refillsNewSystemsCSS">
+.rs-system-buttons{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}
+.rs-system-btn{border:1px solid rgba(0,242,254,.25);background:linear-gradient(145deg,rgba(10,27,58,.9),rgba(5,12,29,.9));color:#fff;border-radius:15px;padding:13px 10px;cursor:pointer;font-weight:900;transition:.2s}
+.rs-system-btn:hover{border-color:var(--accent-cyan);transform:translateY(-1px);box-shadow:0 0 16px rgba(0,242,254,.12)}
+.rs-view-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:15px}
+.rs-tournament-card,.rs-reseller-card{background:rgba(8,17,38,.82);border:1px solid var(--border-color);border-radius:18px;padding:15px;margin-bottom:12px}
+.rs-tournament-card h3,.rs-reseller-card h3{font-family:var(--font-display);font-size:1.15rem;margin-bottom:5px}
+.rs-muted{color:var(--text-muted);font-size:.76rem;line-height:1.45}
+.rs-badges{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.rs-badge{font-size:.65rem;padding:5px 8px;border-radius:8px;background:rgba(0,242,254,.08);border:1px solid rgba(0,242,254,.18);color:var(--accent-cyan);font-weight:800}
+.rs-full{border-color:rgba(255,71,87,.5);background:rgba(255,71,87,.08);color:#ff8d96}
+.rs-form{margin-top:13px}
+.rs-form .form-group{margin-bottom:12px}
+.rs-note{font-size:.7rem;color:var(--text-muted);background:rgba(0,102,255,.08);border:1px solid rgba(0,242,254,.14);padding:10px;border-radius:11px;line-height:1.4}
+.rs-account-box{background:linear-gradient(145deg,rgba(0,102,255,.16),rgba(0,242,254,.06));border:1px solid rgba(0,242,254,.24);border-radius:17px;padding:15px;margin-bottom:12px}
+.rs-balance-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:10px}
+.rs-balance-item{background:rgba(0,0,0,.2);border-radius:10px;padding:9px;text-align:center}
+.rs-balance-item small{display:block;color:var(--text-muted);font-size:.58rem}
+.rs-balance-item b{display:block;font-size:.8rem;margin-top:3px}
+.rs-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.rs-login-switch{display:flex;gap:7px;margin-bottom:12px}
+.rs-login-switch button{flex:1}
+.rs-hidden{display:none!important}
+.rs-admin-list{display:grid;gap:8px}
+.rs-admin-item{background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:10px}
+.rs-admin-item .top{display:flex;justify-content:space-between;gap:8px}
+.rs-admin-small{font-size:.66rem;color:var(--text-muted);line-height:1.45;margin-top:4px}
+.rs-status-active{color:#25d366}.rs-status-off{color:#ff8d96}
+@media(max-width:430px){.rs-system-buttons{grid-template-columns:1fr}.rs-balance-grid{grid-template-columns:1fr}.rs-actions{grid-template-columns:1fr}}
+</style>
+
+<script>
+(function(){
+  const RS = {
+    tournaments: [],
+    reseller: null,
+    tournamentConfig: null,
+    resellerSession: null
+  };
+
+  function esc(v){return String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');}
+  function rsView(id){ if(typeof showView==='function') showView(id); }
+
+  window.openTournaments = async function(){
+    rsView('view-tournaments');
+    await rsLoadTournaments();
+  };
+  window.openResellers = function(){ rsView('view-resellers'); rsRenderReseller(); };
+
+  async function rsLoadTournaments(){
+    const list=document.getElementById('rsTournamentList');
+    if(!list)return;
+    list.innerHTML='<div class="rs-note">⏳ Cargando torneos...</div>';
+    try{
+      const {data,error}=await supabaseClient.rpc('public_tournaments');
+      if(error)throw error;
+      RS.tournaments=Array.isArray(data)?data:[];
+      rsRenderTournaments();
+    }catch(e){
+      console.error(e);
+      list.innerHTML='<div class="rs-note">No se pudieron cargar los torneos. Comprueba la conexión e inténtalo de nuevo.</div>';
+    }
+  }
+
+  function rsRenderTournaments(){
+    const list=document.getElementById('rsTournamentList');
+    if(!list)return;
+    if(!RS.tournaments.length){
+      list.innerHTML='<div class="rs-note">Actualmente no hay torneos publicados.</div>';
+      return;
+    }
+    list.innerHTML=RS.tournaments.map(t=>{
+      const max=Number(t.max_players||0), count=Number(t.registered_players||0), full=max>0&&count>=max;
+      return `<div class="rs-tournament-card">
+        <h3>🏆 ${esc(t.name)}</h3>
+        <div class="rs-muted">${esc(t.description||'Torneo de REFILLS SHOP')}</div>
+        <div class="rs-badges">
+          <span class="rs-badge">🎮 ${esc(t.game||'Juego')}</span>
+          <span class="rs-badge">👥 ${count}/${max||'∞'}</span>
+          <span class="rs-badge">${full?'🔴 LLENO':'🟢 INSCRIPCIONES ABIERTAS'}</span>
+        </div>
+        ${t.start_at?`<div class="rs-muted">📅 Inicio: ${new Date(t.start_at).toLocaleString('es-ES')}</div>`:''}
+        ${t.rules?`<div class="rs-muted" style="margin-top:5px">📜 ${esc(t.rules)}</div>`:''}
+        ${full
+          ? '<div class="rs-note rs-full" style="margin-top:12px">Este torneo ya alcanzó el límite de jugadores. Las nuevas inscripciones están cerradas.</div>'
+          : `<form class="rs-form" onsubmit="rsRegisterTournament(event,'${esc(t.id)}')">
+              <div class="form-group"><label class="form-label">Nombre dentro del juego *</label><input class="form-input" name="player_name" required maxlength="60" placeholder="Cómo te llamas dentro del juego"></div>
+              <div class="form-group"><label class="form-label">ID de la cuenta *</label><input class="form-input" name="player_id" required maxlength="60" inputmode="numeric" placeholder="ID con el que jugarás"></div>
+              <div class="form-group"><label class="form-label">Número de teléfono *</label><input class="form-input" name="phone" required maxlength="25" inputmode="tel" placeholder="Tu número de contacto"></div>
+              <button class="btn-submit" type="submit">🏆 Registrarme al torneo</button>
+            </form>`}
+      </div>`;
+    }).join('');
+  }
+
+  window.rsRegisterTournament=async function(event,tournamentId){
+    event.preventDefault();
+    const form=event.currentTarget;
+    const btn=form.querySelector('button[type="submit"]');
+    const fd=new FormData(form);
+    const payload={tournament_id:tournamentId,player_name:String(fd.get('player_name')||'').trim(),player_id:String(fd.get('player_id')||'').trim(),phone:String(fd.get('phone')||'').trim()};
+    if(!payload.player_name||!payload.player_id||!payload.phone)return alert('Completa todos los datos.');
+    btn.disabled=true;btn.innerText='⏳ Registrando...';
+    try{
+      const {data,error}=await supabaseClient.rpc('register_tournament_player',{p_tournament_id:tournamentId,p_player_name:payload.player_name,p_player_id:payload.player_id,p_phone:payload.phone});
+      if(error)throw error;
+      if(!data?.success){
+        alert(data?.message||'El torneo está lleno.');
+        await rsLoadTournaments(); return;
+      }
+      alert('✅ Registro realizado. Ahora entrarás al grupo del torneo para recibir las indicaciones.');
+      if(data.group_url){
+        const opened=window.open(data.group_url,'_blank');
+        if(!opened) window.location.href=data.group_url;
+      }
+      await rsLoadTournaments();
+    }catch(e){
+      console.error(e);
+      alert('❌ '+(e.message||'No se pudo completar el registro.'));
+    }finally{btn.disabled=false;btn.innerText='🏆 Registrarme al torneo';}
+  };
+
+  async function rsResellerLogin(mode){
+    const name=document.getElementById('rsName')?.value.trim();
+    const phone=document.getElementById('rsPhone')?.value.trim();
+    const password=document.getElementById('rsPassword')?.value||'';
+    if(mode==='register'&&!name)return alert('Escribe tu nombre.');
+    if(!phone||password.length<6)return alert('Escribe tu número y una contraseña de al menos 6 caracteres.');
+    const btn=document.getElementById('rsAuthBtn'); if(btn){btn.disabled=true;btn.innerText='⏳ Procesando...';}
+    try{
+      const {data,error}=await supabaseClient.rpc(mode==='register'?'reseller_register':'reseller_login',{
+        p_name:name||'',p_phone:phone,p_password:password
+      });
+      if(error)throw error;
+      if(!data?.success)throw new Error(data?.message||'Datos incorrectos.');
+      RS.resellerSession=data.session;
+      localStorage.setItem('refills_reseller_session',JSON.stringify(data.session));
+      RS.reseller=data.reseller;
+      rsRenderReseller();
+    }catch(e){alert('❌ '+(e.message||'No se pudo iniciar sesión.'))}
+    finally{if(btn){btn.disabled=false;btn.innerText=document.getElementById('rsAuthMode')?.value==='register'?'Crear cuenta':'Entrar';}}
+  }
+
+  window.rsAuth=()=>rsResellerLogin(document.getElementById('rsAuthMode')?.value||'login');
+  window.rsSetAuthMode=function(mode){
+    document.getElementById('rsAuthMode').value=mode;
+    const title=document.getElementById('rsAuthTitle');
+    const name=document.getElementById('rsNameGroup');
+    const btn=document.getElementById('rsAuthBtn');
+    if(title)title.textContent=mode==='register'?'Crear cuenta de vendedor':'Entrar al modo vendedor';
+    if(name)name.classList.toggle('rs-hidden',mode!=='register');
+    if(btn)btn.textContent=mode==='register'?'Crear cuenta':'Entrar';
+  };
+
+  async function rsRefreshSession(){
+    const raw=localStorage.getItem('refills_reseller_session');
+    if(!raw)return;
+    try{
+      const session=JSON.parse(raw);
+      const {data,error}=await supabaseClient.rpc('reseller_session',{p_session_token:session.token});
+      if(!error&&data?.success){RS.resellerSession=session;RS.reseller=data.reseller;}
+      else{localStorage.removeItem('refills_reseller_session');}
+    }catch(e){localStorage.removeItem('refills_reseller_session');}
+  }
+
+  window.rsLogout=function(){
+    RS.reseller=null;RS.resellerSession=null;localStorage.removeItem('refills_reseller_session');rsRenderReseller();
+  };
+
+  window.rsRequestBalance=async function(){
+    if(!RS.reseller||!RS.resellerSession)return;
+    const method=document.getElementById('rsTopupMethod')?.value;
+    const amount=document.getElementById('rsTopupAmount')?.value;
+    if(!method||!amount||Number(amount)<=0)return alert('Indica método y cantidad.');
+    try{
+      const {data,error}=await supabaseClient.rpc('reseller_topup_request',{p_session_token:RS.resellerSession.token,p_method:method,p_amount:Number(amount)});
+      if(error)throw error;
+      if(!data?.success)throw new Error(data?.message||'No se pudo crear la solicitud.');
+      if(method==='CUP'||method==='SM'){
+        const msg=`🛒 *RECARGA DE SALDO — REVENDEDOR REFILLS SHOP*\\n\\n👤 *Vendedor:* ${RS.reseller.name}\\n📱 *Teléfono:* ${RS.reseller.phone}\\n💳 *Método:* ${method}\\n💰 *Monto:* ${Number(amount).toLocaleString('es-ES')} ${method}\\n🆔 *Solicitud:* ${data.request_code}\\n\\nEspero confirmación para acreditar el saldo.`;
+        window.location.href=`https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(msg)}`;
+      }else{
+        alert('USDT: la solicitud quedó registrada. Para automatizar el pago USDT hace falta conectar un proveedor/gateway de pago; no voy a fingir que ya es automático.');
+      }
+    }catch(e){alert('❌ '+(e.message||'No se pudo solicitar saldo.'))}
+  };
+
+  function rsFillBuySelectors(){
+    const g=document.getElementById('rsBuyGame'),o=document.getElementById('rsBuyOffer');
+    if(!g||!o)return;
+    const games=Array.isArray(gamesData)?gamesData:[];
+    const oldG=g.value;
+    g.innerHTML=games.map((x,i)=>`<option value="${i}">${esc(x.name)}</option>`).join('');
+    if(oldG!==''&&games[oldG])g.value=oldG;
+    const gi=Number(g.value||0), offers=games[gi]?.offers||[];
+    o.innerHTML=offers.map((x,i)=>`<option value="${i}">${esc(x.title)}</option>`).join('');
+  }
+  function rsOfferPriceSM(offer){
+    if(offer && offer.priceSM!==undefined && offer.priceSM!==null && offer.priceSM!=='') return Number(offer.priceSM)||0;
+    return Math.round(Number(offer?.creditsCost||0)*Number(config?.creditRateSM||290)+Number(offer?.profitSM||0));
+  }
+  function rsOfferPriceCUP(offer){
+    if(offer && offer.priceCUP!==undefined && offer.priceCUP!==null && offer.priceCUP!=='') return Number(offer.priceCUP)||0;
+    return Math.round(rsOfferPriceSM(offer)*Number(config?.smToCupRate||3.3));
+  }
+  function rsUpdatePlayerField(){
+    const g=document.getElementById('rsBuyGame');
+    const group=document.getElementById('rsBuyPlayerIdGroup');
+    const input=document.getElementById('rsBuyPlayerId');
+    if(!g||!group||!input)return;
+    const game=gamesData[Number(g.value||0)];
+    const gift=typeof isGiftCardGame==='function' && isGiftCardGame(game);
+    group.style.display=gift?'none':'';
+    input.required=!gift;
+    if(gift)input.value='';
+  }
+  window.rsBuyGameChanged=function(){
+    const g=document.getElementById('rsBuyGame'),o=document.getElementById('rsBuyOffer');
+    const offers=gamesData[Number(g?.value||0)]?.offers||[];
+    if(o)o.innerHTML=offers.map((x,i)=>`<option value="${i}">${esc(x.title)} · ${rsOfferPriceSM(x).toLocaleString('es-ES')} SM · ${rsOfferPriceCUP(x).toLocaleString('es-ES')} CUP</option>`).join('');
+    rsUpdatePlayerField();
+  };
+
+  window.rsBuy=async function(){
+    if(!RS.reseller||!RS.resellerSession)return alert('Inicia sesión como vendedor.');
+    if(!RS.reseller.active)return alert('Tu modo vendedor no está activo. Renueva la membresía de 7 días.');
+    const gi=Number(document.getElementById('rsBuyGame')?.value||0), oi=Number(document.getElementById('rsBuyOffer')?.value||0);
+    const gameObj=gamesData[gi], offerObj=gameObj?.offers?.[oi];
+    const gift=typeof isGiftCardGame==='function' && isGiftCardGame(gameObj);
+    const playerInput=document.getElementById('rsBuyPlayerId');
+    const playerId=gift?'N/A':String(playerInput?.value||'').trim();
+    const currency=document.getElementById('rsBuyCurrency')?.value;
+    if(!gameObj||!offerObj)return alert('Selecciona un juego y una oferta.');
+    if(!gift&&!playerId)return alert('Escribe el ID del jugador.');
+    if(!['USDT','SM','CUP'].includes(currency))return alert('Moneda inválida.');
+
+    const submit=document.querySelector('#rsResellerRoot button[onclick="rsBuy()"]');
+    const originalText=submit?.innerText||'Crear recarga y descontar saldo';
+    if(submit){submit.disabled=true;submit.innerText='⏳ Creando pedido...';}
+    try{
+      const {data,error}=await supabaseClient.rpc('reseller_create_order',{p_session_token:RS.resellerSession.token,p_game:gameObj.name,p_offer:offerObj.title,p_player_id:playerId,p_currency:currency});
+      if(error)throw error;
+      if(!data?.success)throw new Error(data?.message||'No se pudo crear la recarga.');
+
+      const amount=Number(data.debited||0);
+      const msg=gift
+        ? `🛒 *NUEVO PEDIDO DE VENDEDOR — REFILLS SHOP*\n\n👤 *Vendedor:* ${RS.reseller.name}\n📱 *Teléfono:* ${RS.reseller.phone}\n🎁 *Juego/Producto:* ${gameObj.name}\n📦 *Oferta:* ${offerObj.title}\n💳 *Moneda:* ${currency}\n💰 *Monto descontado:* ${amount.toLocaleString('es-ES')} ${currency}\n🆔 *Pedido:* ${data.order_code}\n\n✅ El saldo del vendedor ya fue descontado. Favor procesar la tarjeta/producto.`
+        : `🛒 *NUEVO PEDIDO DE VENDEDOR — REFILLS SHOP*\n\n👤 *Vendedor:* ${RS.reseller.name}\n📱 *Teléfono:* ${RS.reseller.phone}\n🎮 *Juego:* ${gameObj.name}\n📦 *Oferta:* ${offerObj.title}\n🆔 *ID del jugador:* ${playerId}\n💳 *Moneda:* ${currency}\n💰 *Monto descontado:* ${amount.toLocaleString('es-ES')} ${currency}\n🆔 *Pedido:* ${data.order_code}\n\n✅ El saldo del vendedor ya fue descontado. Favor procesar la recarga.`;
+      localStorage.setItem('refills_last_reseller_order',JSON.stringify({code:data.order_code,at:new Date().toISOString()}));
+      await rsRefreshSession();
+      rsRenderReseller();
+      const waUrl=`https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(msg)}`;
+      alert(`✅ Pedido creado\n\n${gameObj.name} · ${offerObj.title}\nDescontado: ${amount.toLocaleString('es-ES')} ${currency}\nPedido: ${data.order_code}\n\nSe abrirá WhatsApp para enviarlo a REFILLS SHOP.`);
+      window.location.href=waUrl;
+    }catch(e){alert('❌ '+(e.message||'No se pudo crear la recarga.'))}
+    finally{if(submit){submit.disabled=false;submit.innerText=originalText;}}
+  };
+  window.rsRenew=async function(){
+    if(!RS.reseller||!RS.resellerSession)return;
+    const method=document.getElementById('rsRenewMethod')?.value;
+    try{
+      const {data,error}=await supabaseClient.rpc('reseller_renew',{p_session_token:RS.resellerSession.token,p_method:method});
+      if(error)throw error;
+      if(!data?.success)throw new Error(data?.message||'No se pudo generar la renovación.');
+      if(method==='USDT'){
+        alert('Renovación USDT registrada. La automatización real requiere un gateway USDT conectado.');
+      }else{
+        const msg=`🔄 *RENOVACIÓN MODO VENDEDOR — REFILLS SHOP*\\n\\n👤 ${RS.reseller.name}\\n📱 ${RS.reseller.phone}\\n💳 ${method}\\n💰 ${data.amount} ${method}\\n🆔 ${data.request_code}`;
+        window.location.href=`https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(msg)}`;
+      }
+    }catch(e){alert('❌ '+(e.message||'No se pudo renovar.'))}
+  };
+
+  function rsRenderReseller(){
+    const root=document.getElementById('rsResellerRoot');if(!root)return;
+    if(!RS.reseller){
+      root.innerHTML=`<div class="rs-reseller-card">
+        <h3 id="rsAuthTitle">Entrar al modo vendedor</h3>
+        <div class="rs-muted" style="margin-bottom:12px">El modo vendedor permite comprar recargas con tu saldo interno a los precios configurados para vendedores.</div>
+        <div class="rs-login-switch"><button class="btn-secondary" onclick="rsSetAuthMode('login')">Entrar</button><button class="btn-secondary" onclick="rsSetAuthMode('register')">Crear cuenta</button></div>
+        <input type="hidden" id="rsAuthMode" value="login">
+        <div class="form-group rs-hidden" id="rsNameGroup"><label class="form-label">Nombre</label><input id="rsName" class="form-input" maxlength="60" placeholder="Tu nombre"></div>
+        <div class="form-group"><label class="form-label">Número</label><input id="rsPhone" class="form-input" maxlength="25" inputmode="tel" placeholder="Tu número"></div>
+        <div class="form-group"><label class="form-label">Contraseña</label><input id="rsPassword" type="password" class="form-input" minlength="6" placeholder="Mínimo 6 caracteres"></div>
+        <button id="rsAuthBtn" class="btn-submit" onclick="rsAuth()">Entrar</button>
+        <div class="rs-note" style="margin-top:10px">🔒 Tu cuenta de vendedor es independiente del panel de administración.</div>
+      </div>`;
+      return;
+    }
+    const r=RS.reseller;
+    const active=r.active?'🟢 ACTIVO':'🔴 INACTIVO';
+    const until=r.active_until?new Date(r.active_until).toLocaleString('es-ES'):'—';
+    root.innerHTML=`<div class="rs-account-box">
+      <h3>👤 ${esc(r.name)}</h3><div class="rs-muted">📱 ${esc(r.phone)} · ${active}</div>
+      <div class="rs-balance-grid">
+        <div class="rs-balance-item"><small>USDT</small><b>${Number(r.balance_usdt||0).toFixed(2)}</b></div>
+        <div class="rs-balance-item"><small>SM</small><b>${Number(r.balance_sm||0).toLocaleString('es-ES')}</b></div>
+        <div class="rs-balance-item"><small>CUP</small><b>${Number(r.balance_cup||0).toLocaleString('es-ES')}</b></div>
+      </div>
+      <div class="rs-muted" style="margin-top:10px">Modo vendedor hasta: <b>${esc(until)}</b></div>
+      <div class="rs-reseller-card" style="margin-top:12px"><h3>🛒 Nueva recarga</h3>
+      <div class="form-group"><label class="form-label">Juego</label><select id="rsBuyGame" class="form-select" onchange="rsBuyGameChanged()"></select></div>
+      <div class="form-group"><label class="form-label">Oferta</label><select id="rsBuyOffer" class="form-select"></select></div>
+      <div class="form-group" id="rsBuyPlayerIdGroup"><label class="form-label" for="rsBuyPlayerId">ID del jugador</label><input id="rsBuyPlayerId" class="form-input" inputmode="numeric" maxlength="60" placeholder="ID de la cuenta"></div>
+      <div class="form-group"><label class="form-label">Moneda del saldo</label><select id="rsBuyCurrency" class="form-select"><option value="SM">SM</option><option value="CUP">CUP</option><option value="USDT">USDT</option></select></div>
+      <button class="btn-submit" onclick="rsBuy()">Crear recarga y descontar saldo</button>
+    </div>
+    <div class="rs-actions"><button class="btn-secondary" onclick="rsLogout()">🚪 Cerrar sesión</button></div>
+    </div>
+    <div class="rs-reseller-card"><h3>💳 Añadir saldo</h3>
+      <div class="form-group"><label class="form-label">Método</label><select id="rsTopupMethod" class="form-select"><option>USDT</option><option>CUP</option><option>SM</option></select></div>
+      <div class="form-group"><label class="form-label">Cantidad</label><input id="rsTopupAmount" class="form-input" type="number" min="0.01" step="0.01" placeholder="Cantidad a añadir"></div>
+      <button class="btn-secondary" style="width:100%" onclick="rsRequestBalance()">Solicitar saldo</button>
+    </div>
+    <div class="rs-reseller-card"><h3>🔄 Renovar modo vendedor</h3><div class="rs-muted">Tarifa cada 7 días: 0.5 USDT, 250 SM o 500 CUP.</div>
+      <div class="form-group" style="margin-top:10px"><select id="rsRenewMethod" class="form-select"><option>USDT</option><option>SM</option><option>CUP</option></select></div>
+      <button class="btn-secondary" style="width:100%" onclick="rsRenew()">Renovar 7 días</button>
+    </div>
+    <div class="rs-note">ℹ️ El vendedor paga exactamente el precio configurado en la tienda. Al crear la recarga se genera el pedido y se abre WhatsApp para enviarlo a REFILLS SHOP.</div>`;
+    rsFillBuySelectors();
+    rsUpdatePlayerField();
+  }
+
+  window.openResellerAdmin=async function(){
+    const el=document.getElementById('tab-resellers');
+    if(!el)return;
+    if(!adminSessionPassword)return alert('Abre primero el panel de administración.');
+    switchAdminTab('tab-resellers',document.querySelector('[data-rs-admin="resellers"]'));
+    await rsLoadAdmin();
+    await rsLoadRequests();
+  };
+  window.openTournamentAdmin=async function(){
+    const el=document.getElementById('tab-tournaments');
+    if(!el)return;
+    if(!adminSessionPassword)return alert('Abre primero el panel de administración.');
+    switchAdminTab('tab-tournaments',document.querySelector('[data-rs-admin="tournaments"]'));
+    await rsLoadTournamentAdmin();
+  };
+
+  async function rsLoadTournamentAdmin(){
+    const c=document.getElementById('rsAdminTournamentList');if(!c)return;
+    c.innerHTML='<div class="rs-note">⏳ Cargando...</div>';
+    try{
+      const {data,error}=await supabaseClient.rpc('admin_tournaments',{p_password:adminSessionPassword});
+      if(error)throw error;
+      c.innerHTML=(Array.isArray(data)?data:[]).map(t=>`<div class="rs-admin-item">
+        <div class="top"><b>🏆 ${esc(t.name)}</b><span class="rs-badge">${Number(t.registered_players||0)}/${Number(t.max_players||0)}</span></div>
+        <div class="rs-admin-small">${esc(t.game||'')} · ${t.active?'🟢 Publicado':'🔴 Oculto'} · Grupo: ${esc(t.group_url||'—')}</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px"><button class="btn-secondary" onclick="rsAdminLoadPlayers('${esc(t.id)}')">👥 Jugadores</button><button class="btn-secondary" onclick="rsAdminEditTournament('${esc(t.id)}')">✏️ Editar</button></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px"><button class="btn-secondary" onclick="rsAdminToggleTournament('${esc(t.id)}')">${t.active?'Ocultar':'Publicar'}</button><button class="btn-danger" onclick="rsAdminDeleteTournament('${esc(t.id)}')">Eliminar</button></div>
+      </div>`).join('')||'<div class="rs-note">No hay torneos.</div>';
+    }catch(e){c.innerHTML='<div class="rs-note">❌ '+esc(e.message)+'</div>'}
+  }
+
+  window.rsAdminCreateTournament=async function(){
+    const data={name:document.getElementById('rsTName').value.trim(),game:document.getElementById('rsTGame').value.trim(),description:document.getElementById('rsTDesc').value.trim(),max_players:Number(document.getElementById('rsTMax').value),group_url:document.getElementById('rsTGroup').value.trim(),rules:document.getElementById('rsTRules').value.trim(),start_at:document.getElementById('rsTStart').value||null};
+    if(!data.name||!data.game||!data.max_players||data.max_players<1||!data.group_url)return alert('Completa nombre, juego, límite y grupo.');
+    try{const {data:r,error}=await supabaseClient.rpc('admin_create_tournament',{p_password:adminSessionPassword,p_tournament:data});if(error)throw error;if(!r?.success)throw new Error(r?.message||'No se pudo crear.');alert('✅ Torneo creado.');['rsTName','rsTGame','rsTDesc','rsTMax','rsTGroup','rsTRules','rsTStart'].forEach(id=>{const x=document.getElementById(id);if(x)x.value=''});rsLoadTournamentAdmin();}catch(e){alert('❌ '+e.message)}
+  };
+  window.rsAdminDeleteTournament=async function(id){if(!confirm('¿Eliminar este torneo y sus inscripciones?'))return;try{const {error}=await supabaseClient.rpc('admin_delete_tournament',{p_password:adminSessionPassword,p_tournament_id:id});if(error)throw error;rsLoadTournamentAdmin();}catch(e){alert('❌ '+e.message)}};
+  window.rsAdminToggleTournament=async function(id){try{const {error}=await supabaseClient.rpc('admin_toggle_tournament',{p_password:adminSessionPassword,p_tournament_id:id});if(error)throw error;rsLoadTournamentAdmin();}catch(e){alert('❌ '+e.message)}};
+  window.rsAdminEditTournament=async function(id){
+    try{
+      const {data:items,error}=await supabaseClient.rpc('admin_tournaments',{p_password:adminSessionPassword});
+      if(error)throw error;
+      const t=(Array.isArray(items)?items:[]).find(x=>String(x.id)===String(id));
+      if(!t)return alert('Torneo no encontrado.');
+      const name=prompt('Nombre del torneo:',t.name); if(name===null)return;
+      const game=prompt('Juego:',t.game); if(game===null)return;
+      const maxRaw=prompt('Límite de jugadores:',String(t.max_players)); if(maxRaw===null)return;
+      const max=Number(maxRaw); if(!Number.isInteger(max)||max<1)return alert('El límite debe ser un número entero mayor que 0.');
+      const group=prompt('Enlace del grupo:',t.group_url||''); if(group===null)return;
+      const desc=prompt('Descripción (opcional):',t.description||''); if(desc===null)return;
+      const rules=prompt('Reglas (opcional):',t.rules||''); if(rules===null)return;
+      const startDefault=t.start_at?new Date(t.start_at).toISOString().slice(0,16):'';
+      const start=prompt('Inicio opcional (YYYY-MM-DDTHH:MM):',startDefault); if(start===null)return;
+      const pStart=start.trim()?new Date(start.trim()):null;
+      if(start.trim() && Number.isNaN(pStart.getTime()))return alert('Fecha de inicio inválida.');
+      const {data:r,error:e2}=await supabaseClient.rpc('admin_update_tournament',{p_password:adminSessionPassword,p_tournament_id:id,p_name:name.trim(),p_game:game.trim(),p_description:desc.trim(),p_max_players:max,p_group_url:group.trim(),p_rules:rules.trim(),p_start_at:start.trim()?pStart.toISOString():null});
+      if(e2)throw e2;
+      if(!r?.success)throw new Error(r?.message||'No se pudo actualizar el torneo.');
+      alert('✅ Torneo actualizado.');
+      rsLoadTournamentAdmin();
+    }catch(e){alert('❌ '+(e.message||'No se pudo actualizar el torneo.'))}
+  };
+  window.rsAdminLoadPlayers=async function(id){try{const {data,error}=await supabaseClient.rpc('admin_tournament_players',{p_password:adminSessionPassword,p_tournament_id:id});if(error)throw error;const text=(data||[]).map((x,i)=>`${i+1}. ${x.player_name} | ID: ${x.player_id} | Tel: ${x.phone}`).join('\\n')||'Sin jugadores';alert(text);}catch(e){alert('❌ '+e.message)}};
+
+  function rsFormatDate(value){
+    if(!value)return '—';
+    const d=new Date(value); if(Number.isNaN(d.getTime()))return '—';
+    return d.toLocaleString('es-ES',{dateStyle:'short',timeStyle:'short'});
+  }
+  function rsDaysRemaining(value){
+    if(!value)return 0;
+    const ms=new Date(value).getTime()-Date.now();
+    return Math.max(0,Math.ceil(ms/86400000));
+  }
+  function rsEscapeAttr(value){return esc(String(value??'')).replace(/`/g,'&#96;');}
+
+  window.rsLoadAdmin=async function(){
+    const c=document.getElementById('rsAdminResellerList');if(!c)return;
+    c.innerHTML='<div class="rs-note">⏳ Cargando vendedores...</div>';
+    try{
+      const {data,error}=await supabaseClient.rpc('admin_resellers',{p_password:adminSessionPassword});
+      if(error)throw error;
+      const list=Array.isArray(data)?data:[];
+      window.rsAdminResellersCache=list;
+      rsRenderAdminResellers();
+    }catch(e){c.innerHTML='<div class="rs-note">❌ '+esc(e.message)+'</div>';}
+  };
+
+  window.rsRenderAdminResellers=function(){
+    const c=document.getElementById('rsAdminResellerList');if(!c)return;
+    const q=(document.getElementById('rsAdminResellerSearch')?.value||'').trim().toLowerCase();
+    const list=(window.rsAdminResellersCache||[]).filter(r=>!q||String(r.name||'').toLowerCase().includes(q)||String(r.phone||'').toLowerCase().includes(q));
+    c.innerHTML=list.map(r=>{
+      const days=Number(r.days_remaining??rsDaysRemaining(r.active_until));
+      const status=r.active?'ACTIVO':days>0?'INACTIVO':'VENCIDO';
+      const statusClass=r.active?'rs-status-active':'rs-status-off';
+      return `<div class="rs-admin-item rs-reseller-card">
+        <div class="top"><b>${esc(r.name)}</b><span class="${statusClass}">${status}</span></div>
+        <div class="rs-admin-small">
+          📱 ${esc(r.phone)}<br>
+          💰 USDT ${Number(r.balance_usdt||0).toFixed(2)} · SM ${Number(r.balance_sm||0).toLocaleString('es-ES')} · CUP ${Number(r.balance_cup||0).toLocaleString('es-ES')}<br>
+          📅 Plan: <b>${days} día${days===1?'':'s'}</b> · Hasta: ${rsFormatDate(r.active_until)}<br>
+          🕘 Último acceso: ${rsFormatDate(r.last_seen_at)}<br>
+          📦 Pedidos: ${Number(r.total_orders||0)} · Pendientes: ${Number(r.pending_orders||0)}<br>
+          🗓️ Cuenta creada: ${rsFormatDate(r.created_at)}
+        </div>
+        <div class="rs-admin-actions">
+          <button class="btn-secondary" onclick="rsOpenResellerManager('${rsEscapeAttr(r.id)}')">⚙️ Gestionar</button>
+          <button class="btn-secondary" onclick="rsAdminToggleReseller('${rsEscapeAttr(r.id)}')">${r.active?'⏹ Desactivar':'▶️ Activar 7 días'}</button>
+        </div>
+      </div>`;
+    }).join('') || '<div class="rs-note">No hay vendedores que coincidan.</div>';
+  };
+
+  window.rsAdminToggleReseller=async function(id){
+    try{
+      const {data,error}=await supabaseClient.rpc('admin_toggle_reseller',{p_password:adminSessionPassword,p_reseller_id:id});
+      if(error)throw error;
+      if(!data?.success)throw new Error(data?.message||'No se pudo cambiar el estado.');
+      await rsLoadAdmin();
+    }catch(e){alert('❌ '+e.message)}
+  };
+
+  window.rsAdminAdjustBalance=async function(id,currency,amount){
+    const n=Number(amount); if(!Number.isFinite(n)||n===0)return alert('Cantidad inválida.');
+    try{
+      const {data,error}=await supabaseClient.rpc('admin_adjust_reseller_balance',{p_password:adminSessionPassword,p_reseller_id:id,p_currency:currency,p_amount:n});
+      if(error)throw error;
+      if(!data?.success)throw new Error(data?.message||'No se pudo ajustar el saldo.');
+      alert('✅ Saldo actualizado.');
+      await rsLoadAdmin();
+      await rsOpenResellerManager(id,true);
+    }catch(e){alert('❌ '+e.message)}
+  };
+
+  window.rsAdminPromptBalance=async function(id,currency){
+    const label=currency==='USDT'?'USDT':currency;
+    const raw=prompt(`Cantidad de ${label}. Usa positivo para añadir y negativo para descontar:`,'0');
+    if(raw===null)return;
+    await rsAdminAdjustBalance(id,currency,raw.replace(',','.'));
+  };
+
+  window.rsAdminAddDays=async function(id){
+    const raw=prompt('¿Cuántos días quieres añadir al plan?','7');
+    if(raw===null)return;
+    const days=Number(raw);
+    if(!Number.isInteger(days)||days<=0)return alert('Escribe un número entero mayor que 0.');
+    try{
+      const {data,error}=await supabaseClient.rpc('admin_add_reseller_days',{p_password:adminSessionPassword,p_reseller_id:id,p_days:days});
+      if(error)throw error;
+      if(!data?.success)throw new Error(data?.message||'No se pudo ampliar el plan.');
+      alert(`✅ Se añadieron ${days} días.`);
+      await rsLoadAdmin(); await rsOpenResellerManager(id,true);
+    }catch(e){alert('❌ '+e.message)}
+  };
+
+  window.rsAdminSetDays=async function(id){
+    const raw=prompt('¿Cuántos días totales quieres dejar en el plan? (0 = vencer ahora)','7');
+    if(raw===null)return;
+    const days=Number(raw);
+    if(!Number.isInteger(days)||days<0)return alert('Escribe un número entero igual o mayor que 0.');
+    try{
+      const {data,error}=await supabaseClient.rpc('admin_set_reseller_days',{p_password:adminSessionPassword,p_reseller_id:id,p_days:days});
+      if(error)throw error;
+      if(!data?.success)throw new Error(data?.message||'No se pudo establecer el plan.');
+      alert('✅ Plan actualizado.');
+      await rsLoadAdmin(); await rsOpenResellerManager(id,true);
+    }catch(e){alert('❌ '+e.message)}
+  };
+
+  window.rsAdminDeleteReseller=async function(id){
+    if(!confirm('⚠️ Vas a eliminar esta cuenta de vendedor y sus pedidos/solicitudes asociadas.\n\nEsta acción no se puede deshacer.\n\n¿Continuar?'))return;
+    try{
+      const {data,error}=await supabaseClient.rpc('admin_delete_reseller',{p_password:adminSessionPassword,p_reseller_id:id});
+      if(error)throw error;
+      if(!data?.success)throw new Error(data?.message||'No se pudo eliminar la cuenta.');
+      rsCloseResellerManager();
+      alert('✅ Cuenta eliminada.');
+      await rsLoadAdmin(); await rsLoadRequests();
+    }catch(e){alert('❌ '+e.message)}
+  };
+
+  window.rsOpenResellerManager=async function(id,silent=false){
+    const box=document.getElementById('rsAccountModal'); const body=document.getElementById('rsAccountBody');
+    if(!box||!body)return;
+    if(!silent)body.innerHTML='<div class="rs-note">⏳ Cargando cuenta...</div>';
+    box.classList.add('active');
+    try{
+      const {data,error}=await supabaseClient.rpc('admin_reseller_detail',{p_password:adminSessionPassword,p_reseller_id:id});
+      if(error)throw error;
+      if(!data?.success)throw new Error(data?.message||'No se pudo cargar la cuenta.');
+      const r=data.reseller; const days=Number(r.days_remaining||0);
+      body.innerHTML=`<div class="rs-account-grid">
+        <div class="rs-account-stat"><small>Nombre</small><b>${esc(r.name)}</b></div>
+        <div class="rs-account-stat"><small>Teléfono</small><b>${esc(r.phone)}</b></div>
+        <div class="rs-account-stat"><small>Estado</small><b>${r.active?'🟢 Activo':days>0?'🟠 Inactivo':'🔴 Vencido'}</b></div>
+        <div class="rs-account-stat"><small>Días restantes</small><b>${days}</b></div>
+        <div class="rs-account-stat"><small>Último acceso</small><b>${rsFormatDate(r.last_seen_at)}</b></div>
+        <div class="rs-account-stat"><small>Último inicio de sesión</small><b>${rsFormatDate(r.last_login_at)}</b></div>
+        <div class="rs-account-stat"><small>Plan hasta</small><b>${rsFormatDate(r.active_until)}</b></div>
+        <div class="rs-account-stat"><small>Creada</small><b>${rsFormatDate(r.created_at)}</b></div>
+      </div>
+      <div class="rs-account-balance">
+        <div class="rs-account-stat"><small>USDT</small><b>${Number(r.balance_usdt||0).toFixed(2)}</b></div>
+        <div class="rs-account-stat"><small>SM</small><b>${Number(r.balance_sm||0).toLocaleString('es-ES')}</b></div>
+        <div class="rs-account-stat"><small>CUP</small><b>${Number(r.balance_cup||0).toLocaleString('es-ES')}</b></div>
+      </div>
+      <div class="rs-account-section"><div class="rs-account-section-title">💰 Gestionar saldo</div><div class="rs-account-btns">
+        <button class="btn-secondary" onclick="rsAdminPromptBalance('${rsEscapeAttr(r.id)}','USDT')">+/- USDT</button>
+        <button class="btn-secondary" onclick="rsAdminPromptBalance('${rsEscapeAttr(r.id)}','SM')">+/- SM</button>
+        <button class="btn-secondary" onclick="rsAdminPromptBalance('${rsEscapeAttr(r.id)}','CUP')">+/- CUP</button>
+      </div><div class="rs-account-note">Puedes añadir saldo con una cantidad positiva o descontarlo con una negativa.</div></div>
+      <div class="rs-account-section"><div class="rs-account-section-title">📅 Gestionar plan</div><div class="rs-account-btns">
+        <button class="btn-secondary" onclick="rsAdminAddDays('${rsEscapeAttr(r.id)}')">+ Añadir días</button>
+        <button class="btn-secondary" onclick="rsAdminSetDays('${rsEscapeAttr(r.id)}')">📌 Establecer días</button>
+        <button class="btn-secondary" onclick="rsAdminToggleReseller('${rsEscapeAttr(r.id)}')">${r.active?'⏹ Desactivar ahora':'▶️ Activar 7 días'}</button>
+      </div></div>
+      <div class="rs-account-section"><div class="rs-account-section-title">📦 Actividad</div><div class="rs-account-grid">
+        <div class="rs-account-stat"><small>Pedidos totales</small><b>${Number(data.total_orders||0)}</b></div>
+        <div class="rs-account-stat"><small>Pedidos pendientes</small><b>${Number(data.pending_orders||0)}</b></div>
+      </div></div>
+      <div class="rs-account-section"><button class="btn-danger danger" style="width:100%" onclick="rsAdminDeleteReseller('${rsEscapeAttr(r.id)}')">🗑️ Eliminar cuenta definitivamente</button></div>`;
+    }catch(e){body.innerHTML='<div class="rs-note">❌ '+esc(e.message)+'</div>';}
+  };
+  window.rsCloseResellerManager=function(){document.getElementById('rsAccountModal')?.classList.remove('active');};
+
+  window.rsAdminCredit=async function(id){await rsOpenResellerManager(id);};
+
+  function rsInject(){
+    if(document.getElementById('rsSystemButtons'))return;
+    const anchor=document.querySelector('.admin-trigger');
+    if(anchor){
+      const views=document.createElement('div');
+      views.innerHTML=`<div id="view-tournaments" class="view">
+        <button class="btn-back" onclick="showView('view-games')">← Volver a la tienda</button>
+        <div class="rs-view-head"><div><div class="section-title">🏆 Torneos</div><div class="section-desc">Inscríbete y entra al grupo del torneo.</div></div></div>
+        <div id="rsTournamentList"></div>
+      </div>
+      <div id="view-resellers" class="view">
+        <button class="btn-back" onclick="showView('view-games')">← Volver a la tienda</button>
+        <div class="rs-view-head"><div><div class="section-title">💼 Modo vendedor</div><div class="section-desc">Cuenta, saldo interno y renovación cada 7 días.</div></div></div>
+        <div id="rsResellerRoot"></div>
+        </div>
+      <div id="view-reseller-funding" class="view">
+        <button class="btn-back" type="button" onclick="rsV8BackToSellerHome()">← Volver a mi cuenta</button>
+        <div class="rs-view-head"><div><div class="section-title">💳 Añadir saldo</div><div class="section-desc">Añade saldo interno USDT para usarlo en tus recargas.</div></div></div>
+        <div id="rsV8FundingScreen"></div>
+      </div>
+      <div id="view-reseller-plan" class="view">
+        <button class="btn-back" type="button" onclick="rsV8BackToSellerHome()">← Volver a mi cuenta</button>
+        <div class="rs-view-head"><div><div class="section-title">📅 Plan de vendedor</div><div class="section-desc">Información y compra de tu plan de 7 días.</div></div></div>
+        <div id="rsV8PlanScreen"></div>
+      </div>`;
+      anchor.parentNode.insertBefore(views,anchor);
+    }
+    const nav=document.querySelector('.admin-nav');
+    if(nav && !document.getElementById('tab-tournaments')){
+      nav.insertAdjacentHTML('beforeend','<button class="tab-btn" data-rs-admin="tournaments" onclick="openTournamentAdmin()">🏆 Torneos</button><button class="tab-btn" data-rs-admin="resellers" onclick="openResellerAdmin()">💼 Vendedores</button>');
+    }
+    const adminMain=document.querySelector('.admin-content');
+    if(adminMain && !document.getElementById('tab-tournaments')){
+      adminMain.insertAdjacentHTML('beforeend',`<div id="tab-tournaments" class="admin-panel-section"><div class="admin-card"><div class="admin-card-title">🏆 Crear y administrar torneos</div><div class="admin-mini-grid">
+        <div class="form-group"><label class="form-label">Nombre</label><input id="rsTName" class="form-input" placeholder="Ej: Torneo REFILLS #1"></div>
+        <div class="form-group"><label class="form-label">Juego</label><input id="rsTGame" class="form-input" placeholder="Free Fire"></div>
+        <div class="form-group"><label class="form-label">Límite de jugadores</label><input id="rsTMax" type="number" min="1" class="form-input" placeholder="50"></div>
+        <div class="form-group"><label class="form-label">Inicio</label><input id="rsTStart" type="datetime-local" class="form-input"></div>
+      </div><div class="form-group"><label class="form-label">Descripción</label><textarea id="rsTDesc" class="form-textarea" placeholder="Información del torneo"></textarea></div><div class="form-group"><label class="form-label">Grupo del torneo *</label><input id="rsTGroup" class="form-input" placeholder="Enlace del grupo de WhatsApp/Telegram"></div><div class="form-group"><label class="form-label">Reglas</label><textarea id="rsTRules" class="form-textarea" placeholder="Reglas y condiciones"></textarea></div><button class="btn-submit" onclick="rsAdminCreateTournament()">🏆 Publicar torneo</button></div><div class="admin-card"><div class="admin-card-title">📋 Torneos existentes</div><div id="rsAdminTournamentList"></div></div></div>
+      <div id="tab-resellers" class="admin-panel-section">
+        <div class="admin-card"><div class="admin-card-title">💼 Vendedores</div><div class="admin-card-sub">Gestiona cada cuenta, saldo, plan y actividad desde aquí.</div><div class="rs-reseller-toolbar"><input id="rsAdminResellerSearch" class="form-input" placeholder="🔎 Buscar por nombre o teléfono" oninput="rsRenderAdminResellers()"><button class="btn-secondary" onclick="rsLoadAdmin()">🔄</button></div><div id="rsAdminResellerList"></div></div>
+        <div class="admin-card"><div class="admin-card-title">💳 Solicitudes pendientes</div><button class="btn-secondary" style="width:100%;margin-bottom:10px" onclick="rsLoadRequests()">🔄 Actualizar solicitudes</button><div id="rsAdminRequests"></div></div>
+      </div>`);
+    }
+    if(!document.getElementById('rsAccountModal')){
+      document.body.insertAdjacentHTML('beforeend',`<div id="rsAccountModal" class="rs-account-modal" onclick="if(event.target===this)rsCloseResellerManager()"><div class="rs-account-box"><div class="rs-account-head"><div><h3>⚙️ Gestionar vendedor</h3><div class="rs-account-note">Información y controles de la cuenta seleccionada.</div></div><button class="rs-account-close" onclick="rsCloseResellerManager()">✕</button></div><div id="rsAccountBody"><div class="rs-note">Selecciona un vendedor.</div></div></div></div>`);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded',async()=>{
+    rsInject();
+    await rsRefreshSession();
+    rsRenderReseller();
+  });
+})();
+</script>
+
 <script id="final-usability-js">
 (function(){
   window.simpleSelectedPayment = null;
@@ -2394,6 +3102,973 @@
     if(sm) sm.textContent = Number(o.priceSM||0) ? Number(o.priceSM).toLocaleString('es-ES')+' SM' : '—';
     if(cup) cup.textContent = Number(o.priceCUP||0) ? Number(o.priceCUP).toLocaleString('es-ES')+' CUP' : '—';
   };
+})();
+</script>
+
+
+<script id="refillsV4ExperienceJS">
+(function(){
+  'use strict';
+  const UI = { seller:null, session:null, sellerMode:false, offer:null, game:null };
+  window.__refillsSellerMode = false;
+
+  function esc(v){return String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');}
+  function fmt(n){return Number(n||0).toLocaleString('es-ES');}
+  function money(n){return Number(n||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+  function formatDate(v){if(!v)return '—';const d=new Date(v);return Number.isNaN(d.getTime())?'—':d.toLocaleString('es-ES',{dateStyle:'short',timeStyle:'short'});}
+  function days(v){if(!v)return 0;const ms=new Date(v).getTime()-Date.now();return Math.max(0,Math.ceil(ms/86400000));}
+  function isGift(game){return typeof isGiftCardGame==='function'&&isGiftCardGame(game);}
+  function usdtPrice(offer){
+    const explicit=Number(offer?.priceUSDT ?? offer?.usdtPrice);
+    if(Number.isFinite(explicit) && explicit>0) return Math.round(explicit*100)/100;
+    const sm=(offer&&offer.priceSM!==undefined&&offer.priceSM!==null&&offer.priceSM!=='')
+      ? Number(offer.priceSM)
+      : Math.round(Number(offer?.creditsCost||0)*Number(config?.creditRateSM||0)+Number(offer?.profitSM||0));
+    const rate=Number(config?.usdRateSM||279);
+    return rate>0?Math.round((sm/rate)*100)/100:0;
+  }
+  function setSellerBody(on){
+    UI.sellerMode=!!on; window.__refillsSellerMode=!!on;
+    document.body.classList.toggle('rs-seller-mode',!!on);
+    updateSellerBar();
+    if(typeof document!== 'undefined') document.querySelectorAll('.rs-system-btn').forEach(b=>{if(b.textContent.includes('Modo vendedor'))b.textContent=on?'💼 Modo vendedor activo':'💼 Modo vendedor';});
+  }
+  function updateSellerBar(){
+    window.__refillsSellerState=UI.seller?{active:UI.seller.active,active_until:UI.seller.active_until,name:UI.seller.name}:null;
+    const n=document.getElementById('rsSellerModeName'),m=document.getElementById('rsSellerModeMeta');
+    if(!n||!m)return;
+    if(!UI.seller){n.textContent='Modo vendedor';m.textContent='Saldo USDT · Plan';return;}
+    const d=days(UI.seller.active_until), active=!!UI.seller.active && d>0;
+    n.textContent=UI.seller.name||'Vendedor';
+    m.textContent=`${money(UI.seller.balance_usdt||0)} USDT · ${active?`${d} día${d===1?'':'s'} restantes`:'Plan vencido'}`;
+  }
+  function applyLabels(on){
+    const gamesView=document.getElementById('view-games');
+    const offersView=document.getElementById('view-offers');
+    if(!gamesView||!offersView)return;
+    const gameTitle=gamesView.querySelector('.section-header .section-title');
+    const gameDesc=gamesView.querySelector('.section-header .section-desc');
+    const gameHelp=gamesView.querySelector('.easy-help');
+    const offerDesc=offersView.querySelector('.section-header .section-desc');
+    const offerHelp=offersView.querySelector('.easy-help');
+    if(on){
+      if(gameTitle)gameTitle.textContent='🎮 Elige un juego';
+      if(gameDesc)gameDesc.textContent='Selecciona el juego de la recarga que quieres vender.';
+      if(gameHelp)gameHelp.innerHTML='<strong>💼 Modo vendedor</strong>Elige un juego → elige una oferta → escribe el ID → pagas con tu saldo USDT.';
+      if(offerDesc)offerDesc.textContent='Elige la oferta que vas a vender.';
+      if(offerHelp)offerHelp.innerHTML='<strong>💵 Precios de vendedor</strong>Todos los precios aparecen solamente en USDT y no llevan margen adicional de REFILLS SHOP.';
+    }else{
+      if(gameTitle)gameTitle.textContent='🎮 Selecciona un Juego';
+      if(gameDesc)gameDesc.textContent='Elige el juego donde deseas recibir tu recarga.';
+      if(offerDesc)offerDesc.textContent='Toca sobre el paquete que deseas recargar.';
+      if(offerHelp)offerHelp.innerHTML='<strong>Elige tu recarga</strong>Toca la oferta que deseas. Aquí verás el precio en <b>SM</b> y <b>CUP</b>.';
+    }
+  }
+  function sellerGames(filter=''){
+    if(typeof window.__legacyRenderGames==='function') window.__legacyRenderGames(filter);
+  }
+  function sellerOffers(){
+    const c=document.getElementById('offers-container'); if(!c||!UI.game)return;
+    const offers=Array.isArray(UI.game.offers)?UI.game.offers:[];
+    document.getElementById('offers-title').textContent=`Ofertas · ${UI.game.name}`;
+    c.innerHTML=offers.length?offers.map((offer,i)=>{
+      const p=usdtPrice(offer);
+      return `<div class="card card-offer offer-card-simple" data-rs-offer-index="${i}" role="button" tabindex="0">
+        <div class="offer-top"><div class="offer-title-group"><span class="offer-name offer-main">${esc(offer.title)}</span></div><span class="tag-badge">${esc(offer.tag||'RECARGA')}</span></div>
+        <div class="offer-sub">Precio para vendedor</div>
+        <div class="offer-prices-simple" style="grid-template-columns:1fr"><div class="offer-price-simple"><b>USDT</b><span>${money(p)} USDT</span></div></div>
+        <div class="offer-tap">Seleccionar oferta</div>
+      </div>`;
+    }).join(''):'<p style="text-align:center;color:var(--text-muted);">No hay ofertas disponibles en este juego.</p>';
+    c.querySelectorAll('[data-rs-offer-index]').forEach(card=>{
+      const open=()=>rsEasySelectOffer(offers[Number(card.dataset.rsOfferIndex)]);
+      card.addEventListener('click',open);
+      card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ') {e.preventDefault();open();}});
+    });
+  }
+  function renderCheckout(){
+    const g=UI.game,o=UI.offer;if(!g||!o)return;
+    const price=usdtPrice(o), balance=Number(UI.seller?.balance_usdt||0), gift=isGift(g);
+    document.getElementById('rsCoGame').textContent=g.name||'—';
+    document.getElementById('rsCoOffer').textContent=o.title||'—';
+    document.getElementById('rsCoPrice').textContent=`${money(price)} USDT`;
+    document.getElementById('rsCoBalance').textContent=`${money(balance)} USDT`;
+    const idGroup=document.getElementById('rsCoIdGroup'), giftNote=document.getElementById('rsCoGiftNote'), input=document.getElementById('rsCoPlayerId');
+    if(idGroup)idGroup.style.display=gift?'none':'';
+    if(giftNote)giftNote.style.display=gift?'block':'none';
+    if(input){input.required=!gift;input.value='';}
+    const state=document.getElementById('rsCoBalanceState');
+    if(state)state.innerHTML=balance+1e-9>=price
+      ? `<div class="rs-balance-ok">✅ Tienes saldo suficiente para esta recarga.</div>`
+      : `<div class="rs-balance-warning">⚠️ Tu saldo no alcanza. Te faltan <b>${money(price-balance)} USDT</b>. Añade saldo desde tu cuenta.</div>`;
+    const btn=document.getElementById('rsCoButton'); if(btn){btn.disabled=balance+1e-9<price;btn.textContent=balance+1e-9>=price?'Usar saldo y crear pedido':'Saldo USDT insuficiente';}
+  }
+  async function loadSession(){
+    const raw=localStorage.getItem('refills_reseller_session');
+    if(!raw){UI.session=null;UI.seller=null;updateSellerBar();return false;}
+    try{
+      const s=JSON.parse(raw); if(!s?.token)throw new Error('session');
+      const {data,error}=await supabaseClient.rpc('reseller_session',{p_session_token:s.token});
+      if(error||!data?.success){localStorage.removeItem('refills_reseller_session');UI.session=null;UI.seller=null;return false;}
+      UI.session=s;UI.seller=data.reseller;updateSellerBar();return true;
+    }catch(e){localStorage.removeItem('refills_reseller_session');UI.session=null;UI.seller=null;return false;}
+  }
+  window.rsEasyAuth=async function(mode){
+    const name=document.getElementById('rsEasyName')?.value.trim()||'';
+    const phone=document.getElementById('rsEasyPhone')?.value.trim()||'';
+    const password=document.getElementById('rsEasyPassword')?.value||'';
+    if(mode==='register'&&name.length<2)return alert('Escribe tu nombre.');
+    if(phone.length<5)return alert('Escribe tu número de teléfono.');
+    if(password.length<6)return alert('La contraseña debe tener al menos 6 caracteres.');
+    const btn=document.getElementById('rsEasyAuthBtn');if(btn){btn.disabled=true;btn.textContent='⏳ Procesando...';}
+    try{
+      const {data,error}=await supabaseClient.rpc(mode==='register'?'reseller_register':'reseller_login',{p_name:name,p_phone:phone,p_password:password});
+      if(error)throw error;if(!data?.success)throw new Error(data?.message||'No se pudo completar.');
+      UI.session=data.session;UI.seller=data.reseller;localStorage.setItem('refills_reseller_session',JSON.stringify(data.session));
+      setSellerBody(false);renderSellerHome();
+    }catch(e){alert('❌ '+(e.message||'No se pudo completar.'));}
+    finally{if(btn){btn.disabled=false;btn.textContent=mode==='register'?'Crear cuenta':'Entrar';}}
+  };
+  function renderSellerAuth(){
+    const root=document.getElementById('rsResellerRoot');if(!root)return;
+    setSellerBody(false);
+    root.innerHTML=`<div class="rs-seller-home-hero"><div class="rs-seller-home-title">💼 Modo vendedor</div><div class="rs-seller-home-sub">La tienda se verá igual que para un cliente. La diferencia es que tú compras con saldo USDT y ves solamente los precios USDT.</div></div>
+      <div class="rs-reseller-card"><div class="rs-login-switch"><button class="btn-secondary" type="button" onclick="rsEasySetAuth('login')">Entrar</button><button class="btn-secondary" type="button" onclick="rsEasySetAuth('register')">Crear cuenta</button></div>
+      <input type="hidden" id="rsEasyAuthMode" value="login">
+      <div class="form-group rs-hidden" id="rsEasyNameGroup"><label class="form-label">Nombre</label><input id="rsEasyName" class="form-input" maxlength="60" placeholder="Tu nombre"></div>
+      <div class="form-group"><label class="form-label">Número de teléfono</label><input id="rsEasyPhone" class="form-input" maxlength="25" inputmode="tel" placeholder="Tu número"></div>
+      <div class="form-group"><label class="form-label">Contraseña</label><input id="rsEasyPassword" class="form-input" type="password" minlength="6" placeholder="Mínimo 6 caracteres"></div>
+      <button id="rsEasyAuthBtn" class="btn-submit" type="button" onclick="rsEasyAuth('login')">Entrar</button></div>
+      <div class="rs-note">💡 Cuando tu cuenta esté activa podrás entrar al catálogo, elegir cualquier juego y pagar tus compras desde tu saldo USDT.</div>`;
+  }
+  window.rsEasySetAuth=function(mode){
+    const h=document.getElementById('rsEasyAuthMode'),ng=document.getElementById('rsEasyNameGroup'),b=document.getElementById('rsEasyAuthBtn');
+    if(h)h.value=mode;if(ng)ng.classList.toggle('rs-hidden',mode!=='register');if(b)b.textContent=mode==='register'?'Crear cuenta':'Entrar';
+    b?.setAttribute('onclick',`rsEasyAuth('${mode}')`);
+  };
+  function renderSellerHome(){
+    const root=document.getElementById('rsResellerRoot');if(!root||!UI.seller){renderSellerAuth();return;}
+    setSellerBody(false);
+    const r=UI.seller,d=days(r.active_until),active=!!r.active&&d>0;
+    root.innerHTML=`<div class="rs-seller-home-hero"><div class="rs-seller-home-top"><div><div class="rs-seller-home-title">Hola, ${esc(r.name)}</div><div class="rs-seller-home-sub">Cuenta de vendedor · ${esc(r.phone||'')}</div></div><div class="rs-seller-usdt"><small>Saldo disponible</small><b>${money(r.balance_usdt)} USDT</b></div></div><div class="rs-plan-pill">${active?`🟢 Plan activo · ${d} día${d===1?'':'s'} restantes`:'🔴 Plan vencido'}${r.active_until?` · hasta ${formatDate(r.active_until)}`:''}</div>
+      <div class="rs-seller-home-actions"><button class="btn-submit" type="button" onclick="rsEasyEnterCatalog()">🎮 Comprar recarga</button><button class="btn-secondary" type="button" onclick="rsEasyOpenFunding()">💳 Añadir saldo</button></div></div>
+      <div id="rsSellerFunding" class="rs-simple-panel" style="display:none"><h3>💳 Añadir saldo</h3><p>Elige cómo pagar el saldo que quieres añadir a tu cuenta. USDT queda registrado en la web; CUP y SM generan una solicitud para REFILLS SHOP.</p><div class="form-group"><label class="form-label">Método</label><select id="rsEasyTopupMethod" class="form-select"><option>USDT</option><option>CUP</option><option>SM</option></select></div><div class="form-group"><label class="form-label">Cantidad</label><input id="rsEasyTopupAmount" type="number" min="0.01" step="0.01" class="form-input" placeholder="Ej: 10"></div><button class="btn-secondary" type="button" style="width:100%" onclick="rsEasyTopup()">Solicitar saldo</button></div>
+      ${!active?`<div class="rs-simple-panel"><h3>🔄 Comprar plan</h3><p>Tu plan no está activo. Compra 7 días para poder utilizar el servicio de recargas.</p><div class="form-group"><select id="rsEasyRenewMethod" class="form-select"><option>USDT</option><option>SM</option><option>CUP</option></select></div><button class="btn-secondary" type="button" style="width:100%" onclick="rsEasyRenew()">Comprar 7 días</button></div>`:`<div class="rs-simple-panel rs-v9-renew-disabled"><h3>🟢 Plan activo</h3><p>Tu plan ya está activo. Podrás comprar recargas hasta que termine el período contratado.</p></div>`}
+      <div class="rs-reseller-card"><div class="rs-account-section-title">📊 Tu cuenta</div><div class="rs-account-grid"><div class="rs-account-stat"><small>Plan</small><b>${active?'Activo':'Vencido'}</b></div><div class="rs-account-stat"><small>Días restantes</small><b>${d}</b></div><div class="rs-account-stat"><small>Último acceso</small><b>${formatDate(r.last_seen_at)}</b></div><div class="rs-account-stat"><small>Creada</small><b>${formatDate(r.created_at)}</b></div></div><button class="btn-secondary" type="button" style="width:100%;margin-top:10px" onclick="rsEasyLogout()">🚪 Cerrar sesión</button></div>`;
+    updateSellerBar();
+  }
+  window.rsEasyOpenHome=async function(){
+    setSellerBody(false);
+    await loadSession();
+    if(typeof showView==='function')showView('view-resellers');
+    const ok=!!UI.seller;
+    if(ok)renderSellerHome();else renderSellerAuth();
+  };
+  window.openResellers=window.rsEasyOpenHome;
+  window.__legacyOpenTournaments=window.openTournaments;
+  window.openTournaments=async function(){
+    setSellerBody(false);
+    applyLabels(false);
+    if(typeof window.__legacyOpenTournaments==='function') return window.__legacyOpenTournaments();
+  };
+  window.rsEasyEnterCatalog=async function(){
+    if(!UI.seller)await loadSession();
+    if(!UI.seller)return window.rsEasyOpenHome();
+    const d=days(UI.seller.active_until);
+    if(!UI.seller.active||d<=0){return window.rsShowPlanRequired();}
+    UI.game=null;UI.offer=null;setSellerBody(true);applyLabels(true);
+    if(typeof showView==='function')showView('view-games');
+    sellerGames('');
+  };
+  window.rsEasySelectGame=function(game){
+    const d=days(UI.seller?.active_until);
+    if(!UI.seller||!UI.seller.active||d<=0)return window.rsShowPlanRequired();
+    UI.game=game;UI.offer=null;
+    const search=document.getElementById('searchGames');if(search)search.value='';
+    sellerOffers();if(typeof showView==='function')showView('view-offers');
+  };
+  window.rsEasySelectOffer=function(offer){
+    if(!UI.seller)return window.rsEasyOpenHome();
+    UI.offer=offer;renderCheckout();if(typeof showView==='function')showView('view-reseller-checkout');
+  };
+  window.rsEasyBackToOffers=function(){if(UI.game){sellerOffers();if(typeof showView==='function')showView('view-offers');}else window.rsEasyEnterCatalog();};
+  window.rsEasyCreateOrder=async function(){
+    const d=days(UI.seller?.active_until);
+    if(!UI.seller||!UI.session||!UI.game||!UI.offer)return;
+    if(!UI.seller.active||d<=0)return window.rsShowPlanRequired();
+    const gift=isGift(UI.game),input=document.getElementById('rsCoPlayerId'),playerId=gift?'N/A':String(input?.value||'').trim();
+    if(!gift&&!playerId)return alert('Escribe el ID del jugador.');
+    const price=usdtPrice(UI.offer);if(Number(UI.seller.balance_usdt||0)+1e-9<price)return alert('Saldo USDT insuficiente.');
+    const btn=document.getElementById('rsCoButton');if(btn){btn.disabled=true;btn.textContent='⏳ Creando pedido...';}
+    try{
+      const {data,error}=await supabaseClient.rpc('reseller_create_order',{p_session_token:UI.session.token,p_game:UI.game.name,p_offer:UI.offer.title,p_player_id:playerId,p_currency:'USDT'});
+      if(error)throw error;if(!data?.success)throw new Error(data?.message||'No se pudo crear el pedido.');
+      await loadSession();
+      const msg=gift
+        ? `🛒 *NUEVO PEDIDO DE VENDEDOR — REFILLS SHOP*\n\n👤 *Vendedor:* ${UI.seller.name}\n📱 *Teléfono:* ${UI.seller.phone}\n🎁 *Producto:* ${UI.game.name}\n📦 *Oferta:* ${UI.offer.title}\n💰 *Precio:* ${money(data.debited)} USDT\n🆔 *Pedido:* ${data.order_code}\n\n✅ Saldo del vendedor descontado. Favor procesar el código.`
+        : `🛒 *NUEVO PEDIDO DE VENDEDOR — REFILLS SHOP*\n\n👤 *Vendedor:* ${UI.seller.name}\n📱 *Teléfono:* ${UI.seller.phone}\n🎮 *Juego:* ${UI.game.name}\n📦 *Oferta:* ${UI.offer.title}\n🆔 *ID:* ${playerId}\n💰 *Precio:* ${money(data.debited)} USDT\n🆔 *Pedido:* ${data.order_code}\n\n✅ Saldo del vendedor descontado. Favor procesar la recarga.`;
+      localStorage.setItem('refills_last_reseller_order',JSON.stringify({code:data.order_code,at:new Date().toISOString()}));
+      alert(`✅ Pedido creado\n\n${UI.game.name} · ${UI.offer.title}\nPrecio: ${money(data.debited)} USDT\nPedido: ${data.order_code}\n\nSe abrirá WhatsApp para enviarlo a REFILLS SHOP.`);
+      window.location.href=`https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(msg)}`;
+    }catch(e){alert('❌ '+(e.message||'No se pudo crear el pedido.'));}
+    finally{if(btn){btn.disabled=false;btn.textContent='Usar saldo y crear pedido';}}
+  };
+  window.rsEasyOpenFunding=function(){
+    const box=document.getElementById('rsSellerFunding');if(box)box.style.display=box.style.display==='none'?'block':'none';
+  };
+  window.rsEasyTopup=async function(){
+    if(!UI.session)return;
+    const method=document.getElementById('rsEasyTopupMethod')?.value,amount=Number(document.getElementById('rsEasyTopupAmount')?.value||0);
+    if(!method||amount<=0)return alert('Indica el método y la cantidad.');
+    try{
+      const {data,error}=await supabaseClient.rpc('reseller_topup_request',{p_session_token:UI.session.token,p_method:method,p_amount:amount});
+      if(error)throw error;if(!data?.success)throw new Error(data?.message||'No se pudo crear la solicitud.');
+      if(method==='CUP'||method==='SM'){
+        const msg=`🛒 *RECARGA DE SALDO — REVENDEDOR REFILLS SHOP*\n\n👤 *Vendedor:* ${UI.seller.name}\n📱 *Teléfono:* ${UI.seller.phone}\n💳 *Método:* ${method}\n💰 *Monto:* ${fmt(amount)} ${method}\n🆔 *Solicitud:* ${data.request_code}\n\nEspero confirmación para acreditar el saldo.`;
+        window.location.href=`https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(msg)}`;
+      }else alert('✅ Solicitud USDT registrada. REFILLS SHOP debe confirmar el pago hasta que exista un gateway automático conectado.');
+    }catch(e){alert('❌ '+(e.message||'No se pudo solicitar saldo.'));}
+  };
+  window.rsEasyRenew=async function(){
+    if(!UI.session)return;
+    const method=document.getElementById('rsEasyRenewMethod')?.value;
+    try{
+      const {data,error}=await supabaseClient.rpc('reseller_renew',{p_session_token:UI.session.token,p_method:method});
+      if(error)throw error;if(!data?.success)throw new Error(data?.message||'No se pudo generar la renovación.');
+      if(method==='USDT')alert('✅ Renovación USDT registrada. Debe confirmarse hasta conectar un gateway USDT.');
+      else{const msg=`🔄 *RENOVACIÓN MODO VENDEDOR — REFILLS SHOP*\n\n👤 ${UI.seller.name}\n📱 ${UI.seller.phone}\n💳 ${method}\n💰 ${data.amount} ${method}\n🆔 ${data.request_code}`;window.location.href=`https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(msg)}`;}
+    }catch(e){alert('❌ '+(e.message||'No se pudo renovar.'));}
+  };
+  window.rsEasyLogout=function(){
+    UI.seller=null;UI.session=null;UI.game=null;UI.offer=null;localStorage.removeItem('refills_reseller_session');setSellerBody(false);applyLabels(false);
+    if(typeof showView==='function')showView('view-games');if(typeof renderGames==='function')renderGames('');
+  };
+
+  // Intercepta únicamente la navegación cuando el usuario está en modo vendedor.
+  window.__legacyRenderGames=window.renderGames;
+  window.__legacySelectGame=window.selectGame;
+  window.renderGames=function(filter=''){
+    if(UI.sellerMode){sellerGames(filter);return;}
+    return window.__legacyRenderGames(filter);
+  };
+  window.selectGame=function(game){
+    if(UI.sellerMode){window.rsEasySelectGame(game);return;}
+    return window.__legacySelectGame(game);
+  };
+  // Los botones del catálogo mantienen exactamente el comportamiento original para clientes.
+
+  document.addEventListener('DOMContentLoaded',function(){
+    // El checkout existe en el HTML; restauramos modo cliente al iniciar.
+    setSellerBody(false);applyLabels(false);
+    // Si había una sesión de vendedor, la conservamos pero no cambiamos automáticamente la experiencia del cliente.
+    loadSession();
+    // Pantalla de carga de 4 segundos.
+    const splash=document.getElementById('refillsSplash'),bar=document.getElementById('refillsSplashBar'),pct=document.getElementById('refillsSplashPercent');
+    if(splash&&bar){
+      const start=performance.now(),duration=4000;
+      function tick(now){
+        const p=Math.min(100,((now-start)/duration)*100);
+        bar.style.width=p+'%';if(pct)pct.textContent=Math.round(p)+'%';
+        if(p<100)requestAnimationFrame(tick);
+        else setTimeout(()=>splash.classList.add('rs-splash-hidden'),180);
+      }
+      requestAnimationFrame(tick);
+    }
+  });
+})();
+</script>
+
+
+
+
+
+<!-- REFILLS SHOP V8 — SESIÓN PERSISTENTE + SALDO USDT ÚNICO + TASAS DE RECARGA -->
+<style id="rf-v8-final-css">
+  /* Solo aparece Servicios en la pantalla principal. */
+  #rsServicesLauncher.rs-v8-hidden{display:none!important}
+  /* Quitamos el bloque viejo de accesos del home; el acceso oficial es Servicios. */
+  #rsProfessionalHub{display:none!important}
+  .rs-v8-rate-card{margin-bottom:12px}
+  .rs-v8-rate-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .rs-v8-rate-note{margin-top:8px;padding:10px 12px;border-radius:12px;background:rgba(0,102,255,.07);border:1px solid rgba(0,242,254,.14);color:var(--text-muted);font-size:.68rem;line-height:1.45}
+  .rs-v8-rate-preview{margin-top:8px;padding:10px 12px;border-radius:12px;background:linear-gradient(145deg,rgba(0,242,254,.07),rgba(0,102,255,.06));border:1px solid rgba(0,242,254,.15);font-size:.70rem;font-weight:800;color:#eafcff}
+  .rs-v8-funding-card{margin-top:12px}
+  .rs-v8-funding-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .rs-v8-conversion{margin-top:8px;padding:10px 12px;border-radius:12px;background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.07);font-size:.70rem;color:#dbe9ff;line-height:1.5}
+  .rs-v8-admin-stat{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}
+  .rs-v8-request{background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.07);border-radius:13px;padding:11px;margin-bottom:8px}
+  .rs-v8-request-title{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:.75rem;font-weight:900}
+  .rs-v8-request-meta{font-size:.65rem;color:var(--text-muted);line-height:1.5;margin-top:5px}
+  .rs-v8-request-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:9px}
+  .rs-v8-empty{font-size:.68rem;color:var(--text-muted);padding:11px;border-radius:12px;background:rgba(0,0,0,.14)}
+  .rs-v8-lock{padding:12px;border-radius:14px;background:rgba(255,71,87,.06);border:1px solid rgba(255,71,87,.18);font-size:.68rem;line-height:1.5;color:#ffdfe2}
+  @media(max-width:520px){.rs-v8-rate-grid,.rs-v8-funding-grid,.rs-v8-request-actions{grid-template-columns:1fr}.rs-v8-admin-stat{grid-template-columns:1fr}}
+</style>
+<style id="rf-v10-plan-css">
+.rs-v10-active-plan{border-color:rgba(37,211,102,.22);background:linear-gradient(145deg,rgba(37,211,102,.07),rgba(8,20,38,.78));}
+.rs-v10-buy-plan{border-color:rgba(0,242,254,.22);}
+.rs-v10-active-plan h3,.rs-v10-buy-plan h3{margin-top:0;}
+</style>
+<script id="rf-v8-final-js">
+(function(){
+  'use strict';
+  const V8={rates:{sm_per_usdt:500,cup_per_usdt:1000},originalUsdRate:null,configLoaded:false};
+  const money=n=>Number(n||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+  const num=n=>Number(n||0).toLocaleString('es-ES',{maximumFractionDigits:2});
+  const esc8=v=>String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+  const date8=v=>{if(!v)return '—';const d=new Date(v);return isNaN(d.getTime())?'—':d.toLocaleString('es-ES',{dateStyle:'short',timeStyle:'short'});};
+  const days8=v=>{if(!v)return 0;const t=new Date(v).getTime();return Number.isFinite(t)?Math.max(0,Math.ceil((t-Date.now())/86400000)):0;};
+
+  async function loadRates(){
+    try{
+      const {data,error}=await supabaseClient.rpc('public_reseller_config');
+      if(!error && data){V8.rates={sm_per_usdt:Number(data.sm_per_usdt)||500,cup_per_usdt:Number(data.cup_per_usdt)||1000};V8.configLoaded=true;return;}
+    }catch(e){}
+    try{
+      const {data,error}=await supabaseClient.rpc('get_reseller_config');
+      if(!error && data){V8.rates={sm_per_usdt:Number(data.sm_per_usdt)||500,cup_per_usdt:Number(data.cup_per_usdt)||1000};V8.configLoaded=true;}
+    }catch(e){}
+  }
+  window.__refillsResellerRates=V8.rates;
+
+
+  function sellerPriceUsesV8Rate(){
+    if(V8.originalUsdRate===null && typeof config!=='undefined')V8.originalUsdRate=Number(config.usdRateSM||279);
+    if(typeof config!=='undefined' && V8.rates.sm_per_usdt>0)config.usdRateSM=V8.rates.sm_per_usdt;
+  }
+  function restorePublicRate(){
+    if(V8.originalUsdRate!==null && typeof config!=='undefined'){config.usdRateSM=V8.originalUsdRate;V8.originalUsdRate=null;}
+  }
+
+  /* Sesión persistente: se valida y refresca al entrar al sitio y periódicamente. */
+  async function ensureSellerSession(){
+    const raw=localStorage.getItem('refills_reseller_session');
+    if(!raw)return false;
+    try{
+      const s=JSON.parse(raw); if(!s?.token)throw new Error('token');
+      const {data,error}=await supabaseClient.rpc('reseller_session',{p_session_token:s.token});
+      if(error||!data?.success){localStorage.removeItem('refills_reseller_session');return false;}
+      window.__refillsV8Seller=data.reseller;
+      return true;
+    }catch(e){localStorage.removeItem('refills_reseller_session');return false;}
+  }
+
+  /* La función original de navegación al vendedor ya reutiliza la sesión guardada. */
+  const originalOpenResellers=window.rsEasyOpenHome;
+  window.rsEasyOpenHome=async function(){
+    await loadRates();
+    await ensureSellerSession();
+    return originalOpenResellers();
+  };
+  window.openResellers=window.rsEasyOpenHome;
+
+  /* Al entrar al catálogo vendedor, usamos el mismo precio público pero convertido a USDT sin margen. */
+  const originalEnter=window.rsEasyEnterCatalog;
+  window.rsEasyEnterCatalog=async function(){
+    if(!V8.configLoaded)await loadRates();
+    sellerPriceUsesV8Rate();
+    return originalEnter();
+  };
+  const originalSelectGame=window.rsEasySelectGame;
+  window.rsEasySelectGame=function(game){
+    sellerPriceUsesV8Rate();
+    return originalSelectGame(game);
+  };
+  const originalSelectOffer=window.rsEasySelectOffer;
+  window.rsEasySelectOffer=function(offer){
+    sellerPriceUsesV8Rate();
+    return originalSelectOffer(offer);
+  };
+  const originalBackOffers=window.rsEasyBackToOffers;
+  window.rsEasyBackToOffers=function(){
+    sellerPriceUsesV8Rate();
+    return originalBackOffers();
+  };
+  const originalLogout=window.rsEasyLogout;
+  window.rsEasyLogout=function(){
+    restorePublicRate();
+    return originalLogout();
+  };
+
+  /* Cuando se vuelve al catálogo cliente, restauramos la tasa pública que existía antes del modo vendedor. */
+  if(typeof window.showView==='function' && !window.__rsV8ShowViewSellerRestore){
+    const base=window.showView;
+    window.showView=function(viewId){
+      const r=base(viewId);
+      if(['view-games','view-tournaments','view-form','view-offers'].includes(viewId) && viewId!=='view-offers' && !window.__refillsSellerMode)restorePublicRate();
+      return r;
+    };
+    window.__rsV8ShowViewSellerRestore=true;
+  }
+
+  /* Muestra solo USDT en la cuenta; SM/CUP únicamente sirven como medios para recargar el saldo. */
+  window.rsV8RenderSellerHome=function(){
+    const root=document.getElementById('rsResellerRoot');
+    if(!root)return;
+    const seller=window.__refillsV8Seller || null;
+    if(!seller){ if(typeof window.rsEasyOpenHome==='function'){ /* la llamada pública ya resuelve sesión */ } return; }
+    const active=!!seller.active && days8(seller.active_until)>0;
+    const d=days8(seller.active_until);
+    root.innerHTML=`
+      <div class="rs-seller-home-hero">
+        <div class="rs-seller-home-top">
+          <div><div class="rs-seller-home-title">Hola, ${esc8(seller.name)}</div><div class="rs-seller-home-sub">Cuenta de vendedor · ${esc8(seller.phone||'')}</div></div>
+          <div class="rs-seller-usdt"><small>Saldo disponible</small><b>${money(seller.balance_usdt)} USDT</b></div>
+        </div>
+        <div class="rs-plan-pill">${active?`🟢 Plan activo · ${d} día${d===1?'':'s'} restantes`:'🔴 Plan vencido'}${seller.active_until?` · hasta ${date8(seller.active_until)}`:''}</div>
+        <div class="rs-seller-home-actions">
+          <button class="btn-submit" type="button" onclick="rsV8BuyClick()">🎮 Comprar recarga</button>
+          <button class="btn-secondary" type="button" onclick="rsOpenFundingScreen()">💳 Añadir saldo</button>
+        </div>
+      </div>
+      <div class="rs-simple-panel">
+        <h3>📅 Tu plan de vendedor</h3>
+        <p>${active?`Tu plan está activo. Te quedan <b>${d} día${d===1?'':'s'}</b> y estará disponible hasta <b>${date8(seller.active_until)}</b>.`:'Tu plan no está activo. Compra el plan de 7 días para desbloquear las recargas.'}</p>
+        <button class="btn-secondary" type="button" style="width:100%" onclick="rsOpenPlanScreen()">${active?'📋 Ver información del plan':'📅 Ver plan de 7 días'}</button>
+      </div>
+      <div class="rs-reseller-card">
+        <div class="rs-account-section-title">📊 Tu cuenta</div>
+        <div class="rs-account-grid">
+          <div class="rs-account-stat"><small>Saldo USDT</small><b>${money(seller.balance_usdt)} USDT</b></div>
+          <div class="rs-account-stat"><small>Estado</small><b>${active?'🟢 Activo':'🔴 Vencido'}</b></div>
+          <div class="rs-account-stat"><small>Días restantes</small><b>${d}</b></div>
+          <div class="rs-account-stat"><small>Último acceso</small><b>${date8(seller.last_seen_at)}</b></div>
+          <div class="rs-account-stat"><small>Último inicio</small><b>${date8(seller.last_login_at)}</b></div>
+          <div class="rs-account-stat"><small>Plan hasta</small><b>${date8(seller.active_until)}</b></div>
+        </div>
+        <button class="btn-secondary" type="button" style="width:100%;margin-top:10px" onclick="rsEasyLogout()">🚪 Cerrar sesión</button>
+      </div>`;
+    window.__refillsSellerState=seller;
+  };
+
+  window.rsV8BuyClick=function(){
+    const seller=window.__refillsV8Seller;
+    const d=days8(seller?.active_until);
+    if(!seller||!seller.active||d<=0){if(typeof window.rsShowPlanRequired==='function')return window.rsShowPlanRequired();}
+    if(typeof window.rsEasyEnterCatalog==='function')return window.rsEasyEnterCatalog();
+  };
+  window.rsOpenFundingScreen=function(){
+    if(!window.__refillsV8Seller && typeof window.rsEasyOpenHome==='function') return Promise.resolve(window.rsEasyOpenHome()).then(()=>setTimeout(window.rsOpenFundingScreen,60));
+    const seller=window.__refillsV8Seller||window.__refillsSellerState;
+    if(!seller)return;
+    const box=document.getElementById('rsV8FundingScreen');
+    if(box){
+      box.innerHTML=`<div class="rs-simple-panel rs-v8-funding-card">
+        <h3>💳 Añadir saldo USDT</h3>
+        <p>Tu saldo interno siempre será <b>USDT</b>. Puedes pagar el saldo en <b>USDT, SM o CUP</b>. La web calcula el equivalente según las tasas configuradas por REFILLS SHOP.</p>
+        <div class="rs-v8-funding-grid">
+          <div class="form-group"><label class="form-label">Moneda del pago</label><select id="rsV8TopupMethod" class="form-select" onchange="rsV8UpdateConversion()"><option>USDT</option><option>SM</option><option>CUP</option></select></div>
+          <div class="form-group"><label class="form-label">Cantidad a pagar</label><input id="rsV8TopupAmount" type="number" min="0.01" step="0.01" class="form-input" placeholder="Ej: 10" oninput="rsV8UpdateConversion()"></div>
+        </div>
+        <div id="rsV8Conversion" class="rs-v8-conversion">Escribe una cantidad para calcular cuánto saldo USDT recibirás.</div>
+        <button class="btn-submit" type="button" style="width:100%;margin-top:10px" onclick="rsV8Topup()">Solicitar saldo</button>
+        <div class="rs-v8-rate-note">1 USDT = ${num(V8.rates.sm_per_usdt)} SM · 1 USDT = ${num(V8.rates.cup_per_usdt)} CUP.</div>
+      </div>`;
+    }
+    if(typeof window.showView==='function')window.showView('view-reseller-funding');
+    window.scrollTo(0,0);
+  };
+  window.rsOpenPlanScreen=function(){
+    const seller=window.__refillsV8Seller||window.__refillsSellerState;
+    if(!seller)return window.rsEasyOpenHome?.();
+    const active=!!seller.active&&days8(seller.active_until)>0,d=days8(seller.active_until);
+    const box=document.getElementById('rsV8PlanScreen');
+    if(box){
+      box.innerHTML=`<div class="rs-simple-panel rs-v10-buy-plan">
+        <div style="font-size:2rem;margin-bottom:8px">📅</div>
+        <h3>Plan de vendedor · 7 días</h3>
+        <p>El plan te permite utilizar el modo vendedor y realizar recargas para tus clientes usando tu saldo interno USDT.</p>
+        <div class="rs-v8-conversion" style="margin:12px 0"><b>0.50 USDT</b> · <b>250 SM</b> · <b>500 CUP</b><br><span style="font-size:.68rem;color:var(--text-muted)">Duración: 7 días</span></div>
+        ${active?`<div class="rs-balance-ok">🟢 Tu plan está activo.<br>Te quedan <b>${d} día${d===1?'':'s'}</b>.<br>Válido hasta: <b>${date8(seller.active_until)}</b>.</div><button class="btn-secondary" type="button" style="width:100%;margin-top:10px" disabled>Plan ya activo</button>`:`<p><b>Elige cómo pagar:</b></p><div class="form-group"><select id="rsV8RenewMethod" class="form-select" onchange="rsV8UpdateRenewPreview()"><option>USDT</option><option>SM</option><option>CUP</option></select></div><div id="rsV8RenewPreview" class="rs-v8-conversion">7 días · <b>0.50 USDT</b></div><button class="btn-submit" type="button" style="width:100%;margin-top:10px" onclick="rsV8Renew()">Comprar plan · 7 días</button>`}
+        <div class="rs-v8-rate-note">El plan solo puede comprarse cuando no hay un plan activo. Las solicitudes en SM/CUP se envían a REFILLS SHOP para confirmación.</div>
+      </div>`;
+    }
+    if(typeof window.showView==='function')window.showView('view-reseller-plan');
+    window.scrollTo(0,0);
+  };
+  window.rsV8BackToSellerHome=function(){if(typeof window.rsEasyOpenHome==='function')return window.rsEasyOpenHome();};
+  window.rsV8ToggleFunding=window.rsOpenFundingScreen;
+  window.rsV8UpdateConversion=function(){
+    const m=document.getElementById('rsV8TopupMethod')?.value,a=Number(document.getElementById('rsV8TopupAmount')?.value||0),el=document.getElementById('rsV8Conversion');
+    if(!el)return;
+    if(a<=0){el.textContent='Escribe una cantidad para calcular cuánto saldo USDT recibirás.';return;}
+    const u=m==='USDT'?a:m==='SM'?a/V8.rates.sm_per_usdt:a/V8.rates.cup_per_usdt;
+    el.innerHTML=`Recibirás aproximadamente <b>${money(u)} USDT</b> de saldo interno.`;
+  };
+  window.rsV8UpdateRenewPreview=function(){
+    const m=document.getElementById('rsV8RenewMethod')?.value,el=document.getElementById('rsV8RenewPreview');if(!el)return;
+    const a=m==='USDT'?.5:m==='SM'?.5*V8.rates.sm_per_usdt:.5*V8.rates.cup_per_usdt;
+    el.innerHTML=`7 días · <b>${money(a)} ${m}</b>`;
+  };
+  window.rsV8Topup=async function(){
+    const s=JSON.parse(localStorage.getItem('refills_reseller_session')||'null');
+    if(!s?.token)return window.rsEasyOpenHome();
+    const method=document.getElementById('rsV8TopupMethod')?.value, amount=Number(document.getElementById('rsV8TopupAmount')?.value||0);
+    if(!method||amount<=0)return alert('Indica la moneda y la cantidad.');
+    try{
+      const {data,error}=await supabaseClient.rpc('reseller_topup_request',{p_session_token:s.token,p_method:method,p_amount:amount});
+      if(error)throw error;if(!data?.success)throw new Error(data?.message||'No se pudo crear la solicitud.');
+      const usdt=Number(data.usdt_amount||0);
+      if(method==='SM'||method==='CUP'){
+        const seller=window.__refillsV8Seller||{};
+        const msg=`🛒 *RECARGA DE SALDO USDT — REFILLS SHOP*\n\n👤 *Vendedor:* ${seller.name||''}\n📱 *Teléfono:* ${seller.phone||''}\n💳 *Pago:* ${num(amount)} ${method}\n💰 *Saldo USDT a acreditar:* ${money(usdt)} USDT\n📈 *Tasa:* 1 USDT = ${method==='SM'?num(V8.rates.sm_per_usdt):num(V8.rates.cup_per_usdt)} ${method}\n🆔 *Solicitud:* ${data.request_code}\n\nEspero confirmación para acreditar el saldo.`;
+        window.location.href=`https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(msg)}`;
+      }else{
+        alert(`✅ Solicitud registrada.\n\nSe acreditarán ${money(usdt)} USDT cuando REFILLS SHOP confirme el pago.`);
+      }
+    }catch(e){alert('❌ '+(e.message||'No se pudo solicitar saldo.'));}
+  };
+  window.rsV8Renew=async function(){
+    const s=JSON.parse(localStorage.getItem('refills_reseller_session')||'null');if(!s?.token)return window.rsEasyOpenHome();
+    try{
+      const {data:sessionData,error:sessionError}=await supabaseClient.rpc('reseller_session',{p_session_token:s.token});
+      if(sessionError||!sessionData?.success)throw new Error('Tu sesión ya no es válida.');
+      const seller=sessionData.reseller||{};
+      const active=!!seller.active && days8(seller.active_until)>0;
+      if(active){ window.__refillsV8Seller=seller; return alert('ℹ️ Tu plan ya está activo. Podrás comprar otro plan cuando este venza.'); }
+      const method=document.getElementById('rsV8RenewMethod')?.value;
+      if(!method)return alert('Selecciona un método de pago.');
+      const {data,error}=await supabaseClient.rpc('reseller_renew',{p_session_token:s.token,p_method:method});
+      if(error)throw error;if(!data?.success)throw new Error(data?.message||'No se pudo generar la compra del plan.');
+      window.__refillsV8Seller=seller;
+      if(method==='SM'||method==='CUP'){
+        const msg=`🔄 *COMPRA PLAN MODO VENDEDOR — REFILLS SHOP*\n\n👤 ${seller.name||''}\n📱 ${seller.phone||''}\n💳 ${method}\n💰 ${num(data.amount)} ${method}\n🧾 Equivalente: ${money(data.usdt_amount||.5)} USDT\n🆔 ${data.request_code}`;
+        window.location.href=`https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(msg)}`;
+      }else alert('✅ Solicitud USDT registrada. Se activará cuando REFILLS SHOP confirme el pago.');
+    }catch(e){alert('❌ '+(e.message||'No se pudo comprar el plan.'));}
+  };
+
+  /* Admin: tasas de conversión y gestión de solicitudes. */
+  window.rsV8LoadConfigAdmin=async function(){
+    const sm=document.getElementById('rsV8AdminSM'),cup=document.getElementById('rsV8AdminCUP'),preview=document.getElementById('rsV8AdminRatePreview');
+    if(!sm||!cup)return;
+    try{
+      const {data,error}=await supabaseClient.rpc('admin_get_reseller_config',{p_password:adminSessionPassword});
+      if(error)throw error;
+      V8.rates.sm_per_usdt=Number(data?.sm_per_usdt)||500;V8.rates.cup_per_usdt=Number(data?.cup_per_usdt)||1000;
+      sm.value=V8.rates.sm_per_usdt;cup.value=V8.rates.cup_per_usdt;
+      if(preview)preview.textContent=`1 USDT = ${num(V8.rates.sm_per_usdt)} SM · 1 USDT = ${num(V8.rates.cup_per_usdt)} CUP`;
+    }catch(e){if(preview)preview.textContent='No se pudieron cargar las tasas.';}
+  };
+  window.rsV8SaveConfigAdmin=async function(){
+    const sm=Number(document.getElementById('rsV8AdminSM')?.value||0),cup=Number(document.getElementById('rsV8AdminCUP')?.value||0);
+    if(sm<=0||cup<=0)return alert('Las dos tasas deben ser mayores que 0.');
+    try{
+      const {data,error}=await supabaseClient.rpc('admin_update_reseller_config',{p_password:adminSessionPassword,p_sm_per_usdt:sm,p_cup_per_usdt:cup});
+      if(error)throw error;if(!data?.success)throw new Error(data?.message||'No se pudieron guardar las tasas.');
+      V8.rates.sm_per_usdt=sm;V8.rates.cup_per_usdt=cup;alert('✅ Tasas de vendedor guardadas.');
+      await window.rsV8LoadConfigAdmin();
+    }catch(e){alert('❌ '+(e.message||'No se pudieron guardar las tasas.'));}
+  };
+
+  window.rsLoadRequests=async function(){
+    const c=document.getElementById('rsAdminRequests');if(!c)return;
+    c.innerHTML='<div class="rs-v8-empty">⏳ Cargando solicitudes...</div>';
+    try{
+      const {data,error}=await supabaseClient.rpc('admin_reseller_requests',{p_password:adminSessionPassword});
+      if(error)throw error;
+      const top=(data?.topups||[]), ren=(data?.renewals||[]);
+      if(!top.length&&!ren.length){c.innerHTML='<div class="rs-v8-empty">No hay solicitudes pendientes.</div>';return;}
+      const topHtml=top.map(q=>`<div class="rs-v8-request"><div class="rs-v8-request-title"><span>💳 Saldo</span><span class="rs-status-off">PENDIENTE</span></div><div class="rs-v8-request-meta"><b>${esc8(q.name)}</b> · ${esc8(q.phone)}<br>Pago: <b>${num(q.amount)} ${esc8(q.method)}</b> · Acreditar: <b>${money(q.usdt_amount||0)} USDT</b><br>Solicitud: ${esc8(q.request_code)} · ${date8(q.created_at)}</div><div class="rs-v8-request-actions"><button class="btn-secondary" onclick="rsV8ApproveTopup('${esc8(q.id)}')">✅ Acreditar</button><button class="btn-danger" onclick="rsV8RejectRequest('topup','${esc8(q.id)}')">✕ Rechazar</button></div></div>`).join('');
+      const renHtml=ren.map(q=>`<div class="rs-v8-request"><div class="rs-v8-request-title"><span>🔄 Renovación</span><span class="rs-status-off">PENDIENTE</span></div><div class="rs-v8-request-meta"><b>${esc8(q.name)}</b> · ${esc8(q.phone)}<br>Pago: <b>${num(q.amount)} ${esc8(q.method)}</b> · Plan: <b>+7 días</b><br>Solicitud: ${esc8(q.request_code)} · ${date8(q.created_at)}</div><div class="rs-v8-request-actions"><button class="btn-secondary" onclick="rsV8ApproveRenew('${esc8(q.id)}')">✅ Activar 7 días</button><button class="btn-danger" onclick="rsV8RejectRequest('renewal','${esc8(q.id)}')">✕ Rechazar</button></div></div>`).join('');
+      c.innerHTML=(topHtml?`<div class="rs-admin-small" style="margin-bottom:7px">RECARGAS DE SALDO</div>${topHtml}`:'')+(renHtml?`<div class="rs-admin-small" style="margin:12px 0 7px">RENOVACIONES</div>${renHtml}`:'');
+    }catch(e){c.innerHTML='<div class="rs-v8-empty">❌ '+esc8(e.message)+'</div>';}
+  };
+  window.rsV8ApproveTopup=async function(id){try{const {data,error}=await supabaseClient.rpc('admin_approve_reseller_topup',{p_password:adminSessionPassword,p_request_id:id});if(error)throw error;if(!data?.success)throw new Error(data?.message||'No se pudo acreditar.');alert(`✅ Saldo acreditado: ${money(data.usdt_amount||0)} USDT`);await window.rsLoadRequests();await window.rsLoadAdmin();}catch(e){alert('❌ '+e.message)}};
+  window.rsV8ApproveRenew=async function(id){try{const {data,error}=await supabaseClient.rpc('admin_approve_reseller_renewal',{p_password:adminSessionPassword,p_request_id:id});if(error)throw error;if(!data?.success)throw new Error(data?.message||'No se pudo activar.');alert('✅ Plan activado por 7 días.');await window.rsLoadRequests();await window.rsLoadAdmin();}catch(e){alert('❌ '+e.message)}};
+  window.rsV8RejectRequest=async function(kind,id){
+    if(!confirm('¿Rechazar esta solicitud?'))return;
+    try{
+      const fn=kind==='topup'?'admin_reject_reseller_topup':'admin_reject_reseller_renewal';
+      const {data,error}=await supabaseClient.rpc(fn,{p_password:adminSessionPassword,p_request_id:id});
+      if(error)throw error;if(!data?.success)throw new Error(data?.message||'No se pudo rechazar.');
+      await window.rsLoadRequests();
+    }catch(e){alert('❌ '+e.message)}
+  };
+
+  /* Redibuja la lista admin para que el único saldo visible sea USDT. */
+  const oldRenderAdmin=window.rsRenderAdminResellers;
+  window.rsRenderAdminResellers=function(){
+    const c=document.getElementById('rsAdminResellerList');if(!c)return;
+    const q=(document.getElementById('rsAdminResellerSearch')?.value||'').trim().toLowerCase();
+    const list=(window.rsAdminResellersCache||[]).filter(r=>!q||String(r.name||'').toLowerCase().includes(q)||String(r.phone||'').toLowerCase().includes(q));
+    c.innerHTML=list.map(r=>{const d=Number(r.days_remaining??days8(r.active_until)),active=!!r.active&&d>0;return `<div class="rs-admin-item rs-reseller-card"><div class="top"><b>${esc8(r.name)}</b><span class="${active?'rs-status-active':'rs-status-off'}">${active?'ACTIVO':d>0?'INACTIVO':'VENCIDO'}</span></div><div class="rs-admin-small">📱 ${esc8(r.phone)}<br>💰 Saldo: <b>${money(r.balance_usdt)} USDT</b><br>📅 Plan: <b>${d} día${d===1?'':'s'}</b> · Hasta: ${date8(r.active_until)}<br>🕘 Último acceso: ${date8(r.last_seen_at)}<br>📦 Pedidos: ${Number(r.total_orders||0)} · Pendientes: ${Number(r.pending_orders||0)}<br>🗓️ Cuenta creada: ${date8(r.created_at)}</div><div class="rs-admin-actions"><button class="btn-secondary" onclick="rsOpenResellerManager('${esc8(r.id)}')">⚙️ Gestionar</button><button class="btn-secondary" onclick="rsAdminToggleReseller('${esc8(r.id)}')">${active?'⏹ Desactivar':'▶️ Activar 7 días'}</button></div></div>`;}).join('')||'<div class="rs-note">No hay vendedores que coincidan.</div>';
+  };
+
+  /* Modal admin individual: solo USDT. */
+  const oldManager=window.rsOpenResellerManager;
+  window.rsOpenResellerManager=async function(id,silent=false){
+    const box=document.getElementById('rsAccountModal'),body=document.getElementById('rsAccountBody');if(!box||!body)return;
+    if(!silent)body.innerHTML='<div class="rs-note">⏳ Cargando cuenta...</div>';box.classList.add('active');
+    try{
+      const {data,error}=await supabaseClient.rpc('admin_reseller_detail',{p_password:adminSessionPassword,p_reseller_id:id});if(error)throw error;if(!data?.success)throw new Error(data?.message||'No se pudo cargar la cuenta.');
+      const r=data.reseller,d=Number(r.days_remaining||0);
+      body.innerHTML=`<div class="rs-account-grid"><div class="rs-account-stat"><small>Nombre</small><b>${esc8(r.name)}</b></div><div class="rs-account-stat"><small>Teléfono</small><b>${esc8(r.phone)}</b></div><div class="rs-account-stat"><small>Estado</small><b>${r.active?'🟢 Activo':d>0?'🟠 Inactivo':'🔴 Vencido'}</b></div><div class="rs-account-stat"><small>Días restantes</small><b>${d}</b></div><div class="rs-account-stat"><small>Último acceso</small><b>${date8(r.last_seen_at)}</b></div><div class="rs-account-stat"><small>Último inicio</small><b>${date8(r.last_login_at)}</b></div><div class="rs-account-stat"><small>Plan hasta</small><b>${date8(r.active_until)}</b></div><div class="rs-account-stat"><small>Creada</small><b>${date8(r.created_at)}</b></div></div><div class="rs-account-balance"><div class="rs-account-stat"><small>Saldo interno</small><b>${money(r.balance_usdt)} USDT</b></div></div><div class="rs-account-section"><div class="rs-account-section-title">💰 Gestionar saldo USDT</div><div class="rs-account-btns"><button class="btn-secondary" onclick="rsAdminPromptBalance('${esc8(r.id)}','USDT')">+/- USDT</button></div><div class="rs-account-note">Cantidad positiva = añadir saldo · negativa = descontar.</div></div><div class="rs-account-section"><div class="rs-account-section-title">📅 Gestionar plan</div><div class="rs-account-btns"><button class="btn-secondary" onclick="rsAdminAddDays('${esc8(r.id)}')">+ Añadir días</button><button class="btn-secondary" onclick="rsAdminSetDays('${esc8(r.id)}')">📌 Establecer días</button><button class="btn-secondary" onclick="rsAdminToggleReseller('${esc8(r.id)}')">${r.active?'⏹ Desactivar ahora':'▶️ Activar 7 días'}</button></div></div><div class="rs-account-section"><div class="rs-account-section-title">📦 Actividad</div><div class="rs-account-grid"><div class="rs-account-stat"><small>Pedidos totales</small><b>${Number(data.total_orders||0)}</b></div><div class="rs-account-stat"><small>Pedidos pendientes</small><b>${Number(data.pending_orders||0)}</b></div></div></div><div class="rs-account-section"><button class="btn-danger danger" style="width:100%" onclick="rsAdminDeleteReseller('${esc8(r.id)}')">🗑️ Eliminar cuenta definitivamente</button></div>`;
+    }catch(e){body.innerHTML='<div class="rs-note">❌ '+esc8(e.message)+'</div>';}
+  };
+
+  /* Solo USDT desde ahora. */
+  const oldPrompt=window.rsAdminPromptBalance;
+  window.rsAdminPromptBalance=async function(id,currency){
+    if(currency!=='USDT')currency='USDT';
+    const raw=prompt('Cantidad de USDT. Positivo para añadir y negativo para descontar:','0');if(raw===null)return;
+    if(typeof window.rsAdminAdjustBalance==='function')return window.rsAdminAdjustBalance(id,'USDT',raw.replace(',','.'));
+    if(oldPrompt)return oldPrompt(id,'USDT');
+  };
+
+  /* Configuración admin: se inserta dentro del panel de vendedores una sola vez. */
+  function injectConfigCard(){
+    const panel=document.getElementById('tab-resellers');if(!panel||document.getElementById('rsV8ConfigCard'))return;
+    const first=panel.querySelector('.admin-card');
+    if(!first)return;
+    const card=document.createElement('div');card.id='rsV8ConfigCard';card.className='admin-card rs-v8-rate-card';
+    card.innerHTML=`<div class="admin-card-title">⚙️ Tasas del saldo USDT</div><div class="admin-card-sub">Define cuánto vale 1 USDT cuando el vendedor paga su saldo en cada moneda.</div><div class="rs-v8-rate-grid"><div class="form-group"><label class="form-label">1 USDT = SM</label><input id="rsV8AdminSM" type="number" min="0.01" step="0.01" class="form-input"></div><div class="form-group"><label class="form-label">1 USDT = CUP</label><input id="rsV8AdminCUP" type="number" min="0.01" step="0.01" class="form-input"></div></div><div id="rsV8AdminRatePreview" class="rs-v8-rate-preview">Cargando tasas...</div><div class="rs-v8-rate-note">Los precios de las recargas del vendedor salen del mismo catálogo público de REFILLS SHOP, sin margen adicional. Tu ganancia queda en la suscripción del vendedor.</div><button class="btn-submit" style="width:100%;margin-top:10px" onclick="rsV8SaveConfigAdmin()">💾 Guardar tasas</button>`;
+    first.parentNode.insertBefore(card,first);
+    setTimeout(window.rsV8LoadConfigAdmin,0);
+  }
+
+  function ensureAdminRequests(){
+    const panel=document.getElementById('tab-resellers');if(!panel)return;
+    if(!document.getElementById('rsAdminRequests'))return;
+  }
+
+  document.addEventListener('DOMContentLoaded',async function(){
+    await loadRates();
+    injectConfigCard();
+    /* Revalida la sesión cada 10 minutos mientras exista. */
+    setInterval(async()=>{if(localStorage.getItem('refills_reseller_session')){const ok=await ensureSellerSession();if(ok)window.__refillsV8Seller=window.__refillsV8Seller||null;}},600000);
+    /* Al abrir vendedor, reemplazamos la pantalla de cuenta con la nueva versión una vez que la sesión ya existe. */
+    const originalRender=window.rsRenderReseller;
+    window.rsRenderReseller=function(){
+      if(window.__refillsV8Seller){window.rsV8RenderSellerHome();return;}
+      return originalRender&&originalRender();
+    };
+  });
+
+  /* Reemplaza la carga de home del vendedor con el dashboard V8 si ya hay sesión guardada. */
+  const originalOpenHomeV8=window.rsEasyOpenHome;
+  window.rsEasyOpenHome=async function(){
+    await loadRates();
+    const ok=await ensureSellerSession();
+    if(ok){
+      if(typeof showView==='function')showView('view-resellers');
+      window.rsV8RenderSellerHome();
+      if(typeof setSellerBody==='function')setSellerBody(false);
+      return;
+    }
+    return originalOpenHomeV8();
+  };
+  window.openResellers=window.rsEasyOpenHome;
+})();
+</script>
+
+
+
+
+<style id="rfux-v11-css">
+/* =========================================================
+   REFILLS SHOP V11 — EXPERIENCIA ULTRA SIMPLE
+   Capa visual/navegación. No reemplaza la lógica existente.
+   ========================================================= */
+:root{
+  --rfux-blue:#1677ff;
+  --rfux-cyan:#00eaff;
+  --rfux-surface:rgba(7,16,34,.92);
+  --rfux-border:rgba(129,190,255,.16);
+  --rfux-muted:#8fa5c8;
+}
+body{padding-bottom:92px}
+
+/* Home: acceso directo sin quitar el catálogo */
+#rfuxQuickHome{display:none!important;margin:14px 0 10px;padding:13px;border:1px solid var(--rfux-border);border-radius:19px;background:linear-gradient(145deg,rgba(7,19,42,.88),rgba(5,11,24,.78));box-shadow:0 14px 38px rgba(0,0,0,.13)}
+.rfux-quick-head{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;margin-bottom:9px}
+.rfux-quick-title{font-size:.92rem;font-weight:950;font-family:var(--font-display)}
+.rfux-quick-sub{margin-top:2px;color:var(--rfux-muted);font-size:.62rem;line-height:1.4}
+.rfux-quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.rfux-quick-card{position:relative;text-align:left;cursor:pointer;border:1px solid rgba(129,190,255,.14);border-radius:15px;padding:12px;background:linear-gradient(145deg,rgba(14,31,64,.94),rgba(6,14,31,.92));color:#fff;min-height:78px;transition:transform .16s,border-color .16s,box-shadow .16s}
+.rfux-quick-card:hover,.rfux-quick-card:focus-visible{transform:translateY(-1px);border-color:rgba(0,234,255,.32);box-shadow:0 9px 28px rgba(0,104,255,.12);outline:none}
+.rfux-quick-icon{font-size:1.15rem;margin-bottom:6px}.rfux-quick-name{font-size:.77rem;font-weight:900}.rfux-quick-note{margin-top:3px;color:#7890b8;font-size:.59rem;line-height:1.35}.rfux-quick-arrow{position:absolute;right:10px;top:9px;color:#6f88b0}
+
+/* Touch targets */
+#games-container .card-game,.rfux-quick-card,#offers-container .card-offer{min-height:84px}
+#games-container .card-game{cursor:pointer}
+#offers-container .card-offer{cursor:pointer}
+.btn-back{min-height:42px}
+.btn-submit,.btn-secondary{min-height:44px}
+.payment-choice{min-height:49px!important;font-weight:900!important}
+
+/* Barra inferior cliente/vendedor */
+#rfuxBottomNav{position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:10020;width:min(520px,calc(100vw - 18px));display:grid;gap:6px;padding:7px;border-radius:20px;border:1px solid rgba(119,186,255,.18);background:rgba(3,9,21,.91);backdrop-filter:blur(18px);box-shadow:0 14px 48px rgba(0,0,0,.36)}
+.rfux-nav-row{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+.rfux-nav-btn{min-width:0;min-height:52px;border:0;border-radius:14px;background:transparent;color:#7890b5;font-size:.62rem;font-weight:900;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer}
+.rfux-nav-btn .rfux-nav-icon{font-size:1rem;line-height:1}.rfux-nav-btn.active{color:#eaffff;background:linear-gradient(145deg,rgba(22,119,255,.22),rgba(0,234,255,.07));box-shadow:inset 0 0 20px rgba(0,234,255,.03)}
+.rfux-nav-btn.rfux-main-action{color:#fff;border:1px solid rgba(0,234,255,.20);background:linear-gradient(145deg,rgba(22,119,255,.27),rgba(0,234,255,.08))}
+body.rs-seller-mode #rfuxBottomNav{border-color:rgba(0,234,255,.26)}
+body.rs-seller-mode #rfuxBottomNav .rfux-nav-row{grid-template-columns:repeat(4,1fr)}
+body.rs-seller-mode #rfuxBottomNav .rfux-client-only{display:none!important}
+.rfux-seller-only{display:none!important}
+body.rs-seller-mode .rfux-seller-only{display:flex!important}
+body.rfux-admin-open #rfuxBottomNav{display:none!important}
+
+/* Ayuda */
+#rfuxHelpOverlay{position:fixed;inset:0;z-index:10040;display:none;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.58);padding:12px}
+#rfuxHelpOverlay.active{display:flex}
+.rfux-help-box{width:min(520px,100%);max-height:min(78vh,700px);overflow:auto;border:1px solid rgba(119,186,255,.18);border-radius:24px;background:linear-gradient(160deg,#08142c,#050b18);box-shadow:0 26px 80px rgba(0,0,0,.48);padding:16px}
+.rfux-help-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.rfux-help-title{font-family:var(--font-display);font-size:1.08rem;font-weight:950}.rfux-help-close{width:38px;height:38px;border-radius:12px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.05);color:#fff;cursor:pointer;font-size:1rem}
+.rfux-help-item{border:1px solid rgba(129,190,255,.10);background:rgba(255,255,255,.025);border-radius:15px;padding:12px;margin-top:8px}.rfux-help-item b{font-size:.75rem}.rfux-help-item p{margin:5px 0 0;color:var(--rfux-muted);font-size:.66rem;line-height:1.5}
+.rfux-help-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+
+/* Toast */
+#rfuxToast{position:fixed;left:50%;top:14px;transform:translate(-50%,-18px);z-index:10060;opacity:0;pointer-events:none;max-width:calc(100vw - 30px);padding:10px 13px;border-radius:13px;border:1px solid rgba(0,234,255,.20);background:rgba(4,13,29,.95);color:#efffff;font-size:.68rem;font-weight:900;box-shadow:0 12px 36px rgba(0,0,0,.28);transition:.22s}
+#rfuxToast.show{opacity:1;transform:translate(-50%,0)}
+
+/* Ordenador: no ocupamos tanto */
+@media(min-width:800px){#rfuxBottomNav{bottom:18px}.rfux-help-box{margin-bottom:4px}.container{padding-bottom:110px}}
+@media(max-width:520px){body{padding-bottom:88px}.rfux-quick-grid,.rfux-help-actions{grid-template-columns:1fr}.rfux-nav-btn{min-height:50px;font-size:.59rem}.rfux-step{font-size:.58rem}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+</style>
+
+
+
+<style id="rfux-v11-performance">
+/* Rendimiento móvil: conserva el diseño, reduce efectos que consumen GPU al tocar/navegar. */
+html{scroll-behavior:auto!important}
+@media (max-width:700px){
+  body{background-attachment:scroll!important}
+  .card,.search-input,.cyber-form-container,.modal-overlay,.modal-box,#rfuxBottomNav,#rfuxHelpOverlay .rfux-help-box,.rs-simple-panel,.rs-reseller-card,.rs-checkout-card{
+    backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+  }
+  .card,.btn-submit,.btn-secondary,.btn-back,.payment-choice,.rfux-nav-btn{transition:transform .12s ease,border-color .12s ease,background-color .12s ease,box-shadow .12s ease!important}
+  .view{animation-duration:.16s!important}
+}
+@media (prefers-reduced-motion:reduce){.view{animation:none!important}}
+</style>
+
+<script id="rfux-v11-js">
+(function(){
+  'use strict';
+
+  const VIEWS={
+    clientHome:'view-games',
+    clientOffers:'view-offers',
+    clientForm:'view-form',
+    clientPaySM:'view-saldo-movil',
+    clientPayCUP:'view-transfer-cup',
+    success:'view-success',
+    tournaments:'view-tournaments',
+    reseller:'view-resellers',
+    resellerCheckout:'view-reseller-checkout'
+  };
+  let baseShowView=null;
+  let navReady=false;
+  let toastTimer=null;
+
+  const qs=(s,r=document)=>r.querySelector(s);
+  const esc=v=>String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+
+  function toast(msg){
+    const t=document.getElementById('rfuxToast');if(!t)return;
+    t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2200);
+  }
+  window.rfuxToast=toast;
+
+  function isSeller(){return document.body.classList.contains('rs-seller-mode') || window.__refillsSellerMode===true;}
+
+  function ensureStepBar(){}
+
+  function ensureQuickHome(){}
+
+  function ensureBottomNav(){
+    if(document.getElementById('rfuxBottomNav'))return;
+    const nav=document.createElement('div');nav.id='rfuxBottomNav';
+    nav.innerHTML=`<div class="rfux-nav-row">
+      <button class="rfux-nav-btn rfux-client-only" data-rfux-nav="home" type="button" onclick="rfuxGoHome()"><span class="rfux-nav-icon">⌂</span><span>Inicio</span></button>
+      <button class="rfux-nav-btn rfux-client-only" data-rfux-nav="tournaments" type="button" onclick="openTournaments()"><span class="rfux-nav-icon">🏆</span><span>Torneos</span></button>
+      <button class="rfux-nav-btn rfux-client-only" data-rfux-nav="seller" type="button" onclick="openResellers()"><span class="rfux-nav-icon">💼</span><span>Vendedor</span></button>
+      <button class="rfux-nav-btn rfux-client-only" data-rfux-nav="help" type="button" onclick="rfuxOpenHelp()"><span class="rfux-nav-icon">?</span><span>Ayuda</span></button>
+
+      <button class="rfux-nav-btn rfux-seller-only" data-rfux-nav="sell" type="button" onclick="rfuxSellerSell()"><span class="rfux-nav-icon">🛒</span><span>Vender</span></button>
+      <button class="rfux-nav-btn rfux-seller-only" data-rfux-nav="account" type="button" onclick="rfuxSellerAccount()"><span class="rfux-nav-icon">👤</span><span>Cuenta</span></button>
+      <button class="rfux-nav-btn rfux-seller-only" data-rfux-nav="funding" type="button" onclick="rfuxSellerFunding()"><span class="rfux-nav-icon">＋</span><span>Saldo</span></button>
+      <button class="rfux-nav-btn rfux-seller-only" data-rfux-nav="logout" type="button" onclick="rfuxSellerLogout()"><span class="rfux-nav-icon">↪</span><span>Salir</span></button>
+    </div>`;
+    document.body.appendChild(nav);
+    navReady=true;
+  }
+
+  function ensureHelp(){
+    if(document.getElementById('rfuxHelpOverlay'))return;
+    document.body.insertAdjacentHTML('beforeend',`<div id="rfuxHelpOverlay" onclick="if(event.target===this)rfuxCloseHelp()">
+      <div class="rfux-help-box" role="dialog" aria-modal="true" aria-label="Ayuda REFILLS SHOP">
+        <div class="rfux-help-head"><div><div class="rfux-help-title">¿Necesitas ayuda?</div><div class="rfux-quick-sub">Todo lo importante en palabras sencillas.</div></div><button class="rfux-help-close" type="button" onclick="rfuxCloseHelp()">✕</button></div>
+        <div class="rfux-help-item"><b>🛒 ¿Cómo hago una recarga?</b><p>Elige tu juego → toca una oferta → escribe el ID → selecciona cómo pagar → envía la solicitud.</p></div>
+        <div class="rfux-help-item"><b>🆔 ¿Qué ID pongo?</b><p>Pon el ID de la cuenta del juego donde quieres recibir la recarga. No escribas tu contraseña.</p></div>
+        <div class="rfux-help-item"><b>💳 ¿Cómo pago?</b><p>En las recargas normales puedes escoger entre Saldo Móvil y Transferencia CUP. La web te indica cuándo debes adjuntar el comprobante.</p></div>
+        <div class="rfux-help-item"><b>💼 ¿Soy vendedor?</b><p>Entra en “Vendedor” para iniciar sesión, revisar tu saldo USDT, renovar tu plan o hacer recargas para tus clientes.</p></div>
+        <div class="rfux-help-actions"><button class="btn-submit" type="button" onclick="window.location.href='https://wa.me/5350237996?text=${encodeURIComponent('Hola REFILLS SHOP, necesito ayuda con la web.')}'">💬 Hablar por WhatsApp</button><button class="btn-secondary" type="button" onclick="rfuxCloseHelp()">Seguir en la web</button></div>
+      </div>
+    </div>`);
+  }
+
+  function ensureToast(){
+    if(!document.getElementById('rfuxToast')){const t=document.createElement('div');t.id='rfuxToast';document.body.appendChild(t);}
+  }
+
+  function stepForView(viewId){
+    if(isSeller()){
+      if(viewId===VIEWS.clientHome)return 1;
+      if(viewId===VIEWS.clientOffers)return 2;
+      if(viewId===VIEWS.resellerCheckout)return 3;
+      return 0;
+    }
+    if(viewId===VIEWS.clientHome)return 1;
+    if(viewId===VIEWS.clientOffers)return 2;
+    if([VIEWS.clientForm,VIEWS.clientPaySM,VIEWS.clientPayCUP,VIEWS.success].includes(viewId))return 3;
+    return 0;
+  }
+
+  function updateStepBar(viewId){}
+
+  function updateNav(viewId){
+    if(!navReady)return;
+    const nav=document.getElementById('rfuxBottomNav');if(!nav)return;
+    nav.querySelectorAll('.rfux-nav-btn').forEach(b=>b.classList.remove('active'));
+    let key='home';
+    if(isSeller()){
+      if(viewId===VIEWS.reseller || viewId===VIEWS.resellerCheckout)key='account';
+      if(viewId===VIEWS.clientHome || viewId===VIEWS.clientOffers)key='sell';
+    }else{
+      if(viewId===VIEWS.tournaments)key='tournaments';
+      else if(viewId===VIEWS.reseller)key='seller';
+      else if(viewId!==VIEWS.clientHome)key='home';
+    }
+    const b=nav.querySelector(`[data-rfux-nav="${key}"]`);if(b)b.classList.add('active');
+  }
+
+  function syncAdminNav(){
+    const modal=document.getElementById('adminModal');const open=!!modal?.classList.contains('active');document.body.classList.toggle('rfux-admin-open',open);
+  }
+
+  function wrapShowView(){
+    if(window.__rfuxV11ShowViewWrapped || typeof window.showView!=='function')return;
+    baseShowView=window.showView;
+    window.showView=function(viewId){
+      const r=baseShowView(viewId);
+      try{updateNav(viewId);if(viewId!==VIEWS.tournaments)rfuxCloseHelp(false);}catch(e){}
+      return r;
+    };
+    window.__rfuxV11ShowViewWrapped=true;
+  }
+
+  window.rfuxGoHome=function(){
+    if(isSeller()){return rfuxSellerAccount();}
+    if(typeof window.showView==='function')window.showView(VIEWS.clientHome);
+    window.scrollTo(0,0);
+  };
+
+  window.rfuxOpenHelp=function(){document.getElementById('rfuxHelpOverlay')?.classList.add('active');};
+  window.rfuxCloseHelp=function(scroll=true){document.getElementById('rfuxHelpOverlay')?.classList.remove('active');};
+
+  window.rfuxSellerSell=function(){
+    if(typeof window.rsEasyEnterCatalog==='function')return window.rsEasyEnterCatalog();
+    if(typeof window.rsEasyOpenHome==='function')return window.rsEasyOpenHome();
+  };
+  window.rfuxSellerAccount=function(){
+    if(typeof window.rsEasyOpenHome==='function')return window.rsEasyOpenHome();
+  };
+  window.rfuxSellerFunding=function(){
+    const open=()=>{
+      if(typeof window.rsV8ToggleFunding==='function'){window.rsV8ToggleFunding();return true;}
+      if(typeof window.rsEasyOpenFunding==='function'){window.rsEasyOpenFunding();return true;}
+      return false;
+    };
+    if(!isSeller() && typeof window.rsEasyOpenHome==='function')return Promise.resolve(window.rsEasyOpenHome()).then(()=>setTimeout(open,80));
+    return open();
+  };
+  window.rfuxSellerLogout=function(){
+    if(!isSeller())return;
+    if(confirm('¿Cerrar sesión de vendedor?')){
+      if(typeof window.rsEasyLogout==='function')window.rsEasyLogout();
+      toast('Sesión de vendedor cerrada');
+    }
+  };
+
+  function observeSellerMode(){
+    const obs=new MutationObserver(()=>{updateNav(document.querySelector('.view.active')?.id||VIEWS.clientHome);});
+    obs.observe(document.body,{attributes:true,attributeFilter:['class']});
+  }
+
+  function observeAdmin(){
+    const modal=document.getElementById('adminModal');if(!modal)return;
+    const obs=new MutationObserver(syncAdminNav);obs.observe(modal,{attributes:true,attributeFilter:['class']});syncAdminNav();
+  }
+
+  document.addEventListener('DOMContentLoaded',function(){
+    ensureBottomNav();ensureHelp();ensureToast();wrapShowView();
+    observeSellerMode();observeAdmin();
+    const current=document.querySelector('.view.active')?.id||VIEWS.clientHome;
+    updateNav(current);
+    setTimeout(()=>{wrapShowView();const v=document.querySelector('.view.active')?.id||VIEWS.clientHome;updateNav(v);},120);
+  });
+
+  // Sin listeners extra para los clics del catálogo: menos trabajo en cada toque.
+
+})();
+</script>
+
+
+<!-- REFILLS SHOP — ACCESO ANTICIPADO MODO VENDEDOR -->
+<style id="rsEarlySellerGateCSS">
+  .rs-early-gate{background:linear-gradient(145deg,rgba(8,17,38,.92),rgba(5,12,29,.96));border:1px solid rgba(0,242,254,.22);border-radius:20px;padding:20px;box-shadow:0 15px 45px rgba(0,0,0,.3)}
+  .rs-early-icon{width:58px;height:58px;margin:0 auto 12px;border-radius:17px;display:grid;place-items:center;background:rgba(0,242,254,.09);border:1px solid rgba(0,242,254,.24);font-size:1.7rem}
+  .rs-early-title{text-align:center;font-family:var(--font-display);font-size:1.25rem;font-weight:900}
+  .rs-early-copy{text-align:center;color:var(--text-muted);font-size:.78rem;line-height:1.5;margin:7px 0 18px}
+  .rs-early-badge{display:block;text-align:center;margin:0 auto 14px;padding:6px 10px;border-radius:999px;width:max-content;max-width:100%;background:rgba(247,201,91,.08);border:1px solid rgba(247,201,91,.2);color:#f7c95b;font-size:.65rem;font-weight:900}
+  .rs-early-error{display:none;margin-top:9px;padding:9px 10px;border-radius:10px;background:rgba(255,71,87,.08);border:1px solid rgba(255,71,87,.25);color:#ffb1b7;font-size:.7rem;text-align:center}
+</style>
+<script>
+(function(){
+  const EARLY_CODE='ADMDAYRONYT';
+  function sellerGate(){
+    const root=document.getElementById('rsResellerRoot');
+    if(!root)return;
+    document.body.classList.remove('rs-seller-mode');
+    window.__refillsSellerMode=false;
+    root.innerHTML=`<div class="rs-early-gate">
+      <div class="rs-early-icon">🔐</div>
+      <div class="rs-early-title">Modo vendedor</div>
+      <div class="rs-early-badge">⚠️ NO DISPONIBLE PÚBLICAMENTE</div>
+      <div class="rs-early-copy">El modo vendedor todavía se encuentra en acceso anticipado.<br>Si tienes un código autorizado, introdúcelo para continuar.</div>
+      <div class="form-group"><label class="form-label">Código de acceso anticipado</label><input id="rsEarlySellerCode" class="form-input" type="password" autocomplete="off" placeholder="Introduce tu código"></div>
+      <button id="rsEarlySellerBtn" class="btn-submit" type="button">🔓 Acceder</button>
+      <div id="rsEarlySellerError" class="rs-early-error">Código incorrecto. El acceso anticipado no está disponible.</div>
+    </div>`;
+    const input=document.getElementById('rsEarlySellerCode'),btn=document.getElementById('rsEarlySellerBtn'),err=document.getElementById('rsEarlySellerError');
+    const go=()=>{
+      const code=(input?.value||'').trim();
+      if(code===EARLY_CODE){
+        sessionStorage.setItem('refills_seller_early_access','1');
+        if(typeof window.__rsOpenOriginalSeller==='function')window.__rsOpenOriginalSeller();
+        else if(typeof window.renderSellerAuth==='function')window.renderSellerAuth();
+      }else{
+        if(err)err.style.display='block';
+        if(input){input.value='';input.focus();}
+      }
+    };
+    btn?.addEventListener('click',go);
+    input?.addEventListener('keydown',e=>{if(e.key==='Enter')go()});
+    setTimeout(()=>input?.focus(),50);
+  }
+  window.__rsOpenOriginalSeller=window.rsEasyOpenHome;
+  window.rsEasyOpenHome=async function(){
+    if(sessionStorage.getItem('refills_seller_early_access')==='1'){
+      return window.__rsOpenOriginalSeller?.();
+    }
+    if(typeof setSellerBody==='function')setSellerBody(false);
+    if(typeof showView==='function')showView('view-resellers');
+    sellerGate();
+  };
+  window.openResellers=window.rsEasyOpenHome;
 })();
 </script>
 
